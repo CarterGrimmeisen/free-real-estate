@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint"
+    "*.{js,vue,ts}": "eslint"
   },
   "husky": {
     "hooks": {
@@ -23,6 +23,7 @@
     "@nuxt/http": "^0.6.2",
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/composition-api": "^0.18.1",
+    "@prisma/client": "^2.14.0",
     "balm-ui": "^8.16.0",
     "core-js": "^3.8.2",
     "nuxt": "^2.14.12"
@@ -32,6 +33,7 @@
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@prisma/cli": "^2.14.0",
     "@vue/test-utils": "^1.1.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
