@@ -24,14 +24,26 @@
           Do Something
         </ui-button>
       </div>
+      <div>
+        <pre>
+          {{ data }}
+        </pre>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
 
-export default defineComponent({})
+export default defineComponent({
+  setup() {
+    const { $http } = useContext()
+    const data = useAsync(() => $http.$get('/api/homes'))
+
+    return { data }
+  },
+})
 </script>
 
 <style>

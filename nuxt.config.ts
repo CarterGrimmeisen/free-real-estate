@@ -1,4 +1,6 @@
-export default {
+import { NuxtConfig } from '@nuxt/types'
+
+const config: NuxtConfig = {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'free-real-estate',
@@ -17,7 +19,7 @@ export default {
   css: ['balm-ui/dist/balm-ui.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/balm-ui.js', '@/plugins/balm-ui-plus.client.js'],
+  plugins: ['@/plugins/balm-ui.ts', '@/plugins/balm-ui-plus.client.ts'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -32,8 +34,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
+    '@nuxt/http',
   ],
+
+  serverMiddleware: [{ path: '/api', handler: '~/api' }],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -41,7 +45,9 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend(config) {
-      config.resolve.alias.vue = 'vue/dist/vue.common'
+      config!.resolve!.alias!.vue = 'vue/dist/vue.common'
     },
   },
 }
+
+export default config
