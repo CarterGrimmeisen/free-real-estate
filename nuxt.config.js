@@ -17,7 +17,10 @@ export default {
   css: ['balm-ui/dist/balm-ui.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/balm-ui'],
+  plugins: [
+    '@/plugins/balm-ui.js',
+    '@/plugins/balm-ui-plus.client.js'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -26,6 +29,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    '@nuxtjs/composition-api'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -38,5 +42,9 @@ export default {
   axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config) {
+      config.resolve.alias['vue'] = 'vue/dist/vue.common'
+    }
+  },
 }

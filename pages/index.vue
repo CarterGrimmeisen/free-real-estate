@@ -10,7 +10,9 @@
           rel="noopener noreferrer"
           class="button--green"
         >
-          Documentation
+          <ui-button raised>
+            Documentation
+          </ui-button>
         </a>
         <a
           href="https://github.com/nuxt/nuxt.js"
@@ -18,17 +20,22 @@
           rel="noopener noreferrer"
           class="button--grey"
         >
-          GitHub
+          <ui-button raised>
+            GitHub
+          </ui-button>
         </a>
+        <ui-button raised @click="$toast('hello world')">
+          Do Something
+        </ui-button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from '@nuxtjs/composition-api'
 
-export default Vue.extend({})
+export default defineComponent({})
 </script>
 
 <style>

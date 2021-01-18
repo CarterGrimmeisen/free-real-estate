@@ -1,6 +1,4 @@
-import Vue from 'vue'
-import BalmUI from 'balm-ui'
-import BalmUIPlus from 'balm-ui/dist/balm-ui-plus'
+import Vue from 'vue';
+import BalmUI from 'balm-ui'; // Official Google Material Components
 
-Vue.use(BalmUI)
-Vue.use(BalmUIPlus)
+Vue.use(BalmUI); // Mandatory
