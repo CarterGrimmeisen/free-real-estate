@@ -1,0 +1,19 @@
+{
+    "editor.tabSize": 2,
+    "editor.formatOnSave": false,
+    "[vue]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        }
+    },
+    "[javascript]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        }
+    },
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        }
+    }
+}
