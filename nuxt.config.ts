@@ -34,8 +34,11 @@ const config: NuxtConfig = {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxt/http',
+    // '@nuxtjs/axios',
+    // '@nuxtjs/auth-next',
   ],
+
+  // auth: {},
 
   serverMiddleware: [{ path: '/api', handler: '~/api' }],
 

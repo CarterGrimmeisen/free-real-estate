@@ -1,0 +1,28 @@
+POST http://localhost:3000/api/auth/register
+
+{
+  "name": "Testy McTesterson",
+  "email": "test@test.test",
+  "password": "testtesttest"
+}
+
+###
+
+POST http://localhost:3000/api/auth/login
+
+{
+  "email": "test@test.test",
+  "password": "testtesttest"
+}
+
+###
+
+GET http://localhost:3000/api/user
+
+###
+
+POST http://localhost:3000/api/auth/logout
+
+###
+
+DELETE http://localhost:3000/api/user

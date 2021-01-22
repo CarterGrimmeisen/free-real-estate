@@ -1,40 +1,37 @@
 import { Router } from 'express'
-
-// import HOME_DATA from './home_data.json'
+import createError from 'http-errors'
+import { authenticate } from './auth'
 
 const router = Router()
 
-router.get('/homes', async (req, res) => {
-  // res.json(await Home.find())
-  // const user = await User.findOne()
+router.get('/', async (req, res) => {
+  const homes = await req.prisma.home.findMany()
 
-  console.log('WAITING FOR SOMETHING')
-  const user = await req.prisma.user.findFirst()
-
-  console.log('DONE WAITING FOR SOMETHING')
-  res.json(user)
+  return res.json(homes)
 })
 
-router.post('/homes', async (req, res) => {
-  // await Home.remove({})
-  // Home.find({  })
-  // const user = await User.create({
-  //   username: 'Hello',
-  //   email: 'hello@world.com',
-  //   type: 'admin',
-  //   hash: '123456789',
-  // })
-  console.log('WAITING FOR SOMETHING')
-  const user = await req.prisma.user.create({
-    data: {
-      name: 'Hello World',
-      email: 'hello@world.com',
-      type: 'ADMIN',
-      hash: '123456789',
+router.get<{ id: string }>('/homes/:id', async (req, res, next) => {
+  const home = await req.prisma.home.findUnique({
+    where: {
+      id: +req.params.id,
+    },
+
+    include: {
+      listAgent: true,
+      showAgent: true,
+      rooms: true,
     },
   })
 
-  res.json(user)
+  if (!home) return next(createError(404, 'Could not find house specified'))
+
+  return res.json(home)
 })
+
+router.use(authenticate('AGENT'))
+
+router.post('/')
+router.put('/:id')
+router.delete('/:id')
 
 export default router

@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgres"
-  url      = "postgresql://free-real-estate:its_free_real_estate@localhost:5432/free-real-estate"
+  url      = "postgresql://freerealestate:its_free_real_estate@localhost:5432/freerealestate"
 }
 
 generator client {
@@ -20,7 +20,7 @@ model User {
   id        Int     @default(autoincrement()) @id
   name      String?
   email     String  @unique
-  hash      String
+  password  String
   type      UserType
 }
 
