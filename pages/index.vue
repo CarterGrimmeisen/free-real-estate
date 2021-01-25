@@ -34,14 +34,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const { $http } = useContext()
-    const data = useAsync(() => $http.$get('/api/homes'))
-
-    return { data }
+    return { data: { working: true } }
   },
 })
 </script>

@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,vue}": "eslint"
+    "*.{js,vue,ts}": "eslint"
   },
   "husky": {
     "hooks": {
@@ -20,11 +20,19 @@
     }
   },
   "dependencies": {
-    "@nuxt/http": "^0.6.2",
     "@nuxt/typescript-runtime": "^2.0.1",
+    "@nuxtjs/auth-next": "5.0.0-1611071776.3646657",
+    "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/composition-api": "^0.18.1",
+    "@prisma/client": "^2.15.0",
+    "@types/http-errors": "^1.8.0",
+    "@types/jsonwebtoken": "^8.5.0",
     "balm-ui": "^8.16.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
     "core-js": "^3.8.2",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
     "nuxt": "^2.14.12"
   },
   "devDependencies": {
@@ -32,10 +40,14 @@
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
+    "@prisma/cli": "^2.15.0",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cookie-parser": "^1.4.2",
     "@vue/test-utils": "^1.1.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
+    "enquirer": "^2.3.6",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-nuxt": "^2.0.0",

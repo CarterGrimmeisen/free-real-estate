@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgres"
+  url      = "postgresql://freerealestate:its_free_real_estate@localhost:5432/freerealestate"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserType {
+  USER
+  AGENT
+  ADMIN
+}
+
+model User {
+  id       String   @id @default(cuid())
+  name     String?
+  email    String   @unique
+  password String
+  type     UserType
+}
+
+model Agency {
+  id      String  @id @default(cuid())
+  name    String
+  phone   String
+  address String  @unique
+  Agent   Agent[]
+}
+
+model Agent {
+  id       String @id @default(cuid())
+  name     String
+  phone    String
+  email    String @unique
+  agency   Agency @relation(fields: [agencyId], references: [id])
+  agencyId String
+  listing  Home[] @relation("ListAgent")
+  showing  Home[] @relation("ShowAgent")
+}
+
+model Room {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  Home        Home   @relation(fields: [homeId], references: [id])
+  homeId      String
+}
+
+model Home {
+  id          String  @id @default(cuid())
+  listAgent   Agent   @relation("ListAgent", fields: [listAgentId], references: [id])
+  listAgentId String
+  showAgent   Agent   @relation("ShowAgent", fields: [showAgentId], references: [id])
+  showAgentId String
+  price       Int
+  sqfootage   Int
+  street      String
+  city        String
+  state       String
+  zipcode     Int
+  subdivision String?
+  schools     String?
+  dailyHits   Int
+  alarmInfo   String
+  description String
+  rooms       Room[]  @relation
+}
