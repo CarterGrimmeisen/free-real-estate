@@ -15,5 +15,11 @@
         "editor.codeActionsOnSave": {
             "source.fixAll": true
         }
+    },
+
+    "rest-client.environmentVariables": {
+        "$shared": {
+            "server": "http://localhost:3000"
+        }
     }
 }

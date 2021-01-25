@@ -3,7 +3,7 @@ CREATE TYPE "UserType" AS ENUM ('USER', 'AGENT', 'ADMIN');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Agency" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -24,30 +24,30 @@ CREATE TABLE "Agency" (
 
 -- CreateTable
 CREATE TABLE "Agent" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "agencyId" INTEGER NOT NULL,
+    "agencyId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Room" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "homeId" INTEGER NOT NULL,
+    "homeId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Home" (
-    "id" SERIAL NOT NULL,
-    "listAgentId" INTEGER NOT NULL,
-    "showAgentId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "listAgentId" TEXT NOT NULL,
+    "showAgentId" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "sqfootage" INTEGER NOT NULL,
     "street" TEXT NOT NULL,

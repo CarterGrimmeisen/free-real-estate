@@ -19,7 +19,7 @@ export const authenticate = (type?: UserType): RequestHandler => async (
   const data = verify(
     req.cookies.userId as string,
     process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
-  ) as { id: number }
+  ) as { id: string }
 
   if (typeof data === 'string')
     return next(createError(400, 'Bad cookie format'))
@@ -61,10 +61,6 @@ export const authenticate = (type?: UserType): RequestHandler => async (
 const verifyPassword = (user: User, password: string) => {
   return compare(password, user.password)
 }
-
-router.get('/users', async (req, res) =>
-  res.json(await req.prisma.user.findMany())
-)
 
 router.post<never, { success: true }, { email: string; password: string }>(
   '/login',
@@ -137,16 +133,22 @@ router.post('/logout', (_, res) =>
   res.clearCookie('userId').json({ success: true })
 )
 
-// router.get('/auth/userTest', authenticate(), (_, res) =>
-//   res.json({ working: true })
-// )
+if (process.env.NODE_ENV !== 'production') {
+  router.get('/users', async (req, res) =>
+    res.json(await req.prisma.user.findMany())
+  )
 
-// router.get('/auth/agentTest', authenticate('AGENT'), (_, res) =>
-//   res.json({ working: true })
-// )
+  router.get('/auth/userTest', authenticate(), (_, res) =>
+    res.json({ working: true })
+  )
 
-// router.get('/auth/adminTest', authenticate('ADMIN'), (_, res) =>
-//   res.json({ working: true })
-// )
+  router.get('/auth/agentTest', authenticate('AGENT'), (_, res) =>
+    res.json({ working: true })
+  )
+
+  router.get('/auth/adminTest', authenticate('ADMIN'), (_, res) =>
+    res.json({ working: true })
+  )
+}
 
 export default router

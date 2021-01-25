@@ -17,44 +17,46 @@ enum UserType {
 }
 
 model User {
-  id        Int     @default(autoincrement()) @id
-  name      String?
-  email     String  @unique
-  password  String
-  type      UserType
+  id       String   @id @default(cuid())
+  name     String?
+  email    String   @unique
+  password String
+  type     UserType
 }
 
 model Agency {
-  id        Int      @default(autoincrement()) @id
-  name      String
-  phone     String
-  address   String
+  id      String  @id @default(cuid())
+  name    String
+  phone   String
+  address String  @unique
+  Agent   Agent[]
 }
 
 model Agent {
-  id        Int      @default(autoincrement()) @id
-  name      String
-  phone     String
-  email     String
-  agency    Agency @relation(fields: [agencyId], references: [id])
-  agencyId  Int
-  listing   Home[] @relation("ListAgent")
-  showing   Home[] @relation("ShowAgent")
+  id       String @id @default(cuid())
+  name     String
+  phone    String
+  email    String @unique
+  agency   Agency @relation(fields: [agencyId], references: [id])
+  agencyId String
+  listing  Home[] @relation("ListAgent")
+  showing  Home[] @relation("ShowAgent")
 }
 
 model Room {
-  id          Int     @default(autoincrement()) @id
+  id          String @id @default(cuid())
   name        String
   description String
-  Home        Home @relation()
+  Home        Home   @relation(fields: [homeId], references: [id])
+  homeId      String
 }
 
 model Home {
-  id          Int     @default(autoincrement()) @id
+  id          String  @id @default(cuid())
   listAgent   Agent   @relation("ListAgent", fields: [listAgentId], references: [id])
-  listAgentId Int
+  listAgentId String
   showAgent   Agent   @relation("ShowAgent", fields: [showAgentId], references: [id])
-  showAgentId Int
+  showAgentId String
   price       Int
   sqfootage   Int
   street      String
@@ -66,5 +68,5 @@ model Home {
   dailyHits   Int
   alarmInfo   String
   description String
-  rooms       Room[]  @relation()
+  rooms       Room[]  @relation
 }

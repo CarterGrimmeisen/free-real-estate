@@ -1,0 +1,321 @@
+_type: export
+__export_format: 4
+__export_date: 2021-01-25T23:46:27.447Z
+__export_source: insomnia.desktop.app:v2020.5.2
+resources:
+  - _id: req_f150ecf2458c41f3b5841df2db865b80
+    parentId: fld_02fd48d329404e3396629eb52e5cc497
+    modified: 1611294963500
+    created: 1611294822985
+    url: "{{server}}/api/auth/register"
+    name: Register
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Testy McTesterson",
+        	"email": "test@test.test",
+        	"password": "testtesttest"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_e78b8ffa5e7144b7a88d7cd97b092fb5
+    authentication: {}
+    metaSortKey: -1611294946248
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_02fd48d329404e3396629eb52e5cc497
+    parentId: wrk_2231073171ce4691890b8bf08927907d
+    modified: 1611294817971
+    created: 1611294817971
+    name: Auth
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1611294817971
+    _type: request_group
+  - _id: wrk_2231073171ce4691890b8bf08927907d
+    parentId: null
+    modified: 1611294805752
+    created: 1611294805752
+    name: Free Real Estate
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_9405ad2df6b541178a0f16c899656e67
+    parentId: fld_02fd48d329404e3396629eb52e5cc497
+    modified: 1611294964467
+    created: 1611294915080
+    url: "{{server}}/api/auth/login"
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "test@test.test",
+        	"password": "testtesttest"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c540aa65178a4dad89213d3722b0b593
+    authentication: {}
+    metaSortKey: -1611294946223
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d40faceac1084cbaad4ef7d7a204410d
+    parentId: fld_02fd48d329404e3396629eb52e5cc497
+    modified: 1611294958608
+    created: 1611294946198
+    url: "{{server}}/api/auth/logout"
+    name: Logout
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611294946198
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_836545861ee248a3a510c91589f0577f
+    parentId: fld_a71c5fba807744319db35e21bf3e7034
+    modified: 1611295144253
+    created: 1611294988157
+    url: "{{server}}/api/auth/userTest"
+    name: User Test
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611294946148
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_a71c5fba807744319db35e21bf3e7034
+    parentId: fld_02fd48d329404e3396629eb52e5cc497
+    modified: 1611295143364
+    created: 1611295141175
+    name: Debug
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1611294946173
+    _type: request_group
+  - _id: req_f732dbc6c8e5426dad438a11ed8a8b4e
+    parentId: fld_a71c5fba807744319db35e21bf3e7034
+    modified: 1611295145155
+    created: 1611295022671
+    url: "{{server}}/api/auth/agentTest"
+    name: Agent Test
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611294946098
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9b137893bde74f7baeeeab7515f257da
+    parentId: fld_a71c5fba807744319db35e21bf3e7034
+    modified: 1611295145872
+    created: 1611295031879
+    url: "{{server}}/api/auth/adminTest"
+    name: Admin Test
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611294946048
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_de550a07953c4853a841f6622aaa6b43
+    parentId: fld_a71c5fba807744319db35e21bf3e7034
+    modified: 1611295146438
+    created: 1611295118873
+    url: "{{server}}/api/auth/users"
+    name: List Users
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611294945998
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f05f1109d6f646c3b99ccb31942873f9
+    parentId: fld_a9bbffe0916544a18700fb29c042a5ca
+    modified: 1611295211786
+    created: 1611295181488
+    url: "{{server}}/api/user"
+    name: Get User
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611295181488
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_a9bbffe0916544a18700fb29c042a5ca
+    parentId: wrk_2231073171ce4691890b8bf08927907d
+    modified: 1611295160870
+    created: 1611295156888
+    name: User
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1611294817921
+    _type: request_group
+  - _id: req_7834605beed54a72a6263145784cfb24
+    parentId: fld_a9bbffe0916544a18700fb29c042a5ca
+    modified: 1611295253049
+    created: 1611295221921
+    url: "{{server}}/api/user"
+    name: Update User
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Testy McTesterson Jr.",
+        	"password": "testtesttest!"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_8c6cf63f9d294391866bf16b1dd4d5df
+    authentication: {}
+    metaSortKey: -1611295181438
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_76096c45c80f49fc9faba3bbd828e3f1
+    parentId: fld_a9bbffe0916544a18700fb29c042a5ca
+    modified: 1611295272744
+    created: 1611295262034
+    url: "{{server}}/api/user"
+    name: Delete User
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1611295181388
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_3f5b2cc294e20a940510c13d7603fa4af9632f1d
+    parentId: wrk_2231073171ce4691890b8bf08927907d
+    modified: 1611294871749
+    created: 1611294805816
+    name: Base Environment
+    data:
+      server: http://localhost:3000
+    dataPropertyOrder:
+      "&":
+        - server
+    color: null
+    isPrivate: false
+    metaSortKey: 1611294805816
+    _type: environment
+  - _id: jar_3f5b2cc294e20a940510c13d7603fa4af9632f1d
+    parentId: wrk_2231073171ce4691890b8bf08927907d
+    modified: 1611296806037
+    created: 1611294805818
+    name: Default Jar
+    cookies:
+      - key: userId
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrazd3aWRzbjAwMDE0bGw4eGx5b29wbHkiLCJpYXQiOjE2MTEyOTY4MDV9.-XaF7UJw74sLSQtta0CDXvL8qC1U_sTewafjoyYQmGk
+        expires: 2021-01-22T06:46:55.000Z
+        maxAge: 1209
+        domain: localhost
+        path: /
+        httpOnly: true
+        hostOnly: true
+        creation: 2021-01-22T06:26:46.036Z
+        lastAccessed: 2021-01-22T06:26:46.036Z
+        id: "8812817195858225"
+    _type: cookie_jar
+  - _id: spc_446d99eb3ea44d16a9c4e18ac7d1e52e
+    parentId: wrk_2231073171ce4691890b8bf08927907d
+    modified: 1611294805755
+    created: 1611294805755
+    fileName: Free Real Estate
+    contents: ""
+    contentType: yaml
+    _type: api_spec

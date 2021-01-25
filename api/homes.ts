@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 router.get<{ id: string }>('/homes/:id', async (req, res, next) => {
   const home = await req.prisma.home.findUnique({
     where: {
-      id: +req.params.id,
+      id: req.params.id,
     },
 
     include: {

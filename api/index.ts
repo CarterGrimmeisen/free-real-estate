@@ -19,6 +19,7 @@ app.use((req, _, next) => {
 
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.get('/ping', (_, res) => res.send('Pong!'))
 app.use('/auth', Auth)
 app.use('/homes', Homes)
 app.use('/user', User)
