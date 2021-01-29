@@ -1,37 +1,39 @@
-import { Router } from 'express'
-import createError from 'http-errors'
-import { authenticate } from './auth'
+import { Home } from '@prisma/client'
+import { TypedRouter } from 'crosswalk'
+import API from './api'
+import { authenticate } from './util/auth'
+import {
+  ensureHomeAgent,
+  ensureHomeExists,
+  ensureHomeUnique,
+} from './util/homes'
 
-const router = Router()
-
-router.get('/', async (req, res) => {
-  const homes = await req.prisma.home.findMany()
-
-  return res.json(homes)
-})
-
-router.get<{ id: string }>('/homes/:id', async (req, res, next) => {
-  const home = await req.prisma.home.findUnique({
-    where: {
-      id: req.params.id,
-    },
-
-    include: {
-      listAgent: true,
-      showAgent: true,
-      rooms: true,
-    },
+function register(router: TypedRouter<API>) {
+  router.get('/homes', (_params, req) => {
+    return req.prisma.home.findMany()
   })
 
-  if (!home) return next(createError(404, 'Could not find house specified'))
+  router.router.use('/homes', authenticate('AGENT'), ensureHomeExists())
 
-  return res.json(home)
-})
+  router.get('/homes/:id', async ({ id }, req) => {
+    const home = await req.prisma.home.findUnique({
+      where: {
+        id,
+      },
+    })
 
-router.use(authenticate('AGENT'))
+    return home!
+  })
 
-router.post('/')
-router.put('/:id')
-router.delete('/:id')
+  router.router.use('/homes', ensureHomeUnique())
 
-export default router
+  router.post('/homes', () => Promise.resolve({} as Home))
+
+  router.router.use('/homes', ensureHomeAgent())
+
+  router.put('/homes/:id', () => Promise.resolve({} as Home))
+
+  router.delete('/homes/:id', () => Promise.resolve({} as Home))
+}
+
+export default { register }

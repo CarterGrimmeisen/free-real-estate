@@ -1,42 +1,38 @@
-import { User } from '@prisma/client'
 import { hash } from 'bcryptjs'
-import { Router } from 'express'
-import createError from 'http-errors'
+import { HTTPError, TypedRouter } from 'crosswalk'
+import API from './api'
+import { authenticate } from './util/auth'
 
-import { authenticate } from './auth'
+function register(router: TypedRouter<API>) {
+  router.router.use('/user', authenticate())
 
-const router = Router()
+  router.get('/user', async (_params, req) => {
+    const user = await req.prisma.user.findUnique({
+      where: {
+        id: req.user!.id,
+      },
 
-router.use(authenticate())
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        type: true,
+      },
+    })
 
-router.get<never, Omit<User, 'password'>>('/', async (req, res) => {
-  const user = await req.prisma.user.findUnique({
-    where: {
-      id: req.user!.id,
-    },
-
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      type: true,
-    },
+    return user!
   })
 
-  return res.json(user!)
-})
-
-router.put<never, Omit<User, 'password'>, Partial<User>>(
-  '/',
-  async (req, res, next) => {
-    if (req.body.email) {
+  router.put('/user', async (_params, body, req, res) => {
+    if (body.email) {
       const exists = await req.prisma.user.count({
         where: { email: req.body.email, id: { not: req.user!.id } },
       })
 
       if (exists)
-        return next(
-          createError(409, `User with email '${req.body.email}' already exists`)
+        throw new HTTPError(
+          409,
+          `User with email '${req.body.email}' already exists`
         )
     }
 
@@ -63,22 +59,23 @@ router.put<never, Omit<User, 'password'>, Partial<User>>(
 
     if (req.body.password) res.clearCookie('userId')
 
-    return res.json(user)
-  }
-)
-
-router.delete('/', async (req, res) => {
-  const user = await req.prisma.user.delete({
-    where: { id: req.user!.id },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      type: true,
-    },
+    return user
   })
 
-  return res.clearCookie('userId').json(user)
-})
+  router.delete('/user', (_params, req, res) => {
+    res.clearCookie('userId')
 
-export default router
+    return req.prisma.user.delete({
+      where: { id: req.user!.id },
+
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        type: true,
+      },
+    })
+  })
+}
+
+export default { register }
