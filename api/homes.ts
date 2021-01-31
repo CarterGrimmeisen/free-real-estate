@@ -15,9 +15,14 @@ function register(router: TypedRouter<API>) {
   router.router.use('/homes', ensureHomeExists())
 
   router.get('/homes/:mlsn', async ({ mlsn }, req) => {
-    const home = await req.prisma.home.findUnique({
+    const home = await req.prisma.home.update({
       where: {
         mlsn,
+      },
+      data: {
+        dailyHits: {
+          increment: 1,
+        },
       },
     })
 

@@ -40,7 +40,7 @@ app.use(
     apiSpecToOpenApi(APIJsonSchema, {
       basePath: '/api',
       info: {
-        title: 'Free Real Estatee',
+        title: 'Free Real Estate',
         description:
           'Backend API powering the latest and greatest in real estate',
         version: '0.1',
@@ -66,9 +66,5 @@ if (process.env.NODE_ENV !== 'production') {
     res.json({ working: true })
   )
 }
-// app.get('/ping', (_, res) => res.send('Pong!'))
-// app.use('/auth', Auth)
-// app.use('/homes', Homes)
-// app.use('/user', User)
 
 export default app

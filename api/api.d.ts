@@ -1,17 +1,23 @@
-import type { Home, Room, School, Showing, User } from '@prisma/client'
-import type { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
+import {
+  Agent,
+  Home,
+  Profile,
+  Room,
+  School,
+  Showing,
+  User,
+} from '@prisma/client'
+import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
 type CompleteHome = Home & { rooms: Room[]; schools: School[] }
+type CompleteShowing = Showing & { user: Profile; agent: Agent }
 
-/**
- * Free Real Estate REST API Interface
- *
- * @subtitle Built using Express.js and Crosswalk
- */
 export default interface API {
   '/auth/login': {
-    /* Login via email/password and fetch authentication cookie */
+    /**
+     * Login via email/password and fetch authentication cookie
+     */
     post: Endpoint<{ email: string; password: string }, Success>
   }
 
@@ -20,7 +26,7 @@ export default interface API {
   }
 
   '/auth/logout': {
-    post: Endpoint<{}, Success>
+    post: Endpoint<null, Success>
   }
 
   '/user': {
@@ -42,5 +48,15 @@ export default interface API {
     get: GetEndpoint<Home>
     put: Endpoint<Partial<Omit<CompleteHome, 'mlsn' | 'dailyHits'>>, Home>
     delete: Endpoint<null, Home>
+  }
+
+  '/homes/:mlsn/showings': {
+    get: GetEndpoint<Showing[]>
+    post: Endpoint<
+      Omit<Showing, 'agentId' | 'userId' | 'confirmed' | 'homeMlsn'>,
+      CompleteShowing
+    >
+    put: Endpoint<Pick<Showing, 'confirmed'>, CompleteShowing>
+    delete: Endpoint<null, CompleteShowing>
   }
 }
