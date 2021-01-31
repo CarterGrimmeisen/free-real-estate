@@ -12,7 +12,8 @@
     "generate:db": "prisma db push --preview-feature",
     "generate": "yarn generate:json && yarn generate:prisma && yarn generate:db",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
-    "lint": "yarn lint:js",
+    "lint:ts": "tsc --noEmit",
+    "lint": "yarn lint:js && yarn lint:ts",
     "seed:user": "node --no-warnings --loader=ts-node/esm scripts/createUser.ts",
     "seed:homes": "node --no-warnings --loader=ts-node/esm scripts/seedHomes.ts",
     "test": "jest"
