@@ -1,20 +1,23 @@
 {
     "editor.tabSize": 2,
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
     "[vue]": {
         "editor.codeActionsOnSave": {
             "source.fixAll": true
-        }
+        },
+        "editor.formatOnSave": false
     },
     "[javascript]": {
         "editor.codeActionsOnSave": {
             "source.fixAll": true
-        }
+        },
+        "editor.formatOnSave": false
     },
     "[typescript]": {
         "editor.codeActionsOnSave": {
             "source.fixAll": true
-        }
+        },
+        "editor.formatOnSave": false
     },
 
     "rest-client.environmentVariables": {
