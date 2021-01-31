@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgres"
-  url      = "postgresql://freerealestate:its_free_real_estate@localhost:5432/freerealestate"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -23,44 +23,56 @@ model User {
   password String
   type     UserType
 
-  agentProfile Agent? @relation
+  userProfile  Profile?
+  agentProfile Agent?
+}
+
+model Profile {
+  userId     String    @id
+  User       User      @relation(fields: [userId], references: [id])
+  LikedHomes Home[]
+  showings   Showing[]
+}
+
+model Agent {
+  id       String    @id @default(cuid())
+  name     String
+  phone    String
+  email    String    @unique
+  agency   Agency    @relation(fields: [agencyId], references: [id])
+  agencyId String
+  homes    Home[]
+  user     User      @relation(fields: [userId], references: [id])
+  userId   String
+  showings  Showing[]
 }
 
 model Agency {
   id      String  @id @default(cuid())
-  name    String
-  phone   String
+  name    String  @unique
+  phone   String  @unique
   address String  @unique
-  Agent   Agent[]
+  agents  Agent[]
 }
 
-model Agent {
-  id       String @id @default(cuid())
-  name     String
-  phone    String
-  email    String @unique
-  agency   Agency @relation(fields: [agencyId], references: [id])
-  agencyId String
-  listing  Home[] @relation("ListAgent")
-  showing  Home[] @relation("ShowAgent")
-  User     User   @relation(fields: [userId], references: [id])
-  userId   String
+model School {
+  name  String @id
+  type  String
+  homes Home[]
 }
 
 model Room {
   id          String @id @default(cuid())
   name        String
   description String
-  Home        Home   @relation(fields: [homeId], references: [id])
-  homeId      String
+  home        Home   @relation(fields: [homeMlsn], references: [mlsn])
+  homeMlsn    String
 }
 
 model Home {
-  id          String  @id @default(cuid())
-  listAgent   Agent   @relation("ListAgent", fields: [listAgentId], references: [id])
-  listAgentId String
-  showAgent   Agent   @relation("ShowAgent", fields: [showAgentId], references: [id])
-  showAgentId String
+  mlsn        String    @id
+  agent       Agent     @relation(fields: [agentId], references: [id])
+  agentId     String
   price       Int
   sqfootage   Int
   street      String
@@ -68,9 +80,23 @@ model Home {
   state       String
   zipcode     Int
   subdivision String?
-  schools     String?
-  dailyHits   Int
+  schools     School[]
+  dailyHits   Int       @default(0)
   alarmInfo   String
   description String
-  rooms       Room[]  @relation
+  rooms       Room[]
+  liked       Profile[]
+  showings    Showing[]
+}
+
+model Showing {
+  date     DateTime
+  user     Profile  @relation(fields: [userId], references: [userId])
+  userId   String
+  agent    Agent    @relation(fields: [agentId], references: [id])
+  agentId  String
+  home     Home     @relation(fields: [homeMlsn], references: [mlsn])
+  homeMlsn String
+
+  @@unique([date, userId, homeMlsn])
 }

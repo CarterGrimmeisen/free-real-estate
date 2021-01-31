@@ -5,9 +5,16 @@ import enquirer from 'enquirer'
 import Prisma from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
+type Values = {
+  name: string
+  email: string
+  password: string
+  type: Prisma.UserType
+}
+
 const prisma = new Prisma.PrismaClient()
 
-const { name, email, password, type } = await enquirer.prompt([
+const { name, email, password, type } = await enquirer.prompt<Values>([
   {
     type: 'input',
     name: 'name',

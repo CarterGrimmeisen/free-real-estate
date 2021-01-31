@@ -2,11 +2,13 @@ import { Home } from '@prisma/client'
 import { HTTPError } from 'crosswalk'
 import { RequestHandler } from 'express'
 
-export const ensureHomeExists = (): RequestHandler<{ id: string }> =>
+export const ensureHomeExists = (): RequestHandler<{ mlsn?: string }> =>
   async function (req, _response, next) {
+    if (!req.params.mlsn) return next()
+
     const count = await req.prisma.home.count({
       where: {
-        id: req.params.id,
+        mlsn: req.params.mlsn,
       },
     })
 
@@ -33,12 +35,12 @@ export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
     next()
   }
 
-export const ensureHomeAgent = (): RequestHandler<{ id: string }> =>
+export const ensureHomeAgent = (): RequestHandler<{ mlsn: string }> =>
   async function (req, _res, next) {
     const count = await req.prisma.home.count({
       where: {
-        id: req.params.id,
-        listAgentId: req.user!.agentProfile!.id,
+        mlsn: req.params.mlsn,
+        agentId: req.user!.agentProfile?.id,
       },
     })
 

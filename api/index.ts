@@ -6,7 +6,7 @@ import swaggerUI from 'swagger-ui-express'
 import { apiSpecToOpenApi, TypedRouter } from 'crosswalk'
 import { PrismaClient } from '@prisma/client'
 
-import APIJsonSchema from '../api.schema.json'
+import APIJsonSchema from './schema.json'
 import API from './api'
 
 import Auth from './auth'
@@ -36,7 +36,17 @@ Homes.register(api)
 app.use(
   '/docs',
   swaggerUI.serve,
-  swaggerUI.setup(apiSpecToOpenApi(APIJsonSchema))
+  swaggerUI.setup(
+    apiSpecToOpenApi(APIJsonSchema, {
+      basePath: '/api',
+      info: {
+        title: 'Free Real Estatee',
+        description:
+          'Backend API powering the latest and greatest in real estate',
+        version: '0.1',
+      },
+    })
+  )
 )
 
 if (process.env.NODE_ENV !== 'production') {
