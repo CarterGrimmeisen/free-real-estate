@@ -14,8 +14,9 @@
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint:ts": "tsc --noEmit",
     "lint": "yarn lint:js && yarn lint:ts",
-    "seed:user": "node --no-warnings --loader=ts-node/esm scripts/createUser.ts",
-    "seed:homes": "node --no-warnings --loader=ts-node/esm scripts/seedHomes.ts",
+    "run-script": "node --no-warnings --loader=ts-node/esm",
+    "seed:user": "yarn run-script scripts/createUser.ts",
+    "seed:homes": "yarn run-script scripts/seedHomes.ts",
     "test": "jest"
   },
   "lint-staged": {

@@ -1,16 +1,8 @@
-import {
-  Agent,
-  Home,
-  Profile,
-  Room,
-  School,
-  Showing,
-  User,
-} from '@prisma/client'
+import { Agent, Home, Profile, School, Showing, User } from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
-type CompleteHome = Home & { rooms: Room[]; schools: School[] }
+type CompleteHome = Home & { schools: School[] }
 type CompleteShowing = Showing & { user: Profile; agent: Agent }
 
 export default interface API {

@@ -44,18 +44,13 @@ function register(router: TypedRouter<API>) {
         street: home.street,
         zipcode: home.zipcode,
         subdivision: home.subdivision,
+        bedrooms: home.bedrooms,
+        bathrooms: home.bathrooms,
 
         agent: {
           connect: {
             email: req.user?.email,
           },
-        },
-
-        rooms: {
-          create: home.rooms.map((room) => ({
-            name: room.name,
-            description: room.description,
-          })),
         },
 
         schools: {
@@ -87,24 +82,6 @@ function register(router: TypedRouter<API>) {
           connect: {
             id: home.agentId,
           },
-        },
-
-        rooms: {
-          upsert: home.rooms?.map((room) => ({
-            where: {
-              id: room.id,
-            },
-
-            create: {
-              name: room.name,
-              description: room.description,
-            },
-
-            update: {
-              name: room.name,
-              description: room.description,
-            },
-          })),
         },
 
         schools: {

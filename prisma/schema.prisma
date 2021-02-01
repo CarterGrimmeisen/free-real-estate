@@ -55,20 +55,6 @@ model Agency {
   agents  Agent[]
 }
 
-model School {
-  name  String @id
-  type  String
-  homes Home[]
-}
-
-model Room {
-  id          String @id @default(cuid())
-  name        String
-  description String
-  home        Home   @relation(fields: [homeMlsn], references: [mlsn])
-  homeMlsn    String
-}
-
 model Home {
   mlsn        String    @id
   agent       Agent     @relation(fields: [agentId], references: [id])
@@ -84,9 +70,22 @@ model Home {
   dailyHits   Int       @default(0)
   alarmInfo   String
   description String
-  rooms       Room[]
+  bedrooms    Int
+  bathrooms   Int
   liked       Profile[]
   showings    Showing[]
+}
+
+enum SchoolType {
+  ELEMENTARY
+  MIDDLE
+  HIGH
+}
+
+model School {
+  name  String     @id
+  type  SchoolType
+  homes Home[]
 }
 
 model Showing {
@@ -99,5 +98,6 @@ model Showing {
   home      Home     @relation(fields: [homeMlsn], references: [mlsn])
   homeMlsn  String
 
+  @@unique([date, homeMlsn])
   @@unique([date, userId, homeMlsn])
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
-import Prisma from '@prisma/client'
+import Prisma, { SchoolType } from '@prisma/client'
 
 import HOME_DATA from './home_data.json'
 
@@ -27,6 +27,9 @@ try {
           state: home.state,
           street: home.street,
           zipcode: +home.zipcode,
+          // TODO: Add actual bedroom and bathroom counts
+          bedrooms: 0,
+          bathrooms: 0,
           agent: {
             connectOrCreate: {
               where: {
@@ -66,24 +69,19 @@ try {
               },
             },
           },
-          rooms: {
-            create: home['Room descriptions'].split(',').map((each) => ({
-              name: each.split('-')[0].trim(),
-              description: each.split('-')[1].trim(),
-            })),
-          },
+
           schools: {
             connectOrCreate: home['School zones if applicable']
               .split(':')[1]
               .split(',')
-              .map((each) => ({
+              .map((schoolString) => ({
                 where: {
-                  name: each.split('-')[1].trim(),
+                  name: schoolString.split('-')[1],
                 },
 
                 create: {
-                  name: each.split('-')[1].trim(),
-                  type: each.split('-')[0].trim(),
+                  type: schoolString.split('-')[0].toUpperCase() as SchoolType,
+                  name: schoolString.split('-')[1],
                 },
               })),
           },

@@ -3,11 +3,11 @@
 ## Environment Setup
 ```bash
 # Install Node.js Current https://nodejs.org/en/
-npm install --global yarn
+$ npm install --global yarn
 
 # Install PostgreSQL https://www.postgresql.org/download/windows/
 # Create a new user and database for that user
-psql
+$ psql
 > CREATE ROLE freerealestate PASSWORD 'its_free_real_estate' CREATEDB;
 > CREATE DATABASE freerealestate WITH OWNER freerealestate;
 ```
