@@ -19,17 +19,11 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.{js,vue,ts}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{js,vue,ts}": "eslint --fix"
   },
   "husky": {
     "hooks": {
-      "pre-commit": [
-        "test",
-        "lint-staged"
-      ]
+      "pre-commit": "lint-staged"
     }
   },
   "dependencies": {
