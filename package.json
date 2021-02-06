@@ -9,7 +9,7 @@
     "generate:json": "typescript-json-schema --required --strictNullChecks api/api.d.ts API --out api/schema.json",
     "generate:prisma": "prisma generate",
     "generate:db": "prisma db push --preview-feature",
-    "generate": "yarn generate:json && yarn generate:prisma && yarn generate:db",
+    "generate": "yarn generate:prisma &&  yarn generate:db && yarn generate:json ",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint:ts": "tsc --noEmit",
     "lint": "yarn lint:js && yarn lint:ts",
