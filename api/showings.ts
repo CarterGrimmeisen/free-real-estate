@@ -8,19 +8,19 @@ function register(router: TypedRouter<API>) {
   router.router.use('/showings', authenticate())
 
   router.get('/showings/user', (_params, req) => {
-    return req.prisma.user
-      .findUnique({
-        where: {
-          id: req.user!.id,
-        },
-      })
-      .showings({
-        include: {
-          agent: true,
-          home: true,
-          user: true,
-        },
-      })
+    return req.prisma.showing.findMany({
+      where: {
+        userId: req.user!.id,
+      },
+      orderBy: {
+        date: 'asc',
+      },
+      include: {
+        agent: true,
+        home: true,
+        user: true,
+      },
+    })
   })
 
   router.router.use('/showings/home/:mlsn', ensureHomeExists())
@@ -94,19 +94,19 @@ function register(router: TypedRouter<API>) {
   router.router.use('/showings/home/:mlsn', authenticate('AGENT'))
 
   router.get('/showings/home/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.home
-      .findUnique({
-        where: {
-          mlsn,
-        },
-      })
-      .showings({
-        include: {
-          agent: true,
-          home: true,
-          user: true,
-        },
-      })
+    return req.prisma.showing.findMany({
+      where: {
+        homeMlsn: mlsn,
+      },
+      orderBy: {
+        date: 'asc',
+      },
+      include: {
+        agent: true,
+        home: true,
+        user: true,
+      },
+    })
   })
 
   router.put(
