@@ -9,10 +9,14 @@ import {
 
 function register(router: TypedRouter<API>) {
   router.get('/homes', (_params, req) => {
-    return req.prisma.home.findMany()
+    return req.prisma.home.findMany({
+      include: {
+        agent: true,
+      },
+    })
   })
 
-  router.router.use('/homes', ensureHomeExists())
+  router.router.use('/homes/:mlsn', ensureHomeExists())
 
   router.get('/homes/:mlsn', async ({ mlsn }, req) => {
     const home = await req.prisma.home.update({
@@ -23,6 +27,9 @@ function register(router: TypedRouter<API>) {
         dailyHits: {
           increment: 1,
         },
+      },
+      include: {
+        agent: true,
       },
     })
 
