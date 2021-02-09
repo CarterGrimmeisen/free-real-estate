@@ -90,3 +90,6 @@ sw.*
 *.swp
 
 api/schema.json
+
+.nuxt-storybook
+storybook-static
