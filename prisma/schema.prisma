@@ -29,8 +29,8 @@ model User {
 
 model Profile {
   userId     String    @id
-  User       User      @relation(fields: [userId], references: [id])
-  LikedHomes Home[]
+  user       User      @relation(fields: [userId], references: [id])
+  likedHomes Home[]
   showings   Showing[]
 }
 
@@ -85,10 +85,11 @@ enum SchoolType {
 model School {
   name  String     @id
   type  SchoolType
-  homes Home[]
+  homes Home[]     @relation
 }
 
 model Showing {
+  id        String   @id @default(cuid())
   confirmed Boolean
   date      DateTime
   user      Profile  @relation(fields: [userId], references: [userId])

@@ -1,3 +1,6 @@
+// This is the api definition file,
+// learn more about it in the docs: https://git.io/Jt0RF
+
 import { Agent, Home, Profile, School, Showing, User } from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
