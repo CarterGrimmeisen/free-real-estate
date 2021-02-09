@@ -1,11 +1,14 @@
-import { User } from '@prisma/client'
+import { Auth, User } from '@prisma/client'
 import { compare, hash } from 'bcryptjs'
 import { HTTPError, TypedRouter } from 'crosswalk'
 import { sign } from 'jsonwebtoken'
 import API from './api'
 
-const verifyPassword = (user: User, password: string) => {
-  return compare(password, user.password)
+const verifyPassword = (
+  user: User & { auth: Auth | null },
+  password: string
+) => {
+  return compare(password, user.auth!.password)
 }
 
 function register(router: TypedRouter<API>) {
@@ -13,6 +16,9 @@ function register(router: TypedRouter<API>) {
     const user = await req.prisma.user.findUnique({
       where: {
         email: body.email,
+      },
+      include: {
+        auth: true,
       },
     })
 
@@ -41,16 +47,21 @@ function register(router: TypedRouter<API>) {
       data: {
         name: body.name,
         email: body.email,
-        password: await hash(body.password, 10),
+        auth: {
+          create: {
+            password: await hash(body.password, 10),
+          },
+        },
         type: 'USER',
       },
+    })
+  })
 
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        type: true,
-      },
+  router.post('/auth/logout', (_params, _body, _req, res) => {
+    res.clearCookie('userId')
+
+    return Promise.resolve({
+      success: true,
     })
   })
 }

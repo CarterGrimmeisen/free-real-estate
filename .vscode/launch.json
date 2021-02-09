@@ -26,5 +26,6 @@
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/scripts/tsconfig.json"
       }
-    ]
-  }
+    }
+  ]
+}

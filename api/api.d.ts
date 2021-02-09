@@ -1,12 +1,13 @@
 // This is the api definition file,
 // learn more about it in the docs: https://git.io/Jt0RF
 
-import { Agent, Home, Profile, School, Showing, User } from '@prisma/client'
+import { Agent, Home, School, Showing, User } from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
 type CompleteHome = Home & { schools: School[] }
-type CompleteShowing = Showing & { user: Profile; agent: Agent }
+type ShowingInput = Omit<Showing, 'date'> & { date: string }
+type CompleteShowing = Showing & { user: User; agent: Agent }
 
 export default interface API {
   '/auth/login': {
@@ -17,7 +18,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<Omit<User, 'id' | 'type'>, Omit<User, 'password'>>
+    post: Endpoint<Omit<User, 'id' | 'type'> & { password: string }, User>
   }
 
   '/auth/logout': {
@@ -25,13 +26,12 @@ export default interface API {
   }
 
   '/user': {
-    get: GetEndpoint<Omit<User, 'password'>>
-    put: Endpoint<Partial<Omit<User, 'id' | 'type'>>, Omit<User, 'password'>>
-    delete: Endpoint<null, Omit<User, 'password'>>
-  }
-
-  '/user/showings': {
-    get: GetEndpoint<Showing & { home: Home }>
+    get: GetEndpoint<User>
+    put: Endpoint<
+      Partial<Omit<User, 'id' | 'type'> & { password: string }>,
+      User
+    >
+    delete: Endpoint<null, User>
   }
 
   '/homes': {
@@ -45,13 +45,17 @@ export default interface API {
     delete: Endpoint<null, Home>
   }
 
-  '/homes/:mlsn/showings': {
-    get: GetEndpoint<Showing[]>
-    post: Endpoint<
-      Omit<Showing, 'agentId' | 'userId' | 'confirmed' | 'homeMlsn'>,
-      CompleteShowing
-    >
-    put: Endpoint<Pick<Showing, 'confirmed'>, CompleteShowing>
+  '/showings/user': {
+    get: GetEndpoint<CompleteShowing[]>
+  }
+
+  '/showings/home/:mlsn': {
+    get: GetEndpoint<CompleteShowing[]>
+    post: Endpoint<Pick<ShowingInput, 'date'>, CompleteShowing>
     delete: Endpoint<null, CompleteShowing>
+  }
+
+  '/showings/home/:mlsn/:userId': {
+    put: Endpoint<Pick<ShowingInput, 'confirmed'>, CompleteShowing>
   }
 }
