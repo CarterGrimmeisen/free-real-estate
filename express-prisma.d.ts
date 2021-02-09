@@ -4,7 +4,7 @@ declare global {
   namespace Express {
     interface Request {
       prisma: PrismaClient
-      user: Omit<User & { agentProfile: Agent | null }, 'password'> | null
+      user: (User & { agentProfile: Agent | null }) | null
     }
   }
 }

@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import enquirer from 'enquirer'
 import { PrismaClient, Home, SchoolType } from '@prisma/client'
+import { hash } from 'bcryptjs'
 
 import HOME_DATA from './home_data.json'
 
@@ -73,7 +74,14 @@ async function main() {
                     create: {
                       name: home['Listing Agent Name'],
                       email: home['Listing Agent Email'],
-                      password: home['Listing Agent Email'].split('@')[0],
+                      auth: {
+                        create: {
+                          password: await hash(
+                            home['Listing Agent Email'].split('@')[0],
+                            10
+                          ),
+                        },
+                      },
                       type: 'AGENT' as const,
                     },
                   },

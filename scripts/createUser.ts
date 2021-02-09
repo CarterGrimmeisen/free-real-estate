@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import enquirer from 'enquirer'
 import { PrismaClient, UserType } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+import { hash } from 'bcryptjs'
 
 type Values = {
   name: string
@@ -63,8 +63,34 @@ async function main() {
       data: {
         name,
         email,
-        password: await bcrypt.hash(password, 10),
         type,
+        auth: {
+          create: {
+            password: await hash(password, 10),
+          },
+        },
+        agentProfile:
+          type === 'AGENT'
+            ? {
+                create: {
+                  email,
+                  name,
+                  phone: '000-000-0000',
+                  agency: {
+                    connectOrCreate: {
+                      where: {
+                        name: 'Default Agency',
+                      },
+                      create: {
+                        name: 'Default Agency',
+                        address: '1000 Default Agency Street',
+                        phone: '000-000-0000',
+                      },
+                    },
+                  },
+                },
+              }
+            : undefined,
       },
     })
   } catch (e) {
