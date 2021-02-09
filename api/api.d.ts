@@ -8,6 +8,7 @@ type Success = { success: true }
 type CompleteHome = Home & { schools: School[] }
 type ShowingInput = Omit<Showing, 'date'> & { date: string }
 type CompleteShowing = Showing & { user: User; agent: Agent }
+type UserInput = User & { password: string }
 
 export default interface API {
   '/auth/login': {
@@ -18,7 +19,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<Omit<User, 'id' | 'type'> & { password: string }, User>
+    post: Endpoint<Omit<UserInput, 'id' | 'type'>, User>
   }
 
   '/auth/logout': {
@@ -27,10 +28,7 @@ export default interface API {
 
   '/user': {
     get: GetEndpoint<User>
-    put: Endpoint<
-      Partial<Omit<User, 'id' | 'type'> & { password: string }>,
-      User
-    >
+    put: Endpoint<Partial<Omit<UserInput, 'id' | 'type'>>, User>
     delete: Endpoint<null, User>
   }
 
