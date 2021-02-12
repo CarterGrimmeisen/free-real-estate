@@ -2,6 +2,7 @@ import { UserType } from '@prisma/client'
 import { HTTPError } from 'crosswalk'
 import { RequestHandler } from 'express'
 import { verify } from 'jsonwebtoken'
+import { prisma } from './prisma'
 
 export const authenticate = (type?: UserType): RequestHandler =>
   async function (req, _res, next) {
@@ -18,7 +19,7 @@ export const authenticate = (type?: UserType): RequestHandler =>
 
     if (!data) return next(new HTTPError(401, 'User is not authenticated'))
 
-    const user = await req.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: data.id },
 
       select: {

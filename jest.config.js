@@ -16,9 +16,9 @@ module.exports = {
       tsconfig: 'tsconfig.json',
     },
   },
-  collectCoverage: true,
-  collectCoverageFrom: [
-    '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue',
+  setupFilesAfterEnv: ['./tests/util/prisma.ts'],
+  testMatch: [
+    '**/__tests__/**/*.spec.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[jt]s?(x)',
   ],
 }

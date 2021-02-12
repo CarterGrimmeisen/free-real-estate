@@ -2,13 +2,14 @@ import { TypedRouter } from 'crosswalk'
 import API from './api'
 import { authenticate } from './util/auth'
 import { ensureHomeExists } from './util/homes'
+import { prisma } from './util/prisma'
 import { ensureShowingExists } from './util/showings'
 
 function register(router: TypedRouter<API>) {
   router.router.use('/showings', authenticate())
 
   router.get('/showings/user', (_params, req) => {
-    return req.prisma.showing.findMany({
+    return prisma.showing.findMany({
       where: {
         userId: req.user!.id,
       },
@@ -26,7 +27,7 @@ function register(router: TypedRouter<API>) {
   router.router.use('/showings/home/:mlsn', ensureHomeExists())
 
   router.post('/showings/home/:mlsn', async ({ mlsn }, { date }, req) => {
-    const agent = await req.prisma.home
+    const agent = await prisma.home
       .findUnique({
         where: {
           mlsn,
@@ -34,7 +35,7 @@ function register(router: TypedRouter<API>) {
       })
       .agent()
 
-    return await req.prisma.showing.create({
+    return await prisma.showing.create({
       data: {
         date,
         confirmed: null,
@@ -65,7 +66,7 @@ function register(router: TypedRouter<API>) {
   router.router.use('/showings/home/:mlsn', ensureShowingExists())
 
   router.delete('/showings/home/:mlsn', async ({ mlsn }, req) => {
-    const showing = await req.prisma.showing.findFirst({
+    const showing = await prisma.showing.findFirst({
       where: {
         homeMlsn: mlsn,
         OR: [
@@ -79,7 +80,7 @@ function register(router: TypedRouter<API>) {
       },
     })
 
-    return req.prisma.showing.delete({
+    return prisma.showing.delete({
       where: {
         id: showing!.id,
       },
@@ -93,8 +94,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/showings/home/:mlsn', authenticate('AGENT'))
 
-  router.get('/showings/home/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.showing.findMany({
+  router.get('/showings/home/:mlsn', ({ mlsn }) => {
+    return prisma.showing.findMany({
       where: {
         homeMlsn: mlsn,
       },
@@ -111,12 +112,12 @@ function register(router: TypedRouter<API>) {
 
   router.put(
     '/showings/home/:mlsn/:userId',
-    async ({ mlsn, userId }, { confirmed }, req) => {
-      const showing = await req.prisma.showing.findFirst({
+    async ({ mlsn, userId }, { confirmed }) => {
+      const showing = await prisma.showing.findFirst({
         where: { homeMlsn: mlsn, userId },
       })
 
-      return req.prisma.showing.update({
+      return prisma.showing.update({
         where: { id: showing!.id },
         data: { confirmed },
         include: {

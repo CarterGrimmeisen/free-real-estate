@@ -2,12 +2,13 @@ import { hash } from 'bcryptjs'
 import { HTTPError, TypedRouter } from 'crosswalk'
 import API from './api'
 import { authenticate } from './util/auth'
+import { prisma } from './util/prisma'
 
 function register(router: TypedRouter<API>) {
   router.router.use('/user', authenticate())
 
   router.get('/user', async (_params, req) => {
-    const user = await req.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: req.user!.id,
       },
@@ -18,7 +19,7 @@ function register(router: TypedRouter<API>) {
 
   router.put('/user', async (_params, body, req, res) => {
     if (body.email) {
-      const exists = await req.prisma.user.count({
+      const exists = await prisma.user.count({
         where: { email: req.body.email, id: { not: req.user!.id } },
       })
 
@@ -29,7 +30,7 @@ function register(router: TypedRouter<API>) {
         )
     }
 
-    const user = await req.prisma.user.update({
+    const user = await prisma.user.update({
       where: {
         id: req.user!.id,
       },
@@ -41,7 +42,7 @@ function register(router: TypedRouter<API>) {
     })
 
     if (req.body.password) {
-      await req.prisma.auth.update({
+      await prisma.auth.update({
         where: {
           userId: req.user!.id,
         },
@@ -59,7 +60,7 @@ function register(router: TypedRouter<API>) {
   router.delete('/user', (_params, req, res) => {
     res.clearCookie('userId')
 
-    return req.prisma.user.delete({
+    return prisma.user.delete({
       where: { id: req.user!.id },
     })
   })

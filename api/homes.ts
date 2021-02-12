@@ -6,10 +6,11 @@ import {
   ensureHomeExists,
   ensureHomeUnique,
 } from './util/homes'
+import { prisma } from './util/prisma'
 
 function register(router: TypedRouter<API>) {
-  router.get('/homes', (_params, req) => {
-    return req.prisma.home.findMany({
+  router.get('/homes', (_params) => {
+    return prisma.home.findMany({
       include: {
         agent: true,
       },
@@ -18,8 +19,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes/:mlsn', ensureHomeExists())
 
-  router.get('/homes/:mlsn', async ({ mlsn }, req) => {
-    const home = await req.prisma.home.update({
+  router.get('/homes/:mlsn', async ({ mlsn }) => {
+    const home = await prisma.home.update({
       where: {
         mlsn,
       },
@@ -39,7 +40,7 @@ function register(router: TypedRouter<API>) {
   router.router.use('/homes', authenticate('AGENT'), ensureHomeUnique())
 
   router.post('/homes', (_params, home, req) => {
-    return req.prisma.home.create({
+    return prisma.home.create({
       data: {
         mlsn: home.mlsn,
         alarmInfo: home.alarmInfo,
@@ -72,8 +73,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes', ensureHomeAgent())
 
-  router.put('/homes/:mlsn', ({ mlsn }, home, req) => {
-    return req.prisma.home.update({
+  router.put('/homes/:mlsn', ({ mlsn }, home) => {
+    return prisma.home.update({
       where: {
         mlsn,
       },
@@ -111,8 +112,8 @@ function register(router: TypedRouter<API>) {
     })
   })
 
-  router.delete('/homes/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.home.delete({
+  router.delete('/homes/:mlsn', ({ mlsn }) => {
+    return prisma.home.delete({
       where: {
         mlsn,
       },
