@@ -29,4 +29,13 @@ $ yarn build
 $ yarn start
 ```
 
+## CRON Setup
+The requirements specify that we must send out daily emails.
+This CRON job will automatically send out these emails and reset daily hit counters in the database.
+
+```bash
+crontab -e # Open crontab file for editing and add the following line with variables correctly substituted
+0 0 * * * cd ${PATH_TO_PROJECT}; ${YARN_ABSOLUTE_PATH} run-script scripts/sendEmail.ts
+```
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
