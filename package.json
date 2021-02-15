@@ -39,6 +39,7 @@
     "core-js": "^3.8.2",
     "crosswalk": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
+    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.17",
     "nuxt": "^2.14.12",
     "swagger-ui-express": "^4.1.6"
