@@ -48,6 +48,7 @@
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/storybook": "^3.3.1",
+    "@nuxtjs/vuetify": "^1.11.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.2",
     "@types/jsonwebtoken": "^8.5.0",

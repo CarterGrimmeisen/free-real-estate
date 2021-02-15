@@ -10,7 +10,7 @@
           rel="noopener noreferrer"
           class="button--green"
         >
-          <ui-button raised> Documentation </ui-button>
+          <v-btn raised> Documentation </v-btn>
         </a>
         <a
           href="https://github.com/nuxt/nuxt.js"
@@ -18,11 +18,9 @@
           rel="noopener noreferrer"
           class="button--grey"
         >
-          <ui-button raised> GitHub </ui-button>
+          <v-btn raised> GitHub </v-btn>
         </a>
-        <ui-button raised @click="$toast('hello world')">
-          Do Something
-        </ui-button>
+        <v-btn raised @click="$toast('hello world')"> Do Something </v-btn>
       </div>
       <div>
         <pre>
