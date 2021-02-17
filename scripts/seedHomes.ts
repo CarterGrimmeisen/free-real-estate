@@ -23,6 +23,7 @@ async function main() {
     await prisma.home.deleteMany()
     await prisma.agent.deleteMany()
     await prisma.agency.deleteMany()
+    await prisma.auth.deleteMany()
     await prisma.user.deleteMany()
   }
 
