@@ -5,6 +5,8 @@ import { Agent, Home, School, Showing, User } from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
+type Liked = { liked: boolean }
+type CreateOrUpdateUser = User & { password: string }
 type CompleteHome = Home & { schools: School[] }
 type ShowingInput = Omit<Showing, 'date'> & { date: string }
 type CompleteShowing = Showing & { user: User; agent: Agent }
@@ -18,7 +20,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<Omit<User, 'id' | 'type'> & { password: string }, User>
+    post: Endpoint<Omit<CreateOrUpdateUser, 'id' | 'type'>, User>
   }
 
   '/auth/logout': {
@@ -27,10 +29,7 @@ export default interface API {
 
   '/user': {
     get: GetEndpoint<User>
-    put: Endpoint<
-      Partial<Omit<User, 'id' | 'type'> & { password: string }>,
-      User
-    >
+    put: Endpoint<Partial<Omit<CreateOrUpdateUser, 'id' | 'type'>>, User>
     delete: Endpoint<null, User>
   }
 
@@ -43,6 +42,10 @@ export default interface API {
     get: GetEndpoint<Home>
     put: Endpoint<Partial<Omit<CompleteHome, 'mlsn' | 'dailyHits'>>, Home>
     delete: Endpoint<null, Home>
+  }
+
+  '/homes/:mlsn/like': {
+    post: Endpoint<null, Liked>
   }
 
   '/showings/user': {
