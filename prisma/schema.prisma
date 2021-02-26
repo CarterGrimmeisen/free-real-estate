@@ -89,16 +89,35 @@ model School {
 }
 
 model Showing {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   confirmed Boolean
   date      DateTime
-  user      Profile  @relation(fields: [userId], references: [userId])
+  user      Profile   @relation(fields: [userId], references: [userId])
   userId    String
-  agent     Agent    @relation(fields: [agentId], references: [id])
+  agent     Agent     @relation(fields: [agentId], references: [id])
   agentId   String
-  home      Home     @relation(fields: [homeMlsn], references: [mlsn])
+  home      Home      @relation(fields: [homeMlsn], references: [mlsn])
   homeMlsn  String
+  feedback  Feedback?
 
   @@unique([date, homeMlsn])
   @@unique([date, userId, homeMlsn])
+}
+
+enum FeedbackOptions {
+  VERY_GOOD
+  GOOD
+  NEUTRAL
+  POOR
+  VERY_POOR
+}
+
+model Feedback {
+  id           String          @id
+  showing      Showing         @relation(fields: [showingId], references: [id])
+  showingId    String
+  isInterested Boolean
+  experience   FeedbackOptions
+  priceOpinion FeedbackOptions
+  notes        String?
 }
