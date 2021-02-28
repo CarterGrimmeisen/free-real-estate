@@ -113,7 +113,7 @@ enum FeedbackOptions {
 }
 
 model Feedback {
-  id           String          @id
+  id           String          @id @default(cuid())
   showing      Showing         @relation(fields: [showingId], references: [id])
   showingId    String
   isInterested Boolean

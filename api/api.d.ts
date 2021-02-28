@@ -1,12 +1,21 @@
 // This is the api definition file,
 // learn more about it in the docs: https://git.io/Jt0RF
 
-import { Agent, Home, Profile, School, Showing, User } from '@prisma/client'
+import {
+  Agent,
+  Feedback,
+  Home,
+  Profile,
+  School,
+  Showing,
+  User,
+} from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
 type CompleteHome = Home & { schools: School[] }
 type CompleteShowing = Showing & { user: Profile; agent: Agent }
+type CompleteFeedback = Feedback & { showing: Showing }
 
 export default interface API {
   '/auth/login': {
@@ -53,5 +62,10 @@ export default interface API {
     >
     put: Endpoint<Pick<Showing, 'confirmed'>, CompleteShowing>
     delete: Endpoint<null, CompleteShowing>
+  }
+
+  '/homes/:mlsn/showings/:id/feedback': {
+    get: GetEndpoint<Feedback | null>
+    put: Endpoint<Omit<Feedback, 'showingId'>, CompleteFeedback>
   }
 }

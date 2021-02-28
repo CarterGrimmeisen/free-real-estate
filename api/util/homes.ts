@@ -35,6 +35,23 @@ export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
     next()
   }
 
+export const ensureShowingExists = (): RequestHandler<{
+  mlsn: string
+  id?: string
+}> =>
+  async function (req, _res, next) {
+    if (!req.params.id) return next()
+
+    const count = await req.prisma.showing.count({
+      where: { id: req.params.id },
+    })
+
+    if (count === 0)
+      return next(new HTTPError(404, 'A showing with that ID does not exist'))
+
+    next()
+  }
+
 export const ensureHomeAgent = (): RequestHandler<{ mlsn: string }> =>
   async function (req, _res, next) {
     const count = await req.prisma.home.count({
