@@ -3,7 +3,7 @@ import { HTTPError } from 'crosswalk'
 import { RequestHandler } from 'express'
 
 export const ensureHomeExists = (): RequestHandler<{ mlsn?: string }> =>
-  async function (req, _response, next) {
+  async function (req, _res, next) {
     if (!req.params.mlsn) return next()
 
     const count = await req.prisma.home.count({

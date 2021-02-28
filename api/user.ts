@@ -11,13 +11,6 @@ function register(router: TypedRouter<API>) {
       where: {
         id: req.user!.id,
       },
-
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        type: true,
-      },
     })
 
     return user!
@@ -44,20 +37,21 @@ function register(router: TypedRouter<API>) {
       data: {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
-          ? await hash(req.body.password, 10)
-          : undefined,
-      },
-
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        type: true,
       },
     })
 
-    if (req.body.password) res.clearCookie('userId')
+    if (req.body.password) {
+      await req.prisma.auth.update({
+        where: {
+          userId: req.user!.id,
+        },
+        data: {
+          password: await hash(req.body.password, 10),
+        },
+      })
+
+      res.clearCookie('userId')
+    }
 
     return user
   })
@@ -67,13 +61,6 @@ function register(router: TypedRouter<API>) {
 
     return req.prisma.user.delete({
       where: { id: req.user!.id },
-
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        type: true,
-      },
     })
   })
 }
