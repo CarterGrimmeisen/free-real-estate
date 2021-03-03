@@ -1,5 +1,4 @@
 import { TypedRouter } from 'crosswalk'
-import * as z from 'zod'
 import API from './api'
 import { authenticate } from './util/auth'
 import {
@@ -8,56 +7,34 @@ import {
   ensureHomeUnique,
 } from './util/homes'
 
-const numericString = (input = z.string()) =>
-  input.transform((arg) => parseInt(arg))
-const booleanString = (input = z.string()) =>
-  input.transform((arg) => arg !== undefined)
-
-const QuerySchema = z.object({
-  skip: numericString(),
-  priceMin: numericString(),
-  priceMax: numericString(),
-  zipcode: numericString(z.string().max(6)),
-  agent: z.string(),
-  school: z.string(),
-  sqFootageMin: numericString(),
-  sqFootageMax: numericString(),
-  bedrooms: numericString(),
-  bathrooms: numericString(),
-  trending: booleanString(),
-  popular: booleanString(),
-})
-
 function register(router: TypedRouter<API>) {
-  router.get('/homes', (_params, req) => {
-    const query = QuerySchema.partial().parse(req.query)
-
+  router.get('/homes', (_params, req, _res) => {
     return req.prisma.home.findMany({
       where: {
         price: {
-          gte: query.priceMin,
-          lte: query.priceMax,
+          gte: req.query.priceMin,
+          lte: req.query.priceMax,
         },
-        zipcode: query.zipcode,
-        agentId: query.agent,
+        zipcode: req.query.zipcode,
+        agentId: req.query.agent,
         schools: {
           some: {
-            name: query.school,
+            name: req.query.school,
           },
         },
         sqfootage: {
-          gte: query.sqFootageMin,
-          lte: query.sqFootageMax,
+          gte: req.query.sqFootageMin,
+          lte: req.query.sqFootageMax,
         },
-        bedrooms: query.bedrooms,
-        bathrooms: query.bathrooms,
+        bedrooms: req.query.bedrooms,
+        bathrooms: req.query.bathrooms,
       },
-      orderBy: query.popular
+      orderBy: req.query.popular
         ? { likeCount: 'desc' }
-        : query.trending
+        : req.query.trending
         ? { dailyHits: 'desc' }
         : {},
-      skip: query.skip,
+      skip: req.query.skip,
       take: 20,
       include: {
         agent: true,
@@ -122,7 +99,17 @@ function register(router: TypedRouter<API>) {
     }
   })
 
-  router.router.use('/homes', authenticate('AGENT'), ensureHomeUnique())
+  router.router.use('/homes', authenticate('AGENT'))
+
+  router.delete('/homes/:mlsn', ({ mlsn }, req) => {
+    return req.prisma.home.delete({
+      where: {
+        mlsn,
+      },
+    })
+  })
+
+  router.router.use('/homes', ensureHomeUnique())
 
   router.post('/homes', (_params, home, req) => {
     return req.prisma.home.create({
@@ -157,6 +144,12 @@ function register(router: TypedRouter<API>) {
   })
 
   router.router.use('/homes', ensureHomeAgent())
+
+  router.get('/homes/:mlsn/showings', ({ mlsn }, req) => {
+    return req.prisma.home
+      .findUnique({ where: { mlsn } })
+      .showings({ include: { user: true, agent: true, home: true } })
+  })
 
   router.put('/homes/:mlsn', ({ mlsn }, home, req) => {
     return req.prisma.home.update({
@@ -193,14 +186,6 @@ function register(router: TypedRouter<API>) {
             },
           })),
         },
-      },
-    })
-  })
-
-  router.delete('/homes/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.home.delete({
-      where: {
-        mlsn,
       },
     })
   })

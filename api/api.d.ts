@@ -8,9 +8,10 @@ type Success = { success: true }
 type Liked = { liked: boolean }
 type CreateOrUpdateUser = User & { password: string }
 type CompleteHome = Home & { schools: School[] }
-type ShowingInput = Omit<Showing, 'date'> & { date: string }
-type CompleteShowing = Showing & { user: User; agent: Agent }
-
+type ShowingInput = Omit<Showing, 'id' | 'agentId' | 'confirmed'> & {
+  date: string
+}
+type CompleteShowing = Showing & { user: User; agent: Agent; home: Home }
 export default interface API {
   '/auth/login': {
     /**
@@ -34,7 +35,23 @@ export default interface API {
   }
 
   '/homes': {
-    get: GetEndpoint<Home[]>
+    get: GetEndpoint<
+      Home[],
+      {
+        skip?: number
+        priceMin?: number
+        priceMax?: number
+        zipcode?: number
+        agent?: string
+        school?: string
+        sqFootageMin?: number
+        sqFootageMax?: number
+        bedrooms?: number
+        bathrooms?: number
+        trending?: boolean
+        popular?: boolean
+      }
+    >
     post: Endpoint<Omit<CompleteHome, 'id' | 'listAgentId' | 'dailyHits'>, Home>
   }
 
@@ -48,17 +65,21 @@ export default interface API {
     post: Endpoint<null, Liked>
   }
 
-  '/showings/user': {
+  '/homes/:mlsn/showings': {
     get: GetEndpoint<CompleteShowing[]>
   }
 
-  '/showings/home/:mlsn': {
+  '/user/showings': {
     get: GetEndpoint<CompleteShowing[]>
-    post: Endpoint<Pick<ShowingInput, 'date'>, CompleteShowing>
+  }
+
+  '/showings': {
+    post: Endpoint<Omit<ShowingInput, 'userId'>, CompleteShowing>
+  }
+
+  '/showings/:id': {
+    get: GetEndpoint<CompleteShowing>
+    put: Endpoint<Partial<Pick<Showing, 'confirmed'>>, CompleteShowing>
     delete: Endpoint<null, CompleteShowing>
-  }
-
-  '/showings/home/:mlsn/:userId': {
-    put: Endpoint<Pick<ShowingInput, 'confirmed'>, CompleteShowing>
   }
 }

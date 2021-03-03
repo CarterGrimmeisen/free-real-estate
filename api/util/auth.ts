@@ -8,31 +8,33 @@ export const authenticate = (type?: UserType): RequestHandler =>
     if (!req.cookies.userId)
       return next(new HTTPError(401, 'User is not authenticated'))
 
-    const data = verify(
-      req.cookies.userId as string,
-      process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
-    ) as { id: string }
+    if (!req.user) {
+      const data = verify(
+        req.cookies.userId as string,
+        process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
+      ) as { id: string }
 
-    if (typeof data === 'string')
-      return next(new HTTPError(400, 'Bad cookie format'))
+      if (typeof data === 'string')
+        return next(new HTTPError(400, 'Bad cookie format'))
 
-    if (!data) return next(new HTTPError(401, 'User is not authenticated'))
+      if (!data) return next(new HTTPError(401, 'User is not authenticated'))
 
-    const user = await req.prisma.user.findUnique({
-      where: { id: data.id },
+      const user = await req.prisma.user.findUnique({
+        where: { id: data.id },
 
-      select: {
-        agentProfile: true,
-        id: true,
-        name: true,
-        email: true,
-        type: true,
-      },
-    })
+        select: {
+          agentProfile: true,
+          id: true,
+          name: true,
+          email: true,
+          type: true,
+        },
+      })
 
-    if (!user) return next(new HTTPError(401, 'User is not authenticated'))
+      if (!user) return next(new HTTPError(401, 'User is not authenticated'))
 
-    req.user = user
+      req.user = user
+    }
 
     if (type) {
       const equalOrGreater = {

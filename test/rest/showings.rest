@@ -1,0 +1,18 @@
+# Get user showings
+GET {{server}}/api/user/showings
+
+###
+
+# Get home showings
+GET {{server}}/api/homes/1234567/showings
+
+###
+
+# Create Showing
+POST {{server}}/api/showings
+Content-Type: application/json
+
+{
+  "homeMlsn": "1234567",
+  "date": "{{$datetime iso8601}}"
+}

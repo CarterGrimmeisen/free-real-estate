@@ -20,6 +20,8 @@ export const ensureHomeExists = (): RequestHandler<{ mlsn?: string }> =>
 
 export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
   async function (req, _res, next) {
+    if (req.method !== 'post' && req.method !== 'put') return next()
+
     const count = await req.prisma.home.count({
       where: {
         street: req.body.street,

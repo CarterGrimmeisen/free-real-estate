@@ -3868,6 +3868,21 @@
     lodash "^4.17.15"
     pretty "^2.0.0"
 
+"@vueuse/core@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-4.2.2.tgz#ecbba4ba05e0360e9c9079b32e149fac803a1020"
+  integrity sha512-NMU3Vr4eBiNrPzCoUH5ptNj+DETg85Vtww0OJjaQEXobDTH28gzbLJseqCh4m3NYR92C5qlXRnzhSvWOoR/uLg==
+  dependencies:
+    "@vueuse/shared" "4.2.2"
+    vue-demi latest
+
+"@vueuse/shared@4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-4.2.2.tgz#e52ee278b929f028117c0ca1792b24df462bff80"
+  integrity sha512-yudh4jt0SxaW0i3j2iumI8GTloA8aUpLwGaBw9Xv2rQCdZvOZpXpvpGEz8EsMK793ySs+d5S4/opItlxuzjtSg==
+  dependencies:
+    vue-demi latest
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -4466,6 +4481,14 @@ aws4@^1.8.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
+
+axios-cache-adapter@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/axios-cache-adapter/-/axios-cache-adapter-2.7.0.tgz#3da2871840634457cd449d485a781aecc630a035"
+  integrity sha512-itggIo9i8tnsBFnniNh8+7RxXfdCKZT+cEvyjzBdU8IIyudpj4WyrY7288KE8MICs6+u7YFRVlLZi3vvXufz8w==
+  dependencies:
+    cache-control-esm "1.0.0"
+    md5 "^2.2.1"
 
 axios-retry@^3.1.9:
   version "3.1.9"
@@ -5363,6 +5386,11 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
+cache-control-esm@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cache-control-esm/-/cache-control-esm-1.0.0.tgz#417647ecf1837a5e74155f55d5a4ae32a84e2581"
+  integrity sha512-Fa3UV4+eIk4EOih8FTV6EEsVKO0W5XWtNs6FC3InTfVz+EjurjPfDXY5wZDo/lxjDxg5RjNcurLyxEJBcEUx9g==
+
 cache-loader@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/cache-loader/-/cache-loader-4.1.0.tgz#9948cae353aec0a1fcb1eafda2300816ec85387e"
@@ -5552,6 +5580,11 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+charenc@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
+  integrity sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
 
 check-types@^8.0.3:
   version "8.0.3"
@@ -6222,13 +6255,17 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crosswalk@^1.2.0:
+"crosswalk@https://git.io/JthwB":
   version "1.2.2"
-  resolved "https://registry.yarnpkg.com/crosswalk/-/crosswalk-1.2.2.tgz#e4b46c70bb8b8f6c9756805868998441eba582ac"
-  integrity sha512-PpLuug7VqhfNM8CQJiVI4TEOlgvrRPKNwEHQiBqKRlKv6Dbzd60lqk4g6wr/pmXQJePDrLYBHqMEXMfjr9wGug==
+  resolved "https://git.io/JthwB#974e4583c7418a1d70e5fbd86a25b189ae3ebc3e"
   dependencies:
     ajv "^6.12.6"
     path-to-regexp "^6.2.0"
+
+crypt@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
+  integrity sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
 
 crypto-browserify@^3.11.0:
   version "3.12.0"
@@ -9165,7 +9202,7 @@ is-binary-path@~2.1.0:
   dependencies:
     binary-extensions "^2.0.0"
 
-is-buffer@^1.1.5:
+is-buffer@^1.1.5, is-buffer@~1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
@@ -10798,6 +10835,15 @@ md5.js@^1.3.4:
     hash-base "^3.0.0"
     inherits "^2.0.1"
     safe-buffer "^5.1.2"
+
+md5@^2.2.1:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/md5/-/md5-2.3.0.tgz#c3da9a6aae3a30b46b7b0c349b87b110dc3bda4f"
+  integrity sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==
+  dependencies:
+    charenc "0.0.2"
+    crypt "0.0.2"
+    is-buffer "~1.1.6"
 
 mdast-squeeze-paragraphs@^4.0.0:
   version "4.0.0"
@@ -15746,6 +15792,11 @@ vue-client-only@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.0.0.tgz#ddad8d675ee02c761a14229f0e440e219de1da1c"
   integrity sha512-arhk1wtWAfLsJyxGMoEYhoBowM87/i6HLSG2LH/03Yog6i2d9JEN1peMP0Ceis+/n9DxdenGYZZTxbPPJyHciA==
+
+vue-demi@latest:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.6.1.tgz#6949c900a295d9c40e1fa5a74a2849b58cc57325"
+  integrity sha512-2DI0owOzgEDnEBoXpp0nTBquAWLZqVf/+AOJpPUnviT17unMELEPNy5BdSRnQEz+DA0STtqaz+MZtwhzlDHm5Q==
 
 vue-docgen-api@^4.33.1:
   version "4.35.0"

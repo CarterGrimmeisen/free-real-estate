@@ -1,0 +1,2 @@
+# Get list of homes
+GET {{server}}/api/homes?take=1

@@ -63,6 +63,22 @@ function register(router: TypedRouter<API>) {
       where: { id: req.user!.id },
     })
   })
+
+  router.get('/user/showings', (_params, req) => {
+    return req.prisma.user
+      .findUnique({
+        where: {
+          id: req.user!.id,
+        },
+      })
+      .showings({
+        include: {
+          user: true,
+          agent: true,
+          home: true,
+        },
+      })
+  })
 }
 
 export default { register }

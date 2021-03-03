@@ -1,51 +1,29 @@
-import { TypedRouter } from 'crosswalk'
+import { HTTPError, TypedRouter } from 'crosswalk'
 import API from './api'
 import { authenticate } from './util/auth'
-import { ensureHomeExists } from './util/homes'
-import { ensureShowingExists } from './util/showings'
+import { ensureShowingExistsAndParticipating } from './util/showings'
 
 function register(router: TypedRouter<API>) {
   router.router.use('/showings', authenticate())
 
-  router.get('/showings/user', (_params, req) => {
-    return req.prisma.showing.findMany({
-      where: {
-        userId: req.user!.id,
-      },
-      orderBy: {
-        date: 'asc',
-      },
-      include: {
-        agent: true,
-        home: true,
-        user: true,
-      },
+  router.post('/showings', async (_params, body, req) => {
+    const home = await req.prisma.home.findUnique({
+      where: { mlsn: body.homeMlsn },
     })
-  })
 
-  router.router.use('/showings/home/:mlsn', ensureHomeExists())
+    if (!home) throw new HTTPError(400, 'The specified home does not exist')
 
-  router.post('/showings/home/:mlsn', async ({ mlsn }, { date }, req) => {
-    const agent = await req.prisma.home
-      .findUnique({
-        where: {
-          mlsn,
-        },
-      })
-      .agent()
-
-    return await req.prisma.showing.create({
+    return req.prisma.showing.create({
       data: {
-        date,
-        confirmed: null,
-        home: {
-          connect: {
-            mlsn,
-          },
-        },
+        date: body.date,
         agent: {
           connect: {
-            id: agent!.id,
+            id: home.agentId,
+          },
+        },
+        home: {
+          connect: {
+            mlsn: body.homeMlsn,
           },
         },
         user: {
@@ -55,78 +33,58 @@ function register(router: TypedRouter<API>) {
         },
       },
       include: {
+        user: true,
         agent: true,
         home: true,
-        user: true,
       },
     })
   })
 
-  router.router.use('/showings/home/:mlsn', ensureShowingExists())
-
-  router.delete('/showings/home/:mlsn', async ({ mlsn }, req) => {
-    const showing = await req.prisma.showing.findFirst({
+  router.router.use('/showings/:id', ensureShowingExistsAndParticipating())
+  router.get('/showings/:id', async ({ id }, req) => {
+    const showing = await req.prisma.showing.findUnique({
       where: {
-        homeMlsn: mlsn,
-        OR: [
-          {
-            userId: req.user!.id,
-          },
-          {
-            agentId: req.user!.agentProfile?.id,
-          },
-        ],
+        id,
+      },
+      include: {
+        user: true,
+        agent: true,
+        home: true,
       },
     })
 
+    return showing!
+  })
+
+  router.delete('/showings/:id', ({ id }, req) => {
     return req.prisma.showing.delete({
       where: {
-        id: showing!.id,
+        id,
       },
       include: {
+        user: true,
         agent: true,
         home: true,
-        user: true,
       },
     })
   })
 
-  router.router.use('/showings/home/:mlsn', authenticate('AGENT'))
-
-  router.get('/showings/home/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.showing.findMany({
+  router.router.use(authenticate('AGENT'))
+  router.put('/showings/:id', ({ id }, { confirmed }, req) => {
+    return req.prisma.showing.update({
       where: {
-        homeMlsn: mlsn,
+        id,
       },
-      orderBy: {
-        date: 'asc',
+      data: {
+        confirmed,
       },
       include: {
+        user: true,
         agent: true,
         home: true,
-        user: true,
       },
     })
   })
-
-  router.put(
-    '/showings/home/:mlsn/:userId',
-    async ({ mlsn, userId }, { confirmed }, req) => {
-      const showing = await req.prisma.showing.findFirst({
-        where: { homeMlsn: mlsn, userId },
-      })
-
-      return req.prisma.showing.update({
-        where: { id: showing!.id },
-        data: { confirmed },
-        include: {
-          agent: true,
-          home: true,
-          user: true,
-        },
-      })
-    }
-  )
 }
 
 export default { register }

@@ -35,6 +35,8 @@ Auth.register(api)
 Homes.register(api)
 Showings.register(api)
 
+api.assertAllRoutesRegistered()
+
 app.use(
   '/docs',
   swaggerUI.serve,
