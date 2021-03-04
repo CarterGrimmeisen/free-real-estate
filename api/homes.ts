@@ -6,35 +6,36 @@ import {
   ensureHomeExists,
   ensureHomeUnique,
 } from './util/homes'
+import { prisma } from './util/prisma'
 
 function register(router: TypedRouter<API>) {
-  router.get('/homes', (_params, req, _res) => {
-    return req.prisma.home.findMany({
+  router.get('/homes', (_params, { query }, _res) => {
+    return prisma.home.findMany({
       where: {
         price: {
-          gte: req.query.priceMin,
-          lte: req.query.priceMax,
+          gte: query.priceMin,
+          lte: query.priceMax,
         },
-        zipcode: req.query.zipcode,
-        agentId: req.query.agent,
+        zipcode: query.zipcode,
+        agentId: query.agent,
         schools: {
           some: {
-            name: req.query.school,
+            name: query.school,
           },
         },
         sqfootage: {
-          gte: req.query.sqFootageMin,
-          lte: req.query.sqFootageMax,
+          gte: query.sqFootageMin,
+          lte: query.sqFootageMax,
         },
-        bedrooms: req.query.bedrooms,
-        bathrooms: req.query.bathrooms,
+        bedrooms: query.bedrooms,
+        bathrooms: query.bathrooms,
       },
-      orderBy: req.query.popular
+      orderBy: query.popular
         ? { likeCount: 'desc' }
-        : req.query.trending
+        : query.trending
         ? { dailyHits: 'desc' }
         : {},
-      skip: req.query.skip,
+      skip: query.skip,
       take: 20,
       include: {
         agent: true,
@@ -44,8 +45,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes/:mlsn', ensureHomeExists())
 
-  router.get('/homes/:mlsn', async ({ mlsn }, req) => {
-    const home = await req.prisma.home.update({
+  router.get('/homes/:mlsn', async ({ mlsn }) => {
+    const home = await prisma.home.update({
       where: {
         mlsn,
       },
@@ -64,31 +65,31 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes/:mlsn/like', authenticate('USER'))
 
-  router.post('/homes/:mlsn/like', async ({ mlsn }, _body, req) => {
-    const count = await req.prisma.home.count({
+  router.post('/homes/:mlsn/like', async ({ mlsn }, _body, { user }) => {
+    const count = await prisma.home.count({
       where: {
         mlsn,
         liked: {
           some: {
-            id: req.user!.id,
+            id: user!.id,
           },
         },
       },
     })
 
-    await req.prisma.home.update({
+    await prisma.home.update({
       where: { mlsn },
       data: {
         likeCount: count ? { decrement: 1 } : { increment: 1 },
         liked: count
           ? {
               disconnect: {
-                id: req.user!.id,
+                id: user!.id,
               },
             }
           : {
               connect: {
-                id: req.user!.id,
+                id: user!.id,
               },
             },
       },
@@ -101,8 +102,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes', authenticate('AGENT'))
 
-  router.delete('/homes/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.home.delete({
+  router.delete('/homes/:mlsn', ({ mlsn }) => {
+    return prisma.home.delete({
       where: {
         mlsn,
       },
@@ -111,8 +112,8 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes', ensureHomeUnique())
 
-  router.post('/homes', (_params, home, req) => {
-    return req.prisma.home.create({
+  router.post('/homes', (_params, home, { user }) => {
+    return prisma.home.create({
       data: {
         mlsn: home.mlsn,
         alarmInfo: home.alarmInfo,
@@ -129,7 +130,7 @@ function register(router: TypedRouter<API>) {
 
         agent: {
           connect: {
-            email: req.user?.email,
+            email: user!.email,
           },
         },
 
@@ -145,14 +146,14 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes', ensureHomeAgent())
 
-  router.get('/homes/:mlsn/showings', ({ mlsn }, req) => {
-    return req.prisma.home
+  router.get('/homes/:mlsn/showings', ({ mlsn }) => {
+    return prisma.home
       .findUnique({ where: { mlsn } })
       .showings({ include: { user: true, agent: true, home: true } })
   })
 
-  router.put('/homes/:mlsn', ({ mlsn }, home, req) => {
-    return req.prisma.home.update({
+  router.put('/homes/:mlsn', ({ mlsn }, home) => {
+    return prisma.home.update({
       where: {
         mlsn,
       },

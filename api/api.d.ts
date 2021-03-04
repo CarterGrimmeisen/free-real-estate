@@ -8,10 +8,10 @@ type Success = { success: true }
 type Liked = { liked: boolean }
 type CreateOrUpdateUser = User & { password: string }
 type CompleteHome = Home & { schools: School[] }
-type ShowingInput = Omit<Showing, 'id' | 'agentId' | 'confirmed'> & {
-  date: string
-}
-type CompleteShowing = Showing & { user: User; agent: Agent; home: Home }
+type ShowingInput = Omit<Showing, 'date'> & { date: string }
+type CompleteShowing = Showing & { user: User; agent: Agent }
+type UserInput = User & { password: string }
+
 export default interface API {
   '/auth/login': {
     /**
