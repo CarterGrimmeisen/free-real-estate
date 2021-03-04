@@ -1,0 +1,17 @@
+# Get Logged In User
+GET {{server}}/api/user
+
+###
+
+# Update User
+PUT {{server}}/api/user
+Content-Type: application/json
+
+{
+  "name": "Steve"
+}
+
+###
+
+# Delete User
+DELETE {{server}}/api/user

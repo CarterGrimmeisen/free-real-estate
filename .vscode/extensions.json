@@ -1,6 +1,7 @@
 {
     "recommendations": [
       "dbaeumer.vscode-eslint",
-      "octref.vetur"
+      "octref.vetur",
+      "humao.rest-client"
     ]
   }

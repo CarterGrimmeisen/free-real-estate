@@ -72,7 +72,7 @@ model Home {
   alarmInfo   String
   description String
   bedrooms    Int
-  bathrooms   Int
+  bathrooms   Float
   likeCount   Int       @default(0)
   liked       User[]
   showings    Showing[]

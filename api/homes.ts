@@ -158,7 +158,7 @@ function register(router: TypedRouter<API>) {
       .showings({ include: { user: true, agent: true, home: true } })
   })
 
-  router.put('/homes/:mlsn', ({ mlsn }, home) => {
+  router.put('/homes/:mlsn', ({ mlsn }, home, { user }) => {
     return prisma.home.update({
       where: {
         mlsn,
@@ -173,7 +173,7 @@ function register(router: TypedRouter<API>) {
 
         agent: {
           connect: {
-            id: home.agentId,
+            id: user!.agentProfile!.id,
           },
         },
 

@@ -1,9 +1,9 @@
-# Get user showings
+# Get User Showings
 GET {{server}}/api/user/showings
 
 ###
 
-# Get home showings
+# Get Home Showings
 GET {{server}}/api/homes/1234567/showings
 
 ###
@@ -16,3 +16,18 @@ Content-Type: application/json
   "homeMlsn": "1234567",
   "date": "{{$datetime iso8601}}"
 }
+
+###
+
+# Confirm/Deny Showing
+PUT {{server}}/api/showings/cklrqml6f0005tdv28o23l64w
+Content-Type: application/json
+
+{
+  "confirmed": true
+}
+
+###
+
+# Cancel Showing
+DELETE {{server}}/api/showings/cklrqml6f0005tdv28o23l64w

@@ -10,7 +10,7 @@ type Liked = { liked: boolean }
 type CompleteHome = Home & { schools: School[] }
 type CompleteShowing = Showing & { user: User; agent: Agent }
 
-type CreateHome = Omit<CompleteHome, 'listAgentId' | 'dailyHits'>
+type CreateHome = Omit<CompleteHome, 'agentId' | 'likeCount' | 'dailyHits'>
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
 type CreateShowing = Omit<Showing, 'date' | 'userId'> & { date: string }
 type UpdateShowing = Pick<Showing, 'confirmed'>
