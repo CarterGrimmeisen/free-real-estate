@@ -6,11 +6,16 @@ import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
 type Liked = { liked: boolean }
-type CreateOrUpdateUser = User & { password: string }
+
 type CompleteHome = Home & { schools: School[] }
-type ShowingInput = Omit<Showing, 'date'> & { date: string }
 type CompleteShowing = Showing & { user: User; agent: Agent }
-type UserInput = User & { password: string }
+
+type CreateHome = Omit<CompleteHome, 'listAgentId' | 'dailyHits'>
+type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
+type CreateShowing = Omit<Showing, 'date' | 'userId'> & { date: string }
+type UpdateShowing = Pick<Showing, 'confirmed'>
+type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
+type UpdateUser = Partial<CreateUser>
 
 export default interface API {
   '/auth/login': {
@@ -21,7 +26,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<Omit<CreateOrUpdateUser, 'id' | 'type'>, Readonly<User>>
+    post: Endpoint<CreateUser, User>
   }
 
   '/auth/logout': {
@@ -30,7 +35,7 @@ export default interface API {
 
   '/user': {
     get: GetEndpoint<User>
-    put: Endpoint<Partial<Omit<CreateOrUpdateUser, 'id' | 'type'>>, User>
+    put: Endpoint<UpdateUser, User>
     delete: Endpoint<null, User>
   }
 
@@ -52,18 +57,12 @@ export default interface API {
         popular?: boolean
       }
     >
-    post: Endpoint<
-      Omit<CompleteHome, 'id' | 'listAgentId' | 'dailyHits'>,
-      CompleteHome
-    >
+    post: Endpoint<CreateHome, CompleteHome>
   }
 
   '/homes/:mlsn': {
     get: GetEndpoint<Home>
-    put: Endpoint<
-      Partial<Omit<CompleteHome, 'mlsn' | 'dailyHits'>>,
-      CompleteHome
-    >
+    put: Endpoint<UpdateHome, CompleteHome>
     delete: Endpoint<null, CompleteHome>
   }
 
@@ -80,12 +79,12 @@ export default interface API {
   }
 
   '/showings': {
-    post: Endpoint<Omit<ShowingInput, 'userId'>, CompleteShowing>
+    post: Endpoint<CreateShowing, CompleteShowing>
   }
 
   '/showings/:id': {
     get: GetEndpoint<CompleteShowing>
-    put: Endpoint<Partial<Pick<Showing, 'confirmed'>>, CompleteShowing>
+    put: Endpoint<UpdateShowing, CompleteShowing>
     delete: Endpoint<null, CompleteShowing>
   }
 }

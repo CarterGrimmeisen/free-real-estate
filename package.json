@@ -6,7 +6,7 @@
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate:json": "rimraf api/schema.json && typescript-json-schema --required --strictNullChecks --noExtraProps api/api.d.ts API --out api/schema.json",
+    "generate:json": "rimraf api/schema.json && typescript-json-schema --required --strictNullChecks --noExtraProps api/api.ts API --out api/schema.json",
     "generate:prisma": "prisma generate",
     "generate:db": "prisma db push --preview-feature",
     "generate": "yarn generate:prisma && yarn generate:db && yarn generate:json",
