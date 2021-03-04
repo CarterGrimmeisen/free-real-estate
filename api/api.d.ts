@@ -21,7 +21,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<Omit<CreateOrUpdateUser, 'id' | 'type'>, User>
+    post: Endpoint<Omit<CreateOrUpdateUser, 'id' | 'type'>, Readonly<User>>
   }
 
   '/auth/logout': {
@@ -52,13 +52,19 @@ export default interface API {
         popular?: boolean
       }
     >
-    post: Endpoint<Omit<CompleteHome, 'id' | 'listAgentId' | 'dailyHits'>, Home>
+    post: Endpoint<
+      Omit<CompleteHome, 'id' | 'listAgentId' | 'dailyHits'>,
+      CompleteHome
+    >
   }
 
   '/homes/:mlsn': {
     get: GetEndpoint<Home>
-    put: Endpoint<Partial<Omit<CompleteHome, 'mlsn' | 'dailyHits'>>, Home>
-    delete: Endpoint<null, Home>
+    put: Endpoint<
+      Partial<Omit<CompleteHome, 'mlsn' | 'dailyHits'>>,
+      CompleteHome
+    >
+    delete: Endpoint<null, CompleteHome>
   }
 
   '/homes/:mlsn/like': {
