@@ -107,6 +107,9 @@ function register(router: TypedRouter<API>) {
       where: {
         mlsn,
       },
+      include: {
+        schools: true,
+      },
     })
   })
 
@@ -140,6 +143,9 @@ function register(router: TypedRouter<API>) {
             create: { name: school.name, type: school.type },
           })),
         },
+      },
+      include: {
+        schools: true,
       },
     })
   })
@@ -187,6 +193,9 @@ function register(router: TypedRouter<API>) {
             },
           })),
         },
+      },
+      include: {
+        schools: true,
       },
     })
   })
