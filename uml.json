@@ -1,0 +1,756 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "Endpoint<Partial<Home>,Partial<Home>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "$ref": "#/definitions/Partial<Home>"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Home>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<Partial<Login>,Partial<Success>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "$ref": "#/definitions/Partial<Login>"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Success>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<Partial<Showing>,Partial<Showing>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "$ref": "#/definitions/Partial<Showing>"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Showing>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<Partial<User>,Partial<User>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "$ref": "#/definitions/Partial<User>"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<User>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<null,Partial<Home>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Home>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<null,Partial<Liked>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Liked>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<null,Partial<Showing>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Showing>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<null,Partial<Success>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Success>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Endpoint<null,Partial<User>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<User>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "GetEndpoint<Partial<Home>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Home>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "GetEndpoint<Partial<Home>[],{skip?:number|undefined;priceMin?:number|undefined;priceMax?:number|undefined;zipcode?:number|undefined;agent?:string|undefined;school?:string|undefined;sqFootageMin?:number|undefined;sqFootageMax?:number|undefined;bedrooms?:number|undefined;bathrooms?:number|undefined;trending?:boolean|undefined;popular?:boolean|undefined;}>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "agent": {
+                            "type": "string"
+                        },
+                        "bathrooms": {
+                            "type": "number"
+                        },
+                        "bedrooms": {
+                            "type": "number"
+                        },
+                        "popular": {
+                            "type": "boolean"
+                        },
+                        "priceMax": {
+                            "type": "number"
+                        },
+                        "priceMin": {
+                            "type": "number"
+                        },
+                        "school": {
+                            "type": "string"
+                        },
+                        "skip": {
+                            "type": "number"
+                        },
+                        "sqFootageMax": {
+                            "type": "number"
+                        },
+                        "sqFootageMin": {
+                            "type": "number"
+                        },
+                        "trending": {
+                            "type": "boolean"
+                        },
+                        "zipcode": {
+                            "type": "number"
+                        }
+                    },
+                    "type": "object"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "items": {
+                        "$ref": "#/definitions/Partial<Home>"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "GetEndpoint<Partial<Showing>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<Showing>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "GetEndpoint<Partial<Showing>[],null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "items": {
+                        "$ref": "#/definitions/Partial<Showing>"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "GetEndpoint<Partial<User>,null>": {
+            "additionalProperties": false,
+            "properties": {
+                "query": {
+                    "type": "null"
+                },
+                "request": {
+                    "type": "null"
+                },
+                "response": {
+                    "$ref": "#/definitions/Partial<User>"
+                }
+            },
+            "required": [
+                "query",
+                "request",
+                "response"
+            ],
+            "type": "object"
+        },
+        "Partial<Home>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "agentId": {
+                    "type": "string"
+                },
+                "alarmInfo": {
+                    "type": "string"
+                },
+                "bathrooms": {
+                    "type": "number"
+                },
+                "bedrooms": {
+                    "type": "number"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "dailyHits": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "likeCount": {
+                    "type": "number"
+                },
+                "mlsn": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "schools": {
+                    "items": {
+                        "additionalProperties": false,
+                        "description": "Model School",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "$ref": "#/definitions/SchoolType"
+                            }
+                        },
+                        "required": [
+                            "name",
+                            "type"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "sqfootage": {
+                    "type": "number"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "street": {
+                    "type": "string"
+                },
+                "subdivision": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "zipcode": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "Partial<Liked>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "liked": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "Partial<Login>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Partial<Showing>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "agent": {
+                    "additionalProperties": false,
+                    "description": "Model Agent",
+                    "properties": {
+                        "agencyId": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "phone": {
+                            "type": "string"
+                        },
+                        "userId": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "agencyId",
+                        "email",
+                        "id",
+                        "name",
+                        "phone",
+                        "userId"
+                    ],
+                    "type": "object"
+                },
+                "agentId": {
+                    "type": "string"
+                },
+                "confirmed": {
+                    "type": [
+                        "null",
+                        "boolean"
+                    ]
+                },
+                "date": {
+                    "description": "Enables basic storage and retrieval of dates and times.",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "homeMlsn": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "user": {
+                    "additionalProperties": false,
+                    "description": "Model User",
+                    "properties": {
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": [
+                                "null",
+                                "string"
+                            ]
+                        },
+                        "type": {
+                            "$ref": "#/definitions/UserType"
+                        }
+                    },
+                    "required": [
+                        "email",
+                        "id",
+                        "name",
+                        "type"
+                    ],
+                    "type": "object"
+                },
+                "userId": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Partial<Success>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "success": {
+                    "enum": [
+                        true
+                    ],
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "Partial<User>": {
+            "additionalProperties": false,
+            "description": "Make all properties in T optional",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "type": {
+                    "description": "Enums",
+                    "enum": [
+                        "ADMIN",
+                        "AGENT",
+                        "USER"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SchoolType": {
+            "enum": [
+                "ELEMENTARY",
+                "HIGH",
+                "MIDDLE"
+            ],
+            "type": "string"
+        },
+        "UserType": {
+            "description": "Enums",
+            "enum": [
+                "ADMIN",
+                "AGENT",
+                "USER"
+            ],
+            "type": "string"
+        }
+    },
+    "properties": {
+        "/auth/login": {
+            "additionalProperties": false,
+            "properties": {
+                "post": {
+                    "$ref": "#/definitions/Endpoint<Partial<Login>,Partial<Success>,null>",
+                    "description": "Login via email/password and fetch authentication cookie"
+                }
+            },
+            "required": [
+                "post"
+            ],
+            "type": "object"
+        },
+        "/auth/logout": {
+            "additionalProperties": false,
+            "properties": {
+                "post": {
+                    "$ref": "#/definitions/Endpoint<null,Partial<Success>,null>"
+                }
+            },
+            "required": [
+                "post"
+            ],
+            "type": "object"
+        },
+        "/auth/register": {
+            "additionalProperties": false,
+            "properties": {
+                "post": {
+                    "$ref": "#/definitions/Endpoint<Partial<User>,Partial<User>,null>"
+                }
+            },
+            "required": [
+                "post"
+            ],
+            "type": "object"
+        },
+        "/homes": {
+            "additionalProperties": false,
+            "properties": {
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<Home>[],{skip?:number|undefined;priceMin?:number|undefined;priceMax?:number|undefined;zipcode?:number|undefined;agent?:string|undefined;school?:string|undefined;sqFootageMin?:number|undefined;sqFootageMax?:number|undefined;bedrooms?:number|undefined;bathrooms?:number|undefined;trending?:boolean|undefined;popular?:boolean|undefined;}>"
+                },
+                "post": {
+                    "$ref": "#/definitions/Endpoint<Partial<Home>,Partial<Home>,null>"
+                }
+            },
+            "required": [
+                "get",
+                "post"
+            ],
+            "type": "object"
+        },
+        "/homes/:mlsn": {
+            "additionalProperties": false,
+            "properties": {
+                "delete": {
+                    "$ref": "#/definitions/Endpoint<null,Partial<Home>,null>"
+                },
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<Home>,null>"
+                },
+                "put": {
+                    "$ref": "#/definitions/Endpoint<Partial<Home>,Partial<Home>,null>"
+                }
+            },
+            "required": [
+                "delete",
+                "get",
+                "put"
+            ],
+            "type": "object"
+        },
+        "/homes/:mlsn/like": {
+            "additionalProperties": false,
+            "properties": {
+                "post": {
+                    "$ref": "#/definitions/Endpoint<null,Partial<Liked>,null>"
+                }
+            },
+            "required": [
+                "post"
+            ],
+            "type": "object"
+        },
+        "/homes/:mlsn/showings": {
+            "additionalProperties": false,
+            "properties": {
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<Showing>,null>"
+                }
+            },
+            "required": [
+                "get"
+            ],
+            "type": "object"
+        },
+        "/showings": {
+            "additionalProperties": false,
+            "properties": {
+                "post": {
+                    "$ref": "#/definitions/Endpoint<Partial<Showing>,Partial<Showing>,null>"
+                }
+            },
+            "required": [
+                "post"
+            ],
+            "type": "object"
+        },
+        "/showings/:id": {
+            "additionalProperties": false,
+            "properties": {
+                "delete": {
+                    "$ref": "#/definitions/Endpoint<null,Partial<Showing>,null>"
+                },
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<Showing>,null>"
+                },
+                "put": {
+                    "$ref": "#/definitions/Endpoint<Partial<Showing>,Partial<Showing>,null>"
+                }
+            },
+            "required": [
+                "delete",
+                "get",
+                "put"
+            ],
+            "type": "object"
+        },
+        "/user": {
+            "additionalProperties": false,
+            "properties": {
+                "delete": {
+                    "$ref": "#/definitions/Endpoint<null,Partial<User>,null>"
+                },
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<User>,null>"
+                },
+                "put": {
+                    "$ref": "#/definitions/Endpoint<Partial<User>,Partial<User>,null>"
+                }
+            },
+            "required": [
+                "delete",
+                "get",
+                "put"
+            ],
+            "type": "object"
+        },
+        "/user/showings": {
+            "additionalProperties": false,
+            "properties": {
+                "get": {
+                    "$ref": "#/definitions/GetEndpoint<Partial<Showing>[],null>"
+                }
+            },
+            "required": [
+                "get"
+            ],
+            "type": "object"
+        }
+    },
+    "required": [
+        "/auth/login",
+        "/auth/logout",
+        "/auth/register",
+        "/homes",
+        "/homes/:mlsn",
+        "/homes/:mlsn/like",
+        "/homes/:mlsn/showings",
+        "/showings",
+        "/showings/:id",
+        "/user",
+        "/user/showings"
+    ],
+    "type": "object"
+}
+

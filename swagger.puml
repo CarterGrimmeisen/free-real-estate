@@ -1,0 +1,351 @@
+@startuml Rest API
+hide empty members
+set namespaceSeparator none
+
+left to right direction
+'top to bottom direction
+
+interface "/auth/login" {
+}
+
+class "POST /auth/login" {
+.. body ..
+{field} Login body
+.. responses ..
+200: {field} Success 
+}
+
+"POST /auth/login" ..> Success
+"POST /auth/login" ..> Login
+
+"/auth/login" ..> "POST /auth/login"
+
+
+
+interface "/auth/logout" {
+}
+
+class "POST /auth/logout" {
+
+.. responses ..
+200: {field} Success 
+}
+
+"POST /auth/logout" ..> Success
+
+"/auth/logout" ..> "POST /auth/logout"
+
+
+
+interface "/auth/register" {
+}
+
+class "POST /auth/register" {
+.. body ..
+{field} User body
+.. responses ..
+200: {field} User 
+}
+
+"POST /auth/register" ..> User
+
+"/auth/register" ..> "POST /auth/register"
+
+
+
+interface "/homes" {
+}
+
+class "GET /homes" {
+.. query ..
+{field} string agent
+{field} number bathrooms
+{field} number bedrooms
+{field} boolean popular
+{field} number priceMax
+{field} number priceMin
+{field} string school
+{field} number skip
+{field} number sqFootageMax
+{field} number sqFootageMin
+{field} boolean trending
+{field} number zipcode
+.. responses ..
+200: {field} Home[] 
+}
+
+"GET /homes" ..> Home
+
+class "POST /homes" {
+.. body ..
+{field} Home body
+.. responses ..
+200: {field} Home 
+}
+
+"POST /homes" ..> Home
+
+"/homes" ..> "GET /homes"
+"/homes" ..> "POST /homes"
+
+
+
+interface "/homes/{mlsn}" {
+}
+
+class "DELETE /homes/{mlsn}" {
+.. path ..
+{field} string mlsn
+.. responses ..
+200: {field} Home 
+}
+
+"DELETE /homes/{mlsn}" ..> Home
+
+class "GET /homes/{mlsn}" {
+.. path ..
+{field} string mlsn
+.. responses ..
+200: {field} Home 
+}
+
+"GET /homes/{mlsn}" ..> Home
+
+class "PUT /homes/{mlsn}" {
+.. path ..
+{field} string mlsn
+.. body ..
+{field} Home body
+.. responses ..
+200: {field} Home 
+}
+
+"PUT /homes/{mlsn}" ..> Home
+
+"/homes/{mlsn}" ..> "DELETE /homes/{mlsn}"
+"/homes/{mlsn}" ..> "GET /homes/{mlsn}"
+"/homes/{mlsn}" ..> "PUT /homes/{mlsn}"
+
+
+
+interface "/homes/{mlsn}/like" {
+}
+
+class "POST /homes/{mlsn}/like" {
+.. path ..
+{field} string mlsn
+.. responses ..
+200: {field} Liked 
+}
+
+"POST /homes/{mlsn}/like" ..> Liked
+
+"/homes/{mlsn}/like" ..> "POST /homes/{mlsn}/like"
+
+
+
+interface "/homes/{mlsn}/showings" {
+}
+
+class "GET /homes/{mlsn}/showings" {
+.. path ..
+{field} string mlsn
+.. responses ..
+200: {field} Showing 
+}
+
+"GET /homes/{mlsn}/showings" ..> Showing
+
+"/homes/{mlsn}/showings" ..> "GET /homes/{mlsn}/showings"
+
+
+
+interface "/showings" {
+}
+
+class "POST /showings" {
+.. body ..
+{field} Showing body
+.. responses ..
+200: {field} Showing 
+}
+
+"POST /showings" ..> Showing
+
+"/showings" ..> "POST /showings"
+
+
+
+interface "/showings/{id}" {
+}
+
+class "DELETE /showings/{id}" {
+.. path ..
+{field} string id
+.. responses ..
+200: {field} Showing 
+}
+
+"DELETE /showings/{id}" ..> Showing
+
+class "GET /showings/{id}" {
+.. path ..
+{field} string id
+.. responses ..
+200: {field} Showing 
+}
+
+"GET /showings/{id}" ..> Showing
+
+class "PUT /showings/{id}" {
+.. path ..
+{field} string id
+.. body ..
+{field} Showing body
+.. responses ..
+200: {field} Showing 
+}
+
+"PUT /showings/{id}" ..> Showing
+
+"/showings/{id}" ..> "DELETE /showings/{id}"
+"/showings/{id}" ..> "GET /showings/{id}"
+"/showings/{id}" ..> "PUT /showings/{id}"
+
+
+
+interface "/user" {
+}
+
+class "DELETE /user" {
+
+.. responses ..
+200: {field} User 
+}
+
+"DELETE /user" ..> User
+
+class "GET /user" {
+
+.. responses ..
+200: {field} User 
+}
+
+"GET /user" ..> User
+
+class "PUT /user" {
+.. body ..
+{field} User body
+.. responses ..
+200: {field} User 
+}
+
+"PUT /user" ..> User
+
+"/user" ..> "DELETE /user"
+"/user" ..> "GET /user"
+"/user" ..> "PUT /user"
+
+
+
+interface "/user/showings" {
+}
+
+class "GET /user/showings" {
+
+.. responses ..
+200: {field} Showing[] 
+}
+
+"GET /user/showings" ..> Showing
+
+"/user/showings" ..> "GET /user/showings"
+
+class Home {
+    {field} string agentId
+    {field} string alarmInfo
+    {field} number bathrooms
+    {field} number bedrooms
+    {field} string city
+    {field} number dailyHits
+    {field} string description
+    {field} number likeCount
+    {field} string mlsn
+    {field} number price
+    {field} School[] schools
+    {field} number sqfootage
+    {field} string state
+    {field} string street
+    {field} null/string subdivision
+    {field} number zipcode
+}
+
+class Agent {
+  {field} string id
+  {field} string name
+  {field} string phone
+  {field} string email
+  {field} string agencyId
+  {field} string userId
+}
+
+class School {
+  {field} string name
+  {field} SchoolType type 
+}
+
+
+class Liked {
+    {field} boolean liked
+}
+
+
+class Login {
+    {field} string email
+    {field} string password
+}
+
+
+
+class Showing {
+    {field} string agentId
+    {field} null/boolean confirmed
+    {field} string (date-time) date
+    {field} string homeMlsn
+    {field} string id
+    {field} string userId
+}
+
+
+
+class Success {
+    {field} boolean success {true}
+}
+
+
+
+class User {
+    {field} string email
+    {field} string id
+    {field} null/string name
+    {field} UserType type
+}
+
+
+
+enum SchoolType {
+  ELEMENTARY
+  MIDDLE
+  HIGH
+}
+
+
+
+class UserType {
+    USER
+    AGENT
+    ADMIN
+}
+
+
+@enduml

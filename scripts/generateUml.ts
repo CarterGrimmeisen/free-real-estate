@@ -3,7 +3,7 @@ import rimraf from 'rimraf'
 import { apiSpecToOpenApi } from 'crosswalk'
 import execa from 'execa'
 
-import API from '../api/schema.json'
+import API from '../uml.json'
 
 async function main() {
   await mkdirp('.tmp')
@@ -21,7 +21,11 @@ async function main() {
     { stdout: 'pipe' }
   )
 
-  await writeFile('swagger.puml', results.stdout)
+  await writeFile(
+    'swagger.puml',
+    results.stdout.replaceAll(/Partial<([^>]+)>/g, '$1')
+  )
+
   await new Promise<void>((resolve, reject) =>
     rimraf('.tmp', (err) => {
       if (err) return reject(err)
