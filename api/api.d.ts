@@ -59,9 +59,9 @@ export default interface API {
     delete: Endpoint<null, CompleteShowing>
   }
 
-  '/homes/:mlsn/showings/:id/feedback': {
+  '/showings/home/:mlsn/:userId/feedback': {
     get: GetEndpoint<Feedback | null>
-    put: Endpoint<Omit<Feedback, 'showingId'>, CompleteFeedback>
+    post: Endpoint<Omit<Feedback, 'showingId'>, CompleteFeedback>
   }
 
   '/showings/home/:mlsn/:userId': {
