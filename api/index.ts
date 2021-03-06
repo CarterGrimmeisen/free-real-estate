@@ -1,5 +1,5 @@
 import Express from 'express'
-import bodyParser from 'body-parser'
+import { json } from 'body-parser'
 import cookieParser from 'cookie-parser'
 import swaggerUI from 'swagger-ui-express'
 
@@ -18,7 +18,7 @@ import { prisma } from './util/prisma'
 
 const app = Express()
 
-app.use(bodyParser.json())
+app.use(json())
 app.use(cookieParser())
 
 const api = new TypedRouter<API>(app, APIJsonSchema)
