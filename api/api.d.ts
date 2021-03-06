@@ -61,7 +61,7 @@ export default interface API {
 
   '/showings/home/:mlsn/:userId/feedback': {
     get: GetEndpoint<Feedback | null>
-    post: Endpoint<Omit<Feedback, 'showingId'>, CompleteFeedback>
+    post: Endpoint<Omit<Feedback, 'showingId' | 'id'>, CompleteFeedback>
   }
 
   '/showings/home/:mlsn/:userId': {
