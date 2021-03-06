@@ -20,6 +20,8 @@ async function main() {
 
   if (confirm) {
     await prisma.school.deleteMany()
+    await prisma.feedback.deleteMany()
+    await prisma.showing.deleteMany()
     await prisma.home.deleteMany()
     await prisma.agent.deleteMany()
     await prisma.agency.deleteMany()
