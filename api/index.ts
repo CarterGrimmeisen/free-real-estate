@@ -12,6 +12,7 @@ import Auth from './auth'
 import User from './user'
 import Homes from './homes'
 import Showings from './showings'
+import Feedback from './feedback'
 
 import { authenticate } from './util/auth'
 import { prisma } from './util/prisma'
@@ -27,6 +28,7 @@ User.register(api)
 Auth.register(api)
 Homes.register(api)
 Showings.register(api)
+Feedback.register(api)
 
 api.assertAllRoutesRegistered()
 

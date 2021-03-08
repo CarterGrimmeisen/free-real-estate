@@ -8,7 +8,7 @@ POST {{server}}/api/homes
 Content-Type: application/json
 
 {
-  "mlsn": "9876543",
+  "mlsn": "1234567",
   "agentId": "ckllwmtdr01176qv2ofcgaqss",
   "price": 1500000,
   "sqfootage": 4500,
@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 # Get Specified Home
-GET {{server}}/api/homes/9876543
+GET {{server}}/api/homes/1234567
 
 ###
 
