@@ -7,6 +7,7 @@
         outlined
         elevation="2"
         height="375"
+        color="tertiary"
       >
         <v-img
           class="white--text align-end"

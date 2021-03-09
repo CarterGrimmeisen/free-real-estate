@@ -7,6 +7,7 @@
         outlined
         elevation="2"
         height="550"
+        color="primary"
       >
         <v-img
           class="white--text align-end"
@@ -16,13 +17,13 @@
         </v-img>
 
         <v-card-actions class="justify-center">
-          <v-card-title> {{ text }} </v-card-title>
+          <v-card-title class="tertiary--text"> {{ text }} </v-card-title>
         </v-card-actions>
 
         <v-card-actions class="justify-center">
           <v-btn
-            class="white--text"
-            color="teal"
+            class="tertiary--text"
+            color="secondary"
             :to="send"
             @click="overlay = false"
           >
