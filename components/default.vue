@@ -1,13 +1,13 @@
 <template>
-  <Homebar />
+  <NavigationBar />
   <!--<Nuxt /> -->
 </template>
 
 <script>
-import Homebar from '~/components/Homebar.vue'
+import NavigationBar from '~/components/NavigationBar.vue'
 export default {
   name: 'HelloWorld',
-  components: { Homebar },
+  components: { NavigationBar },
   data: () => ({
     seasons: ['0', '100k', '150k', '200k', '250k', '300k+'],
     sqrt: ['0+', '1000', '2000', '3000+'],

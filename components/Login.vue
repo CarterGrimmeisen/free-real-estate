@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <v-app id="LoginCard">
-      <v-row justify="center">
-        <v-btn class="white--text" color="teal" @click="overlay = !overlay">
+      <v-layout no-gutter align-self-center>
+        <v-btn
+          class="tertiary--text"
+          color="secondary"
+          @click="overlay = !overlay"
+        >
           Login
         </v-btn>
 
@@ -49,7 +53,7 @@
             </v-col>
           </v-card>
         </v-overlay>
-      </v-row>
+      </v-layout>
     </v-app>
   </div>
 </template>

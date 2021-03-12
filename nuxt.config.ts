@@ -49,12 +49,17 @@ const config: NuxtConfig = {
           primary: '#F5F0EE',
           secondary: '#E2D476',
           tertiary: '#881226',
+          background: '#F5F0EE',
         },
         dark: {
           primary: '#F5F0EE',
           secondary: '#E2D476',
           tertiary: '#881226',
+          background: '#F5F0EE',
         },
+      },
+      options: {
+        customProperties: true,
       },
     },
   },
