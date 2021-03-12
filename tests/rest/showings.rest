@@ -8,6 +8,11 @@ GET {{server}}/api/homes/3215678/showings
 
 ###
 
+# Get Specific Showing
+GET {{server}}/api/showings/cklrqml6f0005tdv28o23l64w
+
+###
+
 # Create Showing
 POST {{server}}/api/showings
 Content-Type: application/json
