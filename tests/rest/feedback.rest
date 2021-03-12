@@ -1,0 +1,13 @@
+GET http://localhost:3000/api/showings/home/1234567
+
+###
+
+POST http://localhost:3000/api/showings/ckm2w0zvv0008evv2qppc8fjk/feedback
+Content-Type: application/json
+
+{
+  "isInterested": true,
+  "experience": "VERY_GOOD",
+  "priceOpinion": "VERY_GOOD",
+  "notes": "KomodoHype PAUSERS"
+}

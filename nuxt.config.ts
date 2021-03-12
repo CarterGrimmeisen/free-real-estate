@@ -1,4 +1,7 @@
+import { IncomingMessage, ServerResponse } from 'http'
 import { NuxtConfig } from '@nuxt/types'
+import { NextFunction } from 'express'
+import { HTTPError } from 'crosswalk'
 
 const config: NuxtConfig = {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -44,7 +47,14 @@ const config: NuxtConfig = {
   serverMiddleware: [{ path: '/api', handler: '~/api' }],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    headers: {
+      common: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
+  },
 
   storybook: {},
 
@@ -52,6 +62,43 @@ const config: NuxtConfig = {
   build: {
     extend(config) {
       config!.resolve!.alias!.vue = 'vue/dist/vue.common'
+    },
+  },
+
+  hooks: {
+    render: {
+      errorMiddleware(app) {
+        app.use(
+          (
+            err: HTTPError,
+            req: IncomingMessage,
+            res: ServerResponse,
+            next: NextFunction
+          ) => {
+            if (err && req.url?.startsWith('/api')) {
+              // eslint-disable-next-line no-console
+              console.error(
+                'Unknown runtime error encountered. See stacktrace below for more information\n',
+                `URL: ${req.url}\n`,
+                `METHOD: ${req.method}\n`,
+                err.stack
+              )
+
+              res.setHeader('Content-Type', 'application/json')
+              res.writeHead(err.code ?? 500)
+              return res.end(
+                JSON.stringify({
+                  name: err.name,
+                  message: err.message,
+                  stack: err.stack?.split('\n'),
+                })
+              )
+            }
+
+            next(err)
+          }
+        )
+      },
     },
   },
 }

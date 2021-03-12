@@ -24,5 +24,6 @@
         "$shared": {
             "server": "http://localhost:3000"
         }
-    }
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

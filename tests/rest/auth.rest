@@ -1,0 +1,30 @@
+# Get list of users in DB for testing
+GET {{server}}/api/users
+
+###
+
+# Login to application
+POST {{server}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "Vick.Vinegar@FreeRealestate.com",
+  "password": "Vick.Vinegar"
+}
+
+###
+
+# Register new user
+POST {{server}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Testy McTesterson",
+  "email": "test@test.test",
+  "password": "test"
+}
+
+###
+
+# Logout of application
+POST {{server}}/api/auth/logout
