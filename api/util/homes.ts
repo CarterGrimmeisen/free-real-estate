@@ -51,10 +51,7 @@ export const ensureHomeAgent = (
 
     if (count === 0)
       return next(
-        new HTTPError(
-          403,
-          'You are not authorized to make changes to this property'
-        )
+        new HTTPError(403, 'You are not authorized to access this property')
       )
 
     next()

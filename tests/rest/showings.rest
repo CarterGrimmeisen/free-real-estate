@@ -4,7 +4,7 @@ GET {{server}}/api/user/showings
 ###
 
 # Get Home Showings
-GET {{server}}/api/homes/1234567/showings
+GET {{server}}/api/homes/3215678/showings
 
 ###
 

@@ -1,5 +1,5 @@
 # Get List of Homes
-GET {{server}}/api/homes?take=1
+GET {{server}}/api/homes?take=5
 
 ###
 
@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 # Get Specified Home
-GET {{server}}/api/homes/3215678
+GET {{server}}/api/homes/7777777
 
 ###
 

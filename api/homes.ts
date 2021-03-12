@@ -172,7 +172,7 @@ function register(router: TypedRouter<API>) {
     })
   })
 
-  router.router.use('/homes', ensureHomeAgent())
+  router.router.use('/homes/:mlsn', ensureHomeAgent())
 
   router.get('/homes/:mlsn/showings', ({ mlsn }) => {
     return prisma.home

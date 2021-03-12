@@ -8,8 +8,8 @@ POST {{server}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "Shawn.Drench@FreeRealestate.com",
-  "password": "Shawn.Drench"
+  "email": "Vick.Vinegar@FreeRealestate.com",
+  "password": "Vick.Vinegar"
 }
 
 ###
