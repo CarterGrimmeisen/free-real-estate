@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
+import glob from 'glob'
 import enquirer from 'enquirer'
 import { PrismaClient, Home, SchoolType } from '@prisma/client'
 import { hash } from 'bcryptjs'
+import { readFileSync } from 'fs-extra'
 
-import HOME_DATA from './home_data.json'
+import HOME_DATA from './data/home_data.json'
 
 async function main() {
   const prisma = new PrismaClient()
@@ -22,6 +24,7 @@ async function main() {
     await prisma.school.deleteMany()
     await prisma.feedback.deleteMany()
     await prisma.showing.deleteMany()
+    await prisma.file.deleteMany()
     await prisma.home.deleteMany()
     await prisma.agent.deleteMany()
     await prisma.agency.deleteMany()
@@ -110,6 +113,18 @@ async function main() {
                     name: schoolString.split('-')[1].trim(),
                   },
                 })),
+            },
+
+            files: {
+              create: glob
+                .sync(`scripts/data/${home['MLS#']}-*-fs8.png`)
+                .map((file) => {
+                  return {
+                    type: 'IMAGE',
+                    mime: 'image/png',
+                    contents: readFileSync(file, { encoding: 'base64' }),
+                  }
+                }),
             },
           },
         })

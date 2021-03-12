@@ -36,10 +36,7 @@ function register(router: TypedRouter<API>) {
         ? { dailyHits: 'desc' }
         : {},
       skip: query.skip,
-      take: 20,
-      include: {
-        agent: true,
-      },
+      take: query.take ?? 20,
     })
   })
 
@@ -56,11 +53,20 @@ function register(router: TypedRouter<API>) {
         },
       },
       include: {
-        agent: true,
+        agent: { include: { agency: true } },
+        schools: true,
       },
     })
 
     return home!
+  })
+
+  router.get('/homes/:mlsn/files', ({ mlsn }, req) => {
+    return prisma.home
+      .findUnique({
+        where: { mlsn },
+      })
+      .files({ where: { type: req.query.type } })
   })
 
   router.router.use('/homes/:mlsn/like', authenticate('USER'))
@@ -102,13 +108,20 @@ function register(router: TypedRouter<API>) {
 
   router.router.use('/homes', authenticate('AGENT'))
 
-  router.delete('/homes/:mlsn', ({ mlsn }) => {
+  router.delete('/homes/:mlsn', async ({ mlsn }) => {
+    await prisma.onDelete({
+      model: 'Home',
+      where: { mlsn },
+    })
+
     return prisma.home.delete({
       where: {
         mlsn,
       },
       include: {
+        agent: { include: { agency: true } },
         schools: true,
+        files: true,
       },
     })
   })
@@ -143,8 +156,17 @@ function register(router: TypedRouter<API>) {
             create: { name: school.name, type: school.type },
           })),
         },
+
+        files: {
+          create: home.files.map((file) => ({
+            type: file.type,
+            mime: file.mime,
+            contents: file.contents,
+          })),
+        },
       },
       include: {
+        agent: { include: { agency: true } },
         schools: true,
       },
     })
@@ -195,6 +217,7 @@ function register(router: TypedRouter<API>) {
         },
       },
       include: {
+        agent: { include: { agency: true } },
         schools: true,
       },
     })

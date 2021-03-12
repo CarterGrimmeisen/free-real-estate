@@ -30,8 +30,10 @@ model User {
   email      String    @unique
   type       UserType
   likedHomes Home[]
+  /// @onDelete(CASCADE)
   showings   Showing[]
 
+  /// @onDelete(CASCADE)
   agentProfile Agent?
 }
 
@@ -42,9 +44,11 @@ model Agent {
   email    String    @unique
   agency   Agency    @relation(fields: [agencyId], references: [id])
   agencyId String
+  /// @onDelete(SET_NULL)
   homes    Home[]
   user     User      @relation(fields: [userId], references: [id])
   userId   String
+  /// @onDelete(CASCADE)
   showings Showing[]
 }
 
@@ -67,6 +71,7 @@ model Home {
   state       String
   zipcode     Int
   subdivision String?
+  /// @onDelete(SET_NULL)
   schools     School[]
   dailyHits   Int       @default(0)
   alarmInfo   String
@@ -75,7 +80,10 @@ model Home {
   bathrooms   Float
   likeCount   Int       @default(0)
   liked       User[]
+  /// @onDelete(CASCADE)
   showings    Showing[]
+  /// @onDelete(CASCADE)
+  files       File[]
 }
 
 enum SchoolType {
@@ -100,10 +108,8 @@ model Showing {
   agentId   String
   home      Home      @relation(fields: [homeMlsn], references: [mlsn])
   homeMlsn  String
+  /// @onDelete(CASCADE)
   feedback  Feedback?
-
-  @@unique([date, homeMlsn])
-  @@unique([date, userId, homeMlsn])
 }
 
 enum FeedbackOptions {
@@ -122,4 +128,18 @@ model Feedback {
   experience   FeedbackOptions
   priceOpinion FeedbackOptions
   notes        String?
+}
+
+enum FileType {
+  IMAGE
+  DOCUMENT
+}
+
+model File {
+  id       String   @id @default(cuid())
+  mime     String
+  contents String
+  type     FileType
+  home     Home     @relation(fields: [homeMlsn], references: [mlsn])
+  homeMlsn String
 }

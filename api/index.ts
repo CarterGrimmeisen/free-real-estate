@@ -11,6 +11,7 @@ import API from './api'
 import Auth from './auth'
 import User from './user'
 import Homes from './homes'
+import Files from './files'
 import Showings from './showings'
 import Feedback from './feedback'
 
@@ -27,6 +28,7 @@ const api = new TypedRouter<API>(app, APIJsonSchema)
 User.register(api)
 Auth.register(api)
 Homes.register(api)
+Files.register(api)
 Showings.register(api)
 Feedback.register(api)
 

@@ -57,7 +57,8 @@ function register(router: TypedRouter<API>) {
     return showing!
   })
 
-  router.delete('/showings/:id', ({ id }) => {
+  router.delete('/showings/:id', async ({ id }) => {
+    await prisma.onDelete({ model: 'Showing', where: { id } })
     return prisma.showing.delete({
       where: {
         id,

@@ -81,7 +81,7 @@ const config: NuxtConfig = {
                 'Unknown runtime error encountered. See stacktrace below for more information\n',
                 `URL: ${req.url}\n`,
                 `METHOD: ${req.method}\n`,
-                err.stack?.split('\n').slice(0, 2).join('\n')
+                err.stack
               )
 
               res.setHeader('Content-Type', 'application/json')

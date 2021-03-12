@@ -38,11 +38,13 @@ export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
     next()
   }
 
-export const ensureHomeAgent = (): RequestHandler<{ mlsn: string }> =>
+export const ensureHomeAgent = (
+  location: 'path' | 'body' = 'path'
+): RequestHandler<{ mlsn: string }, any, { homeMlsn: string }> =>
   async function (req, _res, next) {
     const count = await prisma.home.count({
       where: {
-        mlsn: req.params.mlsn,
+        mlsn: location === 'path' ? req.params.mlsn : req.body.homeMlsn,
         agentId: req.user!.agentProfile?.id,
       },
     })

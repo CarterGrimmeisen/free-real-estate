@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 # Get Specified Home
-GET {{server}}/api/homes/1234567
+GET {{server}}/api/homes/3215678
 
 ###
 
@@ -47,7 +47,7 @@ Content-Type: application/json
 ###
 
 # Delete Home
-DELETE {{server}}/api/homes/9876543
+DELETE {{server}}/api/homes/2222222
 
 ###
 

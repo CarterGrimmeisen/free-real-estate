@@ -57,9 +57,10 @@ function register(router: TypedRouter<API>) {
     return user
   })
 
-  router.delete('/user', (_params, req, res) => {
+  router.delete('/user', async (_params, req, res) => {
     res.clearCookie('userId')
 
+    await prisma.onDelete({ model: 'User', where: { id: req.user!.id } })
     return prisma.user.delete({
       where: { id: req.user!.id },
     })

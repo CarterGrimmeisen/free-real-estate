@@ -1,18 +1,28 @@
 // This is the api definition file,
 // learn more about it in the docs: https://git.io/Jt0RF
 
-import { Agent, Home, Feedback, School, Showing, User } from '@prisma/client'
+import {
+  Agent,
+  Home,
+  Feedback,
+  School,
+  Showing,
+  User,
+  File,
+  FileType,
+  Agency,
+} from '@prisma/client'
 import { Endpoint, GetEndpoint } from 'crosswalk/dist/api-spec'
 
 type Success = { success: true }
 type Liked = { liked: boolean }
 
-type CompleteHome = Home & { schools: School[] }
+type CompleteAgent = Agent & { agency: Agency }
+type CompleteHome = Home & { schools: School[]; agent: CompleteAgent }
+
 type CompleteShowing = Showing & { user: User; agent: Agent }
 type CompleteFeedback = Feedback & { showing: Showing }
 
-type CreateHome = Omit<CompleteHome, 'agentId' | 'likeCount' | 'dailyHits'>
-type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
 type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'> & {
   date: string
 }
@@ -20,6 +30,12 @@ type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
 type CreateFeedback = Omit<Feedback, 'id' | 'showingId'>
+type CreateFile = Omit<File, 'id'>
+type CreateHome = Omit<
+  CompleteHome & { files: CreateFile[] },
+  'agentId' | 'likeCount' | 'dailyHits'
+>
+type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
 
 export default interface API {
   '/auth/login': {
@@ -48,6 +64,7 @@ export default interface API {
       Home[],
       {
         skip?: number
+        take?: number
         priceMin?: number
         priceMax?: number
         zipcode?: number
@@ -65,7 +82,7 @@ export default interface API {
   }
 
   '/homes/:mlsn': {
-    get: GetEndpoint<Home>
+    get: GetEndpoint<CompleteHome>
     put: Endpoint<UpdateHome, CompleteHome>
     delete: Endpoint<null, CompleteHome>
   }
@@ -76,6 +93,18 @@ export default interface API {
 
   '/homes/:mlsn/showings': {
     get: GetEndpoint<CompleteShowing[]>
+  }
+
+  '/homes/:mlsn/files': {
+    get: GetEndpoint<File[], { type?: FileType }>
+  }
+
+  '/files': {
+    post: Endpoint<CreateFile, File>
+  }
+
+  '/files/:id': {
+    delete: Endpoint<null, File>
   }
 
   '/user/showings': {
@@ -93,7 +122,7 @@ export default interface API {
   }
 
   '/showings/:id/feedback': {
-    get: GetEndpoint<Feedback | null>
+    get: GetEndpoint<Feedback>
     post: Endpoint<CreateFeedback, CompleteFeedback>
   }
 }

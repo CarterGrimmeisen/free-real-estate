@@ -4,6 +4,7 @@ import { ensureHomeExists } from './util/homes'
 import { ensureShowingExistsAndParticipating } from './util/showings'
 import { authenticate } from './util/auth'
 import { prisma } from './util/prisma'
+import { ensureFeedbackExists } from './util/feedback'
 
 function register(router: TypedRouter<API>) {
   router.router.use('/showings/:id/feedback', authenticate('USER'))
@@ -14,16 +15,6 @@ function register(router: TypedRouter<API>) {
     '/showings/:id/feedback',
     ensureShowingExistsAndParticipating()
   )
-
-  router.get('/showings/:id/feedback', async ({ id }) => {
-    const feedback = await prisma.showing
-      .findFirst({
-        where: { id },
-      })
-      .feedback()
-
-    return feedback
-  })
 
   router.post('/showings/:id/feedback', async ({ id }, body) => {
     const { id: showingId } = (await prisma.showing.findFirst({
@@ -44,6 +35,18 @@ function register(router: TypedRouter<API>) {
       },
       include: { showing: true },
     })
+  })
+
+  router.router.use('/showings/:id/feedback', ensureFeedbackExists())
+
+  router.get('/showings/:id/feedback', async ({ id }) => {
+    const feedback = await prisma.showing
+      .findFirst({
+        where: { id },
+      })
+      .feedback()
+
+    return feedback!
   })
 }
 
