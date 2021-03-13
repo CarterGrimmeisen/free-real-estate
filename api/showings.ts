@@ -44,8 +44,8 @@ function register(router: TypedRouter<API>) {
 
     let recipients: string[]
 
-    if (user) recipients = [/* home.agent.email, */ user.email]
-    else recipients = [] // home.agent.email
+    if (user) recipients = [home.agent.email, user.email]
+    else recipients = [home.agent.email]
 
     const date = new Date(body.date)
 
