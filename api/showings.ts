@@ -42,17 +42,21 @@ function register(router: TypedRouter<API>) {
       },
     })
 
-    let recipients
+    let recipients: string[]
 
-    if (user) recipients = [home.agent.email, user.email]
-    else recipients = home.agent.email
+    if (user) recipients = [/* home.agent.email, */ user.email]
+    else recipients = [] // home.agent.email
 
     const date = new Date(body.date)
 
     sendEmail(
       recipients,
       'Showing Scheduled',
-      `<h1>You have a new showing scheduled!/h1><br /><h2>For ${home.street} in ${home.city}, ${home.state} ${home.zipcode}</h2><br/><h2>At ${date.toTimeString} on ${date.toDateString}</h2><br/>`
+      `<h1>You have a new showing scheduled!</h1><br /><h2>For ${
+        home.street
+      } in ${home.city}, ${home.state} ${
+        home.zipcode
+      }</h2><br/><h2>At ${date.toTimeString()} on ${date.toDateString()}</h2><br/>`
     )
 
     return createdShowing
