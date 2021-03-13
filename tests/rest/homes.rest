@@ -1,0 +1,55 @@
+# Get List of Homes
+GET {{server}}/api/homes?take=5
+
+###
+
+# Create Home
+POST {{server}}/api/homes
+Content-Type: application/json
+
+{
+  "mlsn": "1234567",
+  "agentId": "ckllwmtdr01176qv2ofcgaqss",
+  "price": 1500000,
+  "sqfootage": 4500,
+  "street": "8 Woodland Court",
+  "city": "Manchester",
+  "state": "PA",
+  "zipcode": 73123,
+  "subdivision": null,
+  "alarmInfo": "N/A",
+  "description": "A beautiful home in rural PA or something...idk",
+  "bedrooms": 5,
+  "bathrooms": 3.5,
+  "schools": [
+    {
+      "name": "Manchester Middle",
+      "type": "MIDDLE"
+    }
+  ]
+}
+
+###
+
+# Get Specified Home
+GET {{server}}/api/homes/7777777
+
+###
+
+# Update Home
+PUT {{server}}/api/homes/9876543
+Content-Type: application/json
+
+{
+  "alarmInfo": "Less N/A"
+}
+
+###
+
+# Delete Home
+DELETE {{server}}/api/homes/2222222
+
+###
+
+# Like Home
+POST {{server}}/api/homes/9876543/like
