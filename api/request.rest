@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/api/showings/home/1234567/cklwywrpl004596zeiuz8a14d/feedback
+POST http://localhost:3000/api/showings/home/1234567/cklx0601w0045zoze39juctby/feedback
 Content-Type: application/json
 
 {
@@ -47,3 +47,7 @@ Content-Type: application/json
   "priceOpinion": "VERY_GOOD",
   "notes": "KomodoHype PAUSERS"
 }
+
+###
+
+GET http://localhost:3000/api/showings/home/1234567/cklx0601w0045zoze39juctby/feedback
