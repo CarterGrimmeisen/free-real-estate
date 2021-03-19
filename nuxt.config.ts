@@ -46,15 +46,15 @@ const config: NuxtConfig = {
       dark: false,
       themes: {
         light: {
-          primary: '#F5F0EE',
+          primary: '#881226',
           secondary: '#E2D476',
-          tertiary: '#881226',
+          tertiary: '#F5F0EE',
           background: '#F5F0EE',
         },
         dark: {
-          primary: '#F5F0EE',
+          primary: '#881226',
           secondary: '#E2D476',
-          tertiary: '#881226',
+          tertiary: '#F5F0EE',
           background: '#F5F0EE',
         },
       },

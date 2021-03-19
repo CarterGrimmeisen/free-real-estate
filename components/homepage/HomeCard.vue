@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="rounded-xl"
+    class="rounded-xl cardBorder"
     max-width="400"
     outlined
     max-height="550"
@@ -13,13 +13,13 @@
     </v-img>
 
     <v-card-actions class="justify-center">
-      <v-card-title class="tertiary--text"> {{ text }} </v-card-title>
+      <v-card-title class="primary--text"> {{ text }} </v-card-title>
     </v-card-actions>
 
     <v-card-actions class="justify-center">
       <v-btn
         class="tertiary--text"
-        color="secondary"
+        color="primary"
         :to="send"
         @click="overlay = false"
       >
@@ -35,8 +35,8 @@ export default {
 }
 </script>
 
-<style>
-.rounded-card {
-  border-radius: 24px;
+<style scoped>
+.cardBorder {
+  border: 3px solid var(--v-primary-base) !important;
 }
 </style>

@@ -92,7 +92,7 @@
 <!-- <ListingPreview /> -->
 
 <script>
-import ListingPreview from './ListingPreview.vue'
+import ListingPreview from '../listing/ListingPreview.vue'
 
 export default {
   name: 'HelloWorld',

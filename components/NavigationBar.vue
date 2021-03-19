@@ -1,7 +1,9 @@
 <!-- just the homebar -->
 <template>
-  <v-app-bar color="secondary" dark>
-    <v-btn class="tertiary" icon to="/"><v-icon>mdi-home</v-icon></v-btn>
+  <v-app-bar color="primary" dark app>
+    <v-btn class="tertiary" icon to="/homepage"
+      ><v-icon color="primary">mdi-home</v-icon></v-btn
+    >
     <v-toolbar-title class="tertiary--text"
       >404 Free Real Estate</v-toolbar-title
     >
