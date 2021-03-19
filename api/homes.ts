@@ -1,5 +1,4 @@
 import { TypedRouter } from 'crosswalk'
-import * as z from 'zod'
 import API from './api'
 import { authenticate } from './util/auth'
 import {
@@ -7,32 +6,11 @@ import {
   ensureHomeExists,
   ensureHomeUnique,
 } from './util/homes'
-
-const numericString = (input = z.string()) =>
-  input.transform((arg) => parseInt(arg))
-const booleanString = (input = z.string()) =>
-  input.transform((arg) => arg !== undefined)
-
-const QuerySchema = z.object({
-  skip: numericString(),
-  priceMin: numericString(),
-  priceMax: numericString(),
-  zipcode: numericString(z.string().max(6)),
-  agent: z.string(),
-  school: z.string(),
-  sqFootageMin: numericString(),
-  sqFootageMax: numericString(),
-  bedrooms: numericString(),
-  bathrooms: numericString(),
-  trending: booleanString(),
-  popular: booleanString(),
-})
+import { prisma } from './util/prisma'
 
 function register(router: TypedRouter<API>) {
-  router.get('/homes', (_params, req) => {
-    const query = QuerySchema.partial().parse(req.query)
-
-    return req.prisma.home.findMany({
+  router.get('/homes', (_params, { query }, _res) => {
+    return prisma.home.findMany({
       where: {
         price: {
           gte: query.priceMin,
@@ -58,17 +36,14 @@ function register(router: TypedRouter<API>) {
         ? { dailyHits: 'desc' }
         : {},
       skip: query.skip,
-      take: 20,
-      include: {
-        agent: true,
-      },
+      take: query.take ?? 20,
     })
   })
 
   router.router.use('/homes/:mlsn', ensureHomeExists())
 
-  router.get('/homes/:mlsn', async ({ mlsn }, req) => {
-    const home = await req.prisma.home.update({
+  router.get('/homes/:mlsn', async ({ mlsn }) => {
+    const home = await prisma.home.update({
       where: {
         mlsn,
       },
@@ -78,40 +53,49 @@ function register(router: TypedRouter<API>) {
         },
       },
       include: {
-        agent: true,
+        agent: { include: { agency: true } },
+        schools: true,
       },
     })
 
     return home!
   })
 
+  router.get('/homes/:mlsn/files', ({ mlsn }, req) => {
+    return prisma.home
+      .findUnique({
+        where: { mlsn },
+      })
+      .files({ where: { type: req.query.type } })
+  })
+
   router.router.use('/homes/:mlsn/like', authenticate('USER'))
 
-  router.post('/homes/:mlsn/like', async ({ mlsn }, _body, req) => {
-    const count = await req.prisma.home.count({
+  router.post('/homes/:mlsn/like', async ({ mlsn }, _body, { user }) => {
+    const count = await prisma.home.count({
       where: {
         mlsn,
         liked: {
           some: {
-            id: req.user!.id,
+            id: user!.id,
           },
         },
       },
     })
 
-    await req.prisma.home.update({
+    await prisma.home.update({
       where: { mlsn },
       data: {
         likeCount: count ? { decrement: 1 } : { increment: 1 },
         liked: count
           ? {
               disconnect: {
-                id: req.user!.id,
+                id: user!.id,
               },
             }
           : {
               connect: {
-                id: req.user!.id,
+                id: user!.id,
               },
             },
       },
@@ -122,10 +106,30 @@ function register(router: TypedRouter<API>) {
     }
   })
 
-  router.router.use('/homes', authenticate('AGENT'), ensureHomeUnique())
+  router.router.use('/homes', authenticate('AGENT'))
 
-  router.post('/homes', (_params, home, req) => {
-    return req.prisma.home.create({
+  router.delete('/homes/:mlsn', async ({ mlsn }) => {
+    await prisma.onDelete({
+      model: 'Home',
+      where: { mlsn },
+    })
+
+    return prisma.home.delete({
+      where: {
+        mlsn,
+      },
+      include: {
+        agent: { include: { agency: true } },
+        schools: true,
+        files: true,
+      },
+    })
+  })
+
+  router.router.use('/homes', ensureHomeUnique())
+
+  router.post('/homes', (_params, home, { user }) => {
+    return prisma.home.create({
       data: {
         mlsn: home.mlsn,
         alarmInfo: home.alarmInfo,
@@ -142,7 +146,7 @@ function register(router: TypedRouter<API>) {
 
         agent: {
           connect: {
-            email: req.user?.email,
+            email: user!.email,
           },
         },
 
@@ -152,14 +156,32 @@ function register(router: TypedRouter<API>) {
             create: { name: school.name, type: school.type },
           })),
         },
+
+        files: {
+          create: home.files.map((file) => ({
+            type: file.type,
+            mime: file.mime,
+            contents: file.contents,
+          })),
+        },
+      },
+      include: {
+        agent: { include: { agency: true } },
+        schools: true,
       },
     })
   })
 
-  router.router.use('/homes', ensureHomeAgent())
+  router.router.use('/homes/:mlsn', ensureHomeAgent())
 
-  router.put('/homes/:mlsn', ({ mlsn }, home, req) => {
-    return req.prisma.home.update({
+  router.get('/homes/:mlsn/showings', ({ mlsn }) => {
+    return prisma.home
+      .findUnique({ where: { mlsn } })
+      .showings({ include: { user: true, agent: true, home: true } })
+  })
+
+  router.put('/homes/:mlsn', ({ mlsn }, home, { user }) => {
+    return prisma.home.update({
       where: {
         mlsn,
       },
@@ -173,7 +195,7 @@ function register(router: TypedRouter<API>) {
 
         agent: {
           connect: {
-            id: home.agentId,
+            id: user!.agentProfile!.id,
           },
         },
 
@@ -194,13 +216,9 @@ function register(router: TypedRouter<API>) {
           })),
         },
       },
-    })
-  })
-
-  router.delete('/homes/:mlsn', ({ mlsn }, req) => {
-    return req.prisma.home.delete({
-      where: {
-        mlsn,
+      include: {
+        agent: { include: { agency: true } },
+        schools: true,
       },
     })
   })

@@ -1,0 +1,38 @@
+# Get User Showings
+GET {{server}}/api/user/showings
+
+###
+
+# Get Home Showings
+GET {{server}}/api/homes/3215678/showings
+
+###
+
+# Get Specific Showing
+GET {{server}}/api/showings/cklrqml6f0005tdv28o23l64w
+
+###
+
+# Create Showing
+POST {{server}}/api/showings
+Content-Type: application/json
+
+{
+  "homeMlsn": "1234567",
+  "date": "{{$datetime iso8601}}"
+}
+
+###
+
+# Confirm/Deny Showing
+PUT {{server}}/api/showings/cklrqml6f0005tdv28o23l64w
+Content-Type: application/json
+
+{
+  "confirmed": true
+}
+
+###
+
+# Cancel Showing
+DELETE {{server}}/api/showings/cklrqml6f0005tdv28o23l64w

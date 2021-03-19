@@ -91,6 +91,6 @@ sw.*
 *.swp
 
 api/schema.json
-
+scripts/data/*.png
 .nuxt-storybook
 storybook-static
