@@ -16,5 +16,22 @@ Content-Type: application/json
 
 ###
 
+# Generate New Document
+POST {{server}}/api/files?docType=ClosingDisclosure
+Content-Type: application/json
+
+{
+  "type": "DOCUMENT",
+  "homeMlsn": "7777777"
+}
+
+###
+
+# Download a File
+GET {{server}}/api/files/ckmiuohoq00116iv2ij6fsdkq
+
+
+###
+
 # Delete a file
 DELETE {{server}}/api/files/ckm5ejw1e0031l6v22u7u3f75

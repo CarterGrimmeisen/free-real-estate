@@ -30,12 +30,27 @@ type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
 type CreateFeedback = Omit<Feedback, 'id' | 'showingId'>
-type CreateFile = Omit<File, 'id'>
+type CreateFile =
+  | {
+      type: 'DOCUMENT'
+      homeMlsn: string
+      [key: string]: string
+    }
+  | {
+      type: 'IMAGE'
+      mime: string
+      name: string
+      homeMlsn: string
+      contents: string
+    }
+
 type CreateHome = Omit<
   CompleteHome & { files: CreateFile[] },
   'agentId' | 'likeCount' | 'dailyHits'
 >
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
+
+type DocType = 'ClosingDisclosure' | 'PurchaseAgreement' | 'RepairRequest'
 
 export default interface API {
   '/auth/login': {
@@ -46,7 +61,7 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<CreateUser, User>
+    post: Endpoint<CreateUser, Success>
   }
 
   '/auth/logout': {
@@ -100,7 +115,7 @@ export default interface API {
   }
 
   '/files': {
-    post: Endpoint<CreateFile, File>
+    post: Endpoint<CreateFile, File, { docType?: DocType }>
   }
 
   '/files/:id': {

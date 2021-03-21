@@ -78,7 +78,6 @@ model Home {
   description String
   bedrooms    Int
   bathrooms   Float
-  likeCount   Int       @default(0)
   liked       User[]
   /// @onDelete(CASCADE)
   showings    Showing[]
@@ -137,6 +136,7 @@ enum FileType {
 
 model File {
   id       String   @id @default(cuid())
+  name     String
   mime     String
   contents String
   type     FileType
