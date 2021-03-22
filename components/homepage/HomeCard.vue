@@ -1,10 +1,11 @@
 <template>
   <v-card
-    class="rounded-xl cardBorder"
+    class="cardBorder"
+    rounded="xl"
     max-width="400"
-    outlined
     max-height="550"
     color="white"
+    outlined
   >
     <v-img
       max-height="275px"
@@ -37,6 +38,8 @@ export default {
 
 <style scoped>
 .cardBorder {
-  border: 3px solid var(--v-primary-base) !important;
+  border-color: var(--v-primary-base) !important;
+  border-width: 3px !important;
+  border-style: solid !important;
 }
 </style>
