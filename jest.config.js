@@ -11,9 +11,14 @@ module.exports = {
     '^.+\\.js$': 'babel-jest',
     '.*\\.(vue)$': 'vue-jest',
   },
-  collectCoverage: true,
-  collectCoverageFrom: [
-    '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue',
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
+  },
+  setupFilesAfterEnv: ['./tests/util/prisma.ts'],
+  testMatch: [
+    '**/__tests__/**/*.spec.[jt]s?(x)',
+    '**/?(*.)+(spec|test).[jt]s?(x)',
   ],
 }

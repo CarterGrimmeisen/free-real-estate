@@ -1,12 +1,13 @@
 import { Home } from '@prisma/client'
 import { HTTPError } from 'crosswalk'
 import { RequestHandler } from 'express'
+import { prisma } from './prisma'
 
 export const ensureHomeExists = (): RequestHandler<{ mlsn?: string }> =>
   async function (req, _res, next) {
     if (!req.params.mlsn) return next()
 
-    const count = await req.prisma.home.count({
+    const count = await prisma.home.count({
       where: {
         mlsn: req.params.mlsn,
       },
@@ -20,7 +21,9 @@ export const ensureHomeExists = (): RequestHandler<{ mlsn?: string }> =>
 
 export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
   async function (req, _res, next) {
-    const count = await req.prisma.home.count({
+    if (req.method !== 'post' && req.method !== 'put') return next()
+
+    const count = await prisma.home.count({
       where: {
         street: req.body.street,
         city: req.body.city,
@@ -35,21 +38,20 @@ export const ensureHomeUnique = (): RequestHandler<never, never, Home> =>
     next()
   }
 
-export const ensureHomeAgent = (): RequestHandler<{ mlsn: string }> =>
+export const ensureHomeAgent = (
+  location: 'path' | 'body' = 'path'
+): RequestHandler<{ mlsn: string }, any, { homeMlsn: string }> =>
   async function (req, _res, next) {
-    const count = await req.prisma.home.count({
+    const count = await prisma.home.count({
       where: {
-        mlsn: req.params.mlsn,
+        mlsn: location === 'path' ? req.params.mlsn : req.body.homeMlsn,
         agentId: req.user!.agentProfile?.id,
       },
     })
 
     if (count === 0)
       return next(
-        new HTTPError(
-          403,
-          'You are not authorized to make changes to this property'
-        )
+        new HTTPError(403, 'You are not authorized to access this property')
       )
 
     next()

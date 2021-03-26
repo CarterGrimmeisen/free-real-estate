@@ -3,6 +3,7 @@ import { compare, hash } from 'bcryptjs'
 import { HTTPError, TypedRouter } from 'crosswalk'
 import { sign } from 'jsonwebtoken'
 import API from './api'
+import { prisma } from './util/prisma'
 
 const verifyPassword = (
   user: User & { auth: Auth | null },
@@ -12,8 +13,8 @@ const verifyPassword = (
 }
 
 function register(router: TypedRouter<API>) {
-  router.post('/auth/login', async (_params, body, req, res) => {
-    const user = await req.prisma.user.findUnique({
+  router.post('/auth/login', async (_params, body, _, res) => {
+    const user = await prisma.user.findUnique({
       where: {
         email: body.email,
       },
@@ -42,8 +43,8 @@ function register(router: TypedRouter<API>) {
     return { success: true }
   })
 
-  router.post('/auth/register', async (_params, body, req) => {
-    return req.prisma.user.create({
+  router.post('/auth/register', async (_params, body) => {
+    return prisma.user.create({
       data: {
         name: body.name,
         email: body.email,
