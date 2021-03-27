@@ -12,12 +12,12 @@
             ></v-progress-linear>
           </template>
 
-          <v-card-title class="primary--text"
-            >Street, City, State, Zipcode</v-card-title
-          >
+          <v-card-title class="primary--text">
+            Street, City, State, Zipcode
+          </v-card-title>
           <v-divider class="mx-4"></v-divider>
 
-          <ImageManager />
+          <ImageDisplay />
 
           <v-divider class="mx-4"></v-divider>
 
