@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable no-console */
+import { basename } from 'path'
 import glob from 'glob'
 import enquirer from 'enquirer'
 import { PrismaClient, Home, SchoolType } from '@prisma/client'
@@ -120,6 +121,7 @@ async function main() {
                 .sync(`scripts/data/${home['MLS#']}-*-fs8.png`)
                 .map((file) => {
                   return {
+                    name: basename(file),
                     type: 'IMAGE',
                     mime: 'image/png',
                     contents: readFileSync(file, { encoding: 'base64' }),
