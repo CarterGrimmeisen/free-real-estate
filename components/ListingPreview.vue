@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-12" max-width="374">
+  <v-card max-width="374" class="mx-auto mx-md-0">
     <v-img
       height="250"
       src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
@@ -25,7 +25,7 @@
       </v-btn>
       <v-btn class="ma-2" color="primary" dark>
         More Details
-        <v-icon dark right> mdi-info </v-icon>
+        <v-icon dark right> mdi-information </v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>

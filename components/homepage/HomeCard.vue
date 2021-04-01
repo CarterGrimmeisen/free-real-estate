@@ -2,7 +2,7 @@
   <v-card
     class="cardBorder"
     rounded="xl"
-    max-width="400"
+    max-width="100%"
     max-height="550"
     color="white"
     outlined
@@ -30,10 +30,26 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  props: ['text', 'button', 'send'],
-}
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  name: 'HomeCard',
+  props: {
+    text: {
+      type: String,
+      default: '',
+    },
+    button: {
+      type: String,
+      default: '',
+    },
+    send: {
+      type: String,
+      default: '',
+    },
+  },
+})
 </script>
 
 <style scoped>
