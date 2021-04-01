@@ -43,8 +43,8 @@ function register(router: TypedRouter<API>) {
     return { success: true }
   })
 
-  router.post('/auth/register', async (_params, body) => {
-    return prisma.user.create({
+  router.post('/auth/register', async (_params, body, _req, res) => {
+    const user = await prisma.user.create({
       data: {
         name: body.name,
         email: body.email,
@@ -56,6 +56,20 @@ function register(router: TypedRouter<API>) {
         type: 'USER',
       },
     })
+
+    res.cookie(
+      'userId',
+      sign(
+        { id: user.id },
+        process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
+      ),
+      {
+        maxAge: 1209600,
+        httpOnly: true,
+      }
+    )
+
+    return { success: true }
   })
 
   router.post('/auth/logout', (_params, _body, _req, res) => {

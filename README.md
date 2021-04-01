@@ -1,6 +1,7 @@
 # free-real-estate
 
 ## Environment Setup
+
 ```bash
 # Install Node.js Current https://nodejs.org/en/
 $ npm install --global yarn
@@ -10,6 +11,13 @@ $ npm install --global yarn
 $ psql
 > CREATE ROLE freerealestate PASSWORD 'its_free_real_estate' CREATEDB;
 > CREATE DATABASE freerealestate WITH OWNER freerealestate;
+```
+
+## PDF Generation Dependencies
+
+```bash
+# A couple of required dependencies for PDF generation to work correctly (**NOTE**: PDF generation will not work on Windows)
+$ sudo apt install libpoppler-qt5-dev libcairo2-dev
 ```
 
 ## Build Setup
@@ -30,6 +38,7 @@ $ yarn start
 ```
 
 ## CRON Setup
+
 The requirements specify that we must send out daily emails.
 This CRON job will automatically send out these emails and reset daily hit counters in the database.
 
