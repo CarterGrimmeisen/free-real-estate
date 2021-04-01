@@ -2,10 +2,10 @@
   <div class="home">
     <div>
       <v-container justify-center fluid>
-        <h1 class="pt-5 text-center tertiary--text">
+        <h1 class="pt-5 text-center primary--text">
           Need help in the housing market?
         </h1>
-        <h2 class="pb-5 text-center tertiary--text">
+        <h2 class="pb-5 text-center primary--text">
           We're (not) an error free service!
         </h2>
 
