@@ -46,7 +46,11 @@ export default interface API {
   }
 
   '/auth/register': {
-    post: Endpoint<CreateUser, User>
+    post: Endpoint<CreateUser, Success>
+  }
+
+  '/auth/check': {
+    get: GetEndpoint<Success>
   }
 
   '/auth/logout': {

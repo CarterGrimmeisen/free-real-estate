@@ -6,6 +6,7 @@ export function useAuth() {
   return {
     login: api.post('/auth/login'),
     register: api.post('/auth/register'),
-    logout: api.post('/auth/logout'),
+    check: api.get('/auth/check'),
+    logout: api.post('/auth/logout').bind(api, {}, null),
   }
 }

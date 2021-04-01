@@ -21,8 +21,12 @@ const config: NuxtConfig = {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
+  router: {
+    middleware: ['auth'],
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/crosswalk', '~/plugins/auth'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -33,16 +37,15 @@ const config: NuxtConfig = {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api',
     '@nuxtjs/vuetify',
+    'cookie-universal-nuxt',
+    '@nuxtjs/router-extras',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
+    ['@nuxtjs/axios', { proxy: true, credentials: true }],
   ],
-
-  // auth: {},
 
   vuetify: {
     theme: {
