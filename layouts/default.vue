@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar></v-app-bar>
-    <Nuxt />
+    <NavigationBar />
+    <v-main> <Nuxt /> </v-main>
   </v-app>
 </template>
+
+<style>
+.v-application {
+  background-color: var(--v-background-base) !important;
+}
+</style>

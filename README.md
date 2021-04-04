@@ -48,3 +48,12 @@ crontab -e # Open crontab file for editing and add the following line with varia
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## COMPONENTS
+
+**This directory is not required, you can delete it if you don't want to use it.**
+
+The components directory contains your Vue.js Components.
+
+_Nuxt.js doesn't supercharge these components._
+

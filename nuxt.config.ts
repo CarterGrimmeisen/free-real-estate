@@ -44,6 +44,29 @@ const config: NuxtConfig = {
 
   // auth: {},
 
+  vuetify: {
+    theme: {
+      dark: false,
+      themes: {
+        light: {
+          primary: '#881226',
+          secondary: '#E2D476',
+          tertiary: '#F5F0EE',
+          background: '#F5F0EE',
+        },
+        dark: {
+          primary: '#881226',
+          secondary: '#E2D476',
+          tertiary: '#F5F0EE',
+          background: '#F5F0EE',
+        },
+      },
+      options: {
+        customProperties: true,
+      },
+    },
+  },
+
   serverMiddleware: [{ path: '/api', handler: '~/api' }],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
