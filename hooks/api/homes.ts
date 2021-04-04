@@ -14,6 +14,7 @@ export function useHomes() {
     const { files, ...home } = body
     const newFiles = await Promise.all(
       files.map(async (file) => ({
+        name: file.name,
         type: 'IMAGE' as const,
         mime: file.type,
         contents: await encodeFile(file, 'IMAGE'),

@@ -4,23 +4,17 @@ import { typedApi } from 'crosswalk'
 import { HTTPVerb } from '~/../crosswalk/dist/api-spec'
 import API from '~/api/api'
 
-export function fetch(
-  url: string,
-  method: HTTPVerb,
-  data: unknown,
-  params?: Record<string, string>
-) {
-  const { $axios } = useContext()
-
-  return $axios.$request({
-    url,
-    method,
-    data,
-    params,
-  })
-}
+export function useFetch() {}
 
 export function useCrosswalk() {
+  const { $axios } = useContext()
+  const fetch = (
+    url: string,
+    method: HTTPVerb,
+    data: unknown,
+    params?: Record<string, string>
+  ) => $axios.$request({ url, method, data, params })
+
   return typedApi<API>({ prefix: '/api', fetch })
 }
 
