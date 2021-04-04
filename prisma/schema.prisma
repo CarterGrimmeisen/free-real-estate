@@ -85,16 +85,11 @@ model Home {
   files       File[]
 }
 
-enum SchoolType {
-  ELEMENTARY
-  MIDDLE
-  HIGH
-}
-
 model School {
-  name  String     @id
-  type  SchoolType
-  homes Home[]     @relation
+  name   String @id
+  grades String
+  type   String
+  homes  Home[] @relation
 }
 
 model Showing {
