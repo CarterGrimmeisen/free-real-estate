@@ -64,6 +64,10 @@ export default interface API {
     post: Endpoint<CreateUser, Success>
   }
 
+  '/auth/check': {
+    get: GetEndpoint<Success>
+  }
+
   '/auth/logout': {
     post: Endpoint<null, Success>
   }

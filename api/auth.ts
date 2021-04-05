@@ -3,6 +3,7 @@ import { compare, hash } from 'bcryptjs'
 import { HTTPError, TypedRouter } from 'crosswalk'
 import { sign } from 'jsonwebtoken'
 import API from './api'
+import { authenticate } from './util/auth'
 import { prisma } from './util/prisma'
 
 const verifyPassword = (
@@ -20,6 +21,7 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         auth: true,
+        agentProfile: true,
       },
     })
 
@@ -29,22 +31,26 @@ function register(router: TypedRouter<API>) {
       throw new HTTPError(401, 'Email/Password combination is incorrect')
 
     res.cookie(
-      'userId',
+      'session',
       sign(
-        { id: user.id },
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          type: user.type,
+        },
         process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
       ),
       {
         maxAge: 1209600,
-        httpOnly: true,
       }
     )
 
     return { success: true }
   })
 
-  router.post('/auth/register', async (_params, body, _req, res) => {
-    const user = await prisma.user.create({
+  router.post('/auth/register', async (_params, body) => {
+    await prisma.user.create({
       data: {
         name: body.name,
         email: body.email,
@@ -57,27 +63,18 @@ function register(router: TypedRouter<API>) {
       },
     })
 
-    res.cookie(
-      'userId',
-      sign(
-        { id: user.id },
-        process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
-      ),
-      {
-        maxAge: 1209600,
-        httpOnly: true,
-      }
-    )
-
     return { success: true }
   })
 
   router.post('/auth/logout', (_params, _body, _req, res) => {
-    res.clearCookie('userId')
+    res.clearCookie('session')
 
-    return Promise.resolve({
-      success: true,
-    })
+    return Promise.resolve({ success: true as const })
+  })
+
+  router.router.use('/auth/check', authenticate())
+  router.get('/auth/check', () => {
+    return Promise.resolve({ success: true as const })
   })
 }
 

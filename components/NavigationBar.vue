@@ -20,7 +20,10 @@
         <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
       </v-list>
     </v-menu>
-    <v-menu>
+    <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
+      Login
+    </v-btn>
+    <v-menu v-else-if="$auth.user">
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           My Account
@@ -30,22 +33,32 @@
         <v-list-item to="/accountpreview"> My Account</v-list-item>
 
         <v-list-item>Favorites</v-list-item>
-        <v-list-item>Logout</v-list-item>
+        <v-list-item @click="doLogout">Logout</v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { useAuth } from '@/hooks/api'
+
 export default defineComponent({
-  name: 'NavigationBar',
-  components: {},
-  setup() {},
-  data: () => ({
-    seasons: ['0', '100k', '150k', '200k', '250k', '300k+'],
-    sqrt: ['0+', '1000', '2000', '3000+'],
-    alignments: ['start', 'center', 'end'],
-  }),
+  setup(_, ctx) {
+    const login = () => ctx.emit('login')
+
+    const { $auth } = useContext()
+    const { logout } = useAuth()
+
+    const doLogout = async () => {
+      const { success } = await logout().catch((_) => ({ success: false }))
+      if (success) {
+        $auth.value.user = null
+        $auth.value.loggedin = false
+      }
+    }
+
+    return { login, $auth, doLogout }
+  },
 })
 </script>

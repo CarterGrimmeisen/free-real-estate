@@ -6,12 +6,12 @@ import { prisma } from './prisma'
 
 export const authenticate = (type?: UserType): RequestHandler =>
   async function (req, _res, next) {
-    if (!req.cookies.userId)
+    if (!req.cookies.session)
       return next(new HTTPError(401, 'User is not authenticated'))
 
     if (!req.user) {
       const data = verify(
-        req.cookies.userId as string,
+        req.cookies.session as string,
         process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
       ) as { id: string }
 

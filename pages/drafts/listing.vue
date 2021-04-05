@@ -1,28 +1,38 @@
 <template>
   <div class="listing">
-    <div>
-      <FilterBar />
-      <div class="container">
-        <div>
-          <v-row no-gutters>
-            <template v-for="n in 9">
-              <v-col :key="n" cols="4">
-                <ListingPreview />
-              </v-col>
-            </template>
-          </v-row>
-        </div>
-      </div>
-    </div>
+    <FilterBar />
+    <v-container>
+      <v-row v-scroll="onScroll" align="center">
+        <v-col v-for="n in loadedElements" :key="n">
+          <ListingPreview />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref, watch } from '@nuxtjs/composition-api'
+import ListingPreview from '@/components/listing/ListingPreview.vue'
 
 export default defineComponent({
+  components: { ListingPreview },
   setup() {
-    return { data: { working: true } }
+    const loadedElements = ref(9)
+    const distanceToBottom = ref(0)
+
+    const onScroll = () => {
+      distanceToBottom.value = Math.max(
+        document.body.offsetHeight - (window.pageYOffset + window.innerHeight),
+        0
+      )
+    }
+
+    watch(distanceToBottom, () => {
+      if (distanceToBottom.value < 550) loadedElements.value += 9
+    })
+
+    return { loadedElements, onScroll }
   },
 })
 </script>

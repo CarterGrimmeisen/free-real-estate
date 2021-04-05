@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <v-container fluid class="fill-height justify-center align-content-center">
     <div>
       <v-container justify-center fluid>
         <h1 class="pt-5 text-center primary--text">
@@ -32,15 +32,17 @@
         </v-row>
       </v-container>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
+import HomeCard from '@/components/homepage/HomeCard.vue'
+import Login from '@/components/homepage/Login.vue'
+
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    return { data: { working: true } }
-  },
+  components: { HomeCard, Login },
+  setup() {},
 })
 </script>
