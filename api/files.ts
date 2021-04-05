@@ -1,6 +1,5 @@
 import { join } from 'path'
 import { TypedRouter } from 'crosswalk'
-import { write } from 'pdf-fill-form'
 import API from './api'
 import { authenticate } from './util/auth'
 import { ensureHomeAgent } from './util/homes'
@@ -11,6 +10,8 @@ function register(router: TypedRouter<API>) {
 
   // TODO Finish implementing pdf generation
   router.post('/files', async (_params, file, req) => {
+    const { write } = require('pdf-fill-form')
+
     const { docType } = req.query
 
     if (file.type === 'IMAGE') {
