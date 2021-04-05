@@ -26,7 +26,7 @@
         Favorite
         <v-icon dark right> mdi-star </v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark>
+      <v-btn class="ma-2" color="primary" dark to="/DetailListing">
         More Details
         <v-icon dark right> mdi-info </v-icon>
       </v-btn>

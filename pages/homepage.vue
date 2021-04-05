@@ -36,13 +36,9 @@
 </template>
 
 <script lang="ts">
-import HomeCard from '@/components/homepage/HomeCard.vue'
-import Login from '@/components/homepage/Login.vue'
-
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  components: { HomeCard, Login },
   setup() {},
 })
 </script>

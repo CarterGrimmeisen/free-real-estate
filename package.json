@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
     "generate:json": "rimraf api/schema.json && typescript-json-schema --required --strictNullChecks --noExtraProps api/api.ts API --out api/schema.json",
     "generate:prisma": "prisma generate",
     "generate:db": "prisma db push --preview-feature",
@@ -30,12 +30,10 @@
     "pdf-fill-form": "^5.1.0"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/composition-api": "^0.22.4",
     "@paljs/plugins": "^2.13.0",
     "@prisma/client": "^2.19.0",
-    "@storybook/addon-knobs": "^6.1.21",
     "axios-cache-adapter": "^2.7.0",
     "balm-ui": "^8.16.0",
     "bcryptjs": "^2.4.3",
@@ -53,12 +51,11 @@
     "zod": "^3.0.0-alpha.4"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.14.12",
+    "@nuxt/types": "^2.15.4",
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/eslint-config-typescript": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/router-extras": "^1.1.1",
-    "@nuxtjs/storybook": "^3.3.1",
     "@nuxtjs/vuetify": "^1.11.3",
     "@storybook/addon-knobs": "^6.1.21",
     "@types/bcryptjs": "^2.4.2",

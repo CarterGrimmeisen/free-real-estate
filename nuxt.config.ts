@@ -29,7 +29,14 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/crosswalk', '~/plugins/auth'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~/components',
+    '~/components/detail-listing',
+    '~/components/detail-listing/EditListing',
+    '~/components/experimental',
+    '~/components/homepage',
+    '~/components/listing',
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -80,10 +87,6 @@ export default defineNuxtConfig({
         'Content-Type': 'application/json',
       },
     },
-  },
-
-  storybook: {
-    addons: ['@storybook/addon-actions', '@storybook/addon-knobs'],
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

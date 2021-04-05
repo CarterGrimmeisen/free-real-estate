@@ -55,7 +55,7 @@
     <v-card-title>
       <v-textarea
         height="120"
-        full-width="true"
+        full-width
         auto-grow
         outlined
         placeholder="This is where there will be a small block of text "

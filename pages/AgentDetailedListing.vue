@@ -54,7 +54,7 @@
               readonly
               disabled
               height="300"
-              full-width="true"
+              full-width
               auto-grow
               value="This is where there will be a big ol block of text and thats alright
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
@@ -69,7 +69,7 @@
               readonly
               disabled
               height="250"
-              full-width="true"
+              full-width
               auto-grow
               value="This is where there will be a medium block of text and thats alright"
               solo
@@ -79,7 +79,7 @@
               readonly
               disabled
               height="150"
-              full-width="true"
+              full-width
               auto-grow
               value="This is where there will be a small block of text "
               solo
