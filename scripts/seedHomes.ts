@@ -4,7 +4,7 @@
 import { basename } from 'path'
 import glob from 'glob'
 import enquirer from 'enquirer'
-import { PrismaClient, Home, SchoolType } from '@prisma/client'
+import { PrismaClient, Home } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { readFileSync } from 'fs-extra'
 
@@ -71,6 +71,9 @@ async function main() {
                     connectOrCreate: {
                       where: { name: home['Listing Agency'] },
                       create: {
+                        id: Array.from(home['Listing Agency']).reduce(
+                          (x, y) => x + y
+                        ),
                         address: home['Listing Agency Address'],
                         name: home['Listing Agency'],
                         phone: home['Listing Agency Phone'],
@@ -107,11 +110,9 @@ async function main() {
                   },
 
                   create: {
-                    type: schoolString
-                      .split('-')[0]
-                      .trim()
-                      .toUpperCase() as SchoolType,
+                    type: schoolString.split('-')[0].trim().toUpperCase(),
                     name: schoolString.split('-')[1].trim(),
+                    grades: 'K-12',
                   },
                 })),
             },

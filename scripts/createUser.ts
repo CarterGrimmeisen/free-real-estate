@@ -82,6 +82,9 @@ async function main() {
                         name: 'Default Agency',
                       },
                       create: {
+                        id: Array.from('Default Agency').reduce(
+                          (x, y) => x + y
+                        ),
                         name: 'Default Agency',
                         address: '1000 Default Agency Street',
                         phone: '000-000-0000',
