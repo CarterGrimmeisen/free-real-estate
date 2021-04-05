@@ -79,7 +79,9 @@ const config: NuxtConfig = {
     },
   },
 
-  storybook: {},
+  storybook: {
+    addons: ['@storybook/addon-actions', '@storybook/addon-knobs'],
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

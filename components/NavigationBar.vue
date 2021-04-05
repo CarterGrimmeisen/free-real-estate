@@ -15,9 +15,9 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item>Manage Listings</v-list-item>
-        <v-list-item>Schedule Showing</v-list-item>
-        <v-list-item>Generate Documents</v-list-item>
+        <v-list-item to="/managelistings">Manage Listings </v-list-item>
+        <v-list-item to="/ShowingPage">Schedule Showing</v-list-item>
+        <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
       </v-list>
     </v-menu>
     <v-menu>
@@ -27,7 +27,7 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item>My Account</v-list-item>
+        <v-list-item to="/accountpreview"> My Account</v-list-item>
 
         <v-list-item>Favorites</v-list-item>
         <v-list-item>Logout</v-list-item>

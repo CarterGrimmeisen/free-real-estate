@@ -1,13 +1,7 @@
 <!-- EditPassword.vue -->
 <!--EditAccount.vue-->
 <template>
-  <v-card
-    class="mx-auto my-12"
-    max-width="1000"
-    width="6000"
-    height="500"
-    title="Change Password"
-  >
+  <v-card class="mx-auto my-12" max-width="1000" title="Change Password">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -17,41 +11,47 @@
     </template>
 
     <v-card-title>Current Password:</v-card-title>
-    <v-text-field
-      color="white"
-      hide-details
-      v.length="25"
-      single-line
-      rounded="True"
-      value="enter current password"
-      background-color="secondary"
-      class="shrink"
-      append-icon="mdi-pen"
-    ></v-text-field>
+    <v-card-title>
+      <v-text-field
+        color="black"
+        hide-details
+        v.length="25"
+        single-line
+        outlined
+        placeholder="enter current password"
+        background-color="tertiary"
+        class="shrink"
+        append-icon="mdi-pen"
+      ></v-text-field>
+    </v-card-title>
     <v-card-title>New Password:</v-card-title>
-    <v-text-field
-      color="white"
-      hide-details
-      v.length="25"
-      single-line
-      rounded="True"
-      value="new password"
-      background-color="secondary"
-      class="shrink"
-      append-icon="mdi-pen"
-    ></v-text-field>
+    <v-card-title>
+      <v-text-field
+        color="black"
+        hide-details
+        v.length="25"
+        single-line
+        outlined
+        placeholder="new password"
+        background-color="tertiary"
+        class="shrink"
+        append-icon="mdi-pen"
+      ></v-text-field
+    ></v-card-title>
     <v-card-title>Confirm New:</v-card-title>
-    <v-text-field
-      color="white"
-      hide-details
-      v.length="25"
-      single-line
-      rounded="True"
-      value="new password"
-      background-color="secondary"
-      class="shrink"
-      append-icon="mdi-pen"
-    ></v-text-field>
+    <v-card-title>
+      <v-text-field
+        color="black"
+        hide-details
+        v.length="25"
+        single-line
+        outlined
+        placeholder="new password"
+        background-color="tertiary"
+        class="shrink"
+        append-icon="mdi-pen"
+      ></v-text-field
+    ></v-card-title>
 
     <v-divider class="mx-4"></v-divider>
 

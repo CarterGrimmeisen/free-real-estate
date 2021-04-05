@@ -1,4 +1,4 @@
-<!-- Filter Bar -->
+<!-- ShowingFilterBar.vue -->
 <template>
   <v-toolbar id="filterbar" color="white" flat>
     <v-row align="center">
@@ -9,40 +9,11 @@
           v.length="25"
           single-line
           rounded
-          placeholder="zipcode"
+          value="MLS: ######"
           background-color="tertiary"
           append-icon="mdi-magnify"
           class="shrink"
         ></v-text-field>
-      </v-col>
-      <v-spacer> </v-spacer>
-      <v-col cols="4" align-self="center">
-        <v-range-slider
-          label="Price"
-          :tick-labels="prices"
-          :value="[0, 1]"
-          min="0"
-          max="5"
-          color="primary"
-          ticks="always"
-          tick-size="4"
-          track-color="tertiary"
-        >
-        </v-range-slider>
-      </v-col>
-      <v-col cols="3" align-self="center">
-        <v-range-slider
-          label="Sqft"
-          :tick-labels="sqrt"
-          :value="[0, 1]"
-          color="primary"
-          max="3000"
-          min="0"
-          step="1000"
-          ticks="always"
-          tick-size="4"
-          track-color="tertiary"
-        ></v-range-slider>
       </v-col>
     </v-row>
   </v-toolbar>
@@ -50,9 +21,8 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api'
-
 export default defineComponent({
-  name: 'FilterBar',
+  name: 'ShowingFilterBar',
   components: {},
   setup() {},
   data: () => ({

@@ -3,6 +3,7 @@ import imageCompression from 'browser-image-compression'
 import { useCrosswalk } from '.'
 
 export type BodyType<Func extends (...args: any) => any> = Parameters<Func>[1]
+export type QueryType<Func extends (...args: any) => any> = Parameters<Func>[2]
 export type ReplaceProp<Val, Prop extends keyof Val, NewType> = Omit<
   Val,
   Prop
@@ -30,7 +31,7 @@ export async function encodeFile(file: File, type: FileType) {
   return encoded
 }
 
-export function useAuth() {
+export function useFiles() {
   const api = useCrosswalk()
 
   const _createFile = api.post('/files')
@@ -38,11 +39,11 @@ export function useAuth() {
   const createFile = async (
     params: {},
     body: ReplaceProp<
-      BodyType<typeof _createFile>,
+      Exclude<BodyType<typeof _createFile>, { type: 'DOCUMENT' }>,
       'contents',
       { contents: File }
     >,
-    query: null
+    query: QueryType<typeof _createFile>
   ): ReturnType<typeof _createFile> => {
     const { contents, ...file } = body
     const newContents = await encodeFile(contents, file.type)

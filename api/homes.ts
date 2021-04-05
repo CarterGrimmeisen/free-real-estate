@@ -17,7 +17,11 @@ function register(router: TypedRouter<API>) {
           lte: query.priceMax,
         },
         zipcode: query.zipcode,
-        agentId: query.agent,
+        agent: {
+          name: {
+            contains: query.agent,
+          },
+        },
         schools: {
           some: {
             name: query.school,
@@ -31,7 +35,7 @@ function register(router: TypedRouter<API>) {
         bathrooms: query.bathrooms,
       },
       orderBy: query.popular
-        ? { likeCount: 'desc' }
+        ? { liked: { count: 'desc' } }
         : query.trending
         ? { dailyHits: 'desc' }
         : {},
@@ -86,7 +90,6 @@ function register(router: TypedRouter<API>) {
     await prisma.home.update({
       where: { mlsn },
       data: {
-        likeCount: count ? { decrement: 1 } : { increment: 1 },
         liked: count
           ? {
               disconnect: {
@@ -159,9 +162,10 @@ function register(router: TypedRouter<API>) {
 
         files: {
           create: home.files.map((file) => ({
+            name: file.name,
             type: file.type,
             mime: file.mime,
-            contents: file.contents,
+            contents: file.contents!,
           })),
         },
       },
