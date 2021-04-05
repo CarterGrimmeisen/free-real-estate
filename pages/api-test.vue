@@ -4,6 +4,13 @@
       <v-card-title>User</v-card-title>
       <v-card-text v-if="!$auth.loggedin">Not Logged In</v-card-text>
       <v-card-text v-else-if="$auth.user"> {{ $auth.user }} </v-card-text>
+      <template v-if="$auth.user">
+        <v-card-text v-if="$auth.user.type === 'AGENT'">
+          IS AN AGENT
+        </v-card-text>
+        <v-card-text v-else> IS SOMETHING ELSE (USER OR ADMIN) </v-card-text>
+      </template>
+      <v-card-text></v-card-text>
     </v-card>
     <v-card>
       <v-card-title>Use Data Homes</v-card-title>
@@ -37,6 +44,9 @@ export default defineComponent({
   setup() {
     const { $auth } = useContext()
     const { getHomes } = useHomes()
+
+    // $auth.user is a ref, use .value
+    console.log($auth.value.user?.name)
 
     /* Requests data on component mount */
     const [dataHomes, dataHomesReady] = useData(getHomes)
