@@ -27,7 +27,7 @@
         </v-row>
       </v-container>
     </v-row>
-    <v-row>
+    <v-row no-gutters>
       <v-card-title>MLS:</v-card-title>
       <v-card-title>
         <v-text-field
@@ -43,7 +43,7 @@
         ></v-text-field>
       </v-card-title>
     </v-row>
-    <v-row>
+    <v-row no-gutters>
       <v-card-title>Name(s) of Interested:</v-card-title>
       <v-card-title>
         <v-text-field
@@ -59,13 +59,8 @@
         ></v-text-field
       ></v-card-title>
     </v-row>
-    <v-row>
-      <v-spacer> </v-spacer><v-card-title>Showing Agent Info:</v-card-title>
-      <v-spacer> </v-spacer>
-    </v-row>
-    <v-row>
-      <v-spacer> </v-spacer>
-      <v-card-subtitle> Showing Agent Email: </v-card-subtitle>
+    <v-row no-gutters>
+      <v-card-title> Showing Agent Email: </v-card-title>
       <v-card-title>
         <v-text-field
           color="black"
@@ -78,11 +73,9 @@
           class="shrink"
           append-icon="mdi-pen"
         ></v-text-field> </v-card-title
-      ><v-spacer> </v-spacer
     ></v-row>
-    <v-row>
-      <v-spacer> </v-spacer>
-      <v-card-subtitle> Showing Agent Phone: </v-card-subtitle>
+    <v-row no-gutters>
+      <v-card-title> Showing Agent Phone: </v-card-title>
       <v-card-title
         ><v-text-field
           color="black"
@@ -96,19 +89,22 @@
           append-icon="mdi-pen"
         ></v-text-field
       ></v-card-title>
-      <v-spacer> </v-spacer
-    ></v-row>
+    </v-row>
 
-    <v-card-actions>
-      <v-btn class="ma-2" color="primary" dark to="/listing">
-        Cancel
-        <v-icon dark right></v-icon>
-      </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/showingpage">
-        Save
-        <v-icon dark right> </v-icon>
-      </v-btn>
-    </v-card-actions>
+    <v-divider></v-divider>
+
+    <v-row no-gutters>
+      <v-card-actions>
+        <v-btn class="ma-2" color="primary" dark to="/listing">
+          Cancel
+          <v-icon dark right></v-icon>
+        </v-btn>
+        <v-btn class="ma-2" color="primary" dark to="/showingpage">
+          Save
+          <v-icon dark right> </v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-row>
   </v-card>
 </template>
 

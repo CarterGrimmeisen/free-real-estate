@@ -1,6 +1,6 @@
 <!--RegisterAgency.vue -->
 <template>
-  <v-card class="mx-auto my-12" max-width="1200" width="1100" height="500">
+  <v-card class="mx-auto my-12" max-width="1200" width="1100">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -16,13 +16,13 @@
     <v-row>
       <v-card-title>Agency Name:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="Name"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -30,13 +30,13 @@
     <v-row>
       <v-card-title>Address:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="Address"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -44,13 +44,13 @@
     <v-row>
       <v-card-title>Email:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="myemail@freerealestate"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -58,23 +58,24 @@
     <v-row>
       <v-card-title>Phone Number:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="(###) ###-###"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
     </v-row>
     <v-row>
-      <v-card-title
-        >An Agency code will be sent to the email provided. Agents can register
-        under your agency with the code.</v-card-title
-      ><v-text-field></v-text-field
-    ></v-row>
+      <v-col> <v-divider></v-divider> </v-col>
+    </v-row>
+    <v-card-title>
+      An Agency code will be sent to the email provided. Agents can register
+      under your agency with the code.
+    </v-card-title>
 
     <v-row>
       <v-spacer> </v-spacer>

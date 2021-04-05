@@ -16,13 +16,13 @@
     <v-row>
       <v-card-title>Username:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="username"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -30,13 +30,13 @@
     <v-row>
       <v-card-title>Password:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="password"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -44,13 +44,13 @@
     <v-row>
       <v-card-title>Email:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="myemail@freerealestate"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -58,13 +58,13 @@
     <v-row>
       <v-card-title>Phone Number:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="40"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="(###) ###-####"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
@@ -74,31 +74,35 @@
         >If this is for an Agent Account please enter your company
         code:</v-card-title
       ><v-text-field
-        color="white"
+        color="black"
         hide-details
         v.length="10"
         single-line
-        rounded="true"
-        value=""
-        background-color="secondary"
+        outlined
+        placeholder="CODE"
+        background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field
     ></v-row>
 
-    <v-divider class="mx-4"></v-divider>
+    <v-row
+      ><v-col> <v-divider class="mx-4"></v-divider></v-col
+    ></v-row>
 
     <v-card-actions>
-      <v-row>
-        <v-spacer> </v-spacer>
-        <v-btn class="ma-2" color="primary" dark to="/homepage">
-          Cancel
-          <v-icon dark right></v-icon>
-        </v-btn>
-        <v-btn class="ma-2" color="primary" dark to="/listing">
-          Sign up
-          <v-icon dark right> </v-icon>
-        </v-btn>
+      <v-row justify-end>
+        <v-col>
+          <v-spacer> </v-spacer>
+          <v-btn class="ma-2" color="primary" dark to="/homepage">
+            Cancel
+            <v-icon dark right></v-icon>
+          </v-btn>
+          <v-btn class="ma-2" color="primary" dark to="/listing">
+            Sign up
+            <v-icon dark right> </v-icon>
+          </v-btn>
+        </v-col>
       </v-row>
     </v-card-actions>
   </v-card>

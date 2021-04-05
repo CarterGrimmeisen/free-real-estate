@@ -1,6 +1,6 @@
 <!-- FeedbackForm.vue -->
 <template>
-  <v-card class="mx-auto my-12" max-width="1000" width="1000" height="500">
+  <v-card class="mx-auto my-12" max-width="1000" width="1000">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -51,14 +51,17 @@
       <v-spacer> </v-spacer
     ></v-row>
 
-    <v-card-subtitle>4. Additional Comments: </v-card-subtitle>
-    <v-textarea
-      height="120"
-      full-width="true"
-      auto-grow
-      value="This is where there will be a small block of text "
-      solo
-    ></v-textarea>
+    <v-row><v-card-subtitle>4. Additional Comments: </v-card-subtitle></v-row>
+    <v-card-title>
+      <v-textarea
+        height="120"
+        full-width="true"
+        auto-grow
+        outlined
+        placeholder="This is where there will be a small block of text "
+        solo
+      ></v-textarea>
+    </v-card-title>
 
     <v-divider class="mx-4"></v-divider>
 

@@ -1,333 +1,283 @@
-<!-- EditDetailedListing.vue -->
+<!-- Detailed Listing -->
 <template>
-  <v-card class="pa-2" width="1500" height="3000" outlined title>
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
-    <v-row>
-      <v-card-title>Address</v-card-title>
-      <v-text-field
-        color="white"
-        hide-details
-        v.length="25"
-        single-line
-        rounded="false"
-        background-color="secondary"
-        class="shrink"
-        append-icon="mdi-pen"
-        value="Street, City, State, Zipcode"
-      ></v-text-field>
-      <v-spacer></v-spacer
-    ></v-row>
-    <v-spacer></v-spacer>
-    <v-divider class="mx-4"></v-divider>
-    <v-layout max-height="4000" height="4000" ma-0 pa-0 outlined>
-      <v-row no-gutters>
-        <v-col no-gutters cols="6" md="4" height="650" max-height="650">
-          <v-card class="pa-2" height="475">
-            <v-img
-              height="400"
-              width="500"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            ></v-img>
-            <v-spacer> </v-spacer>
-            <v-row>
-              <v-btn class="ma-2" color="primary" dark>
-                Schedule Showing
-                <v-icon dark right> mdi-calendar</v-icon>
-              </v-btn>
-              <v-btn class="ma-2" color="primary" dark>
-                Save Changes
-                <v-icon dark right to="/ManageListings"> mdi-star</v-icon>
-              </v-btn>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col no-gutters cols="12" sm="6" md="8">
-          <v-card class="pa-2" outlined tile height="475">
-            <v-spacer></v-spacer>
-            <v-row>
-              <v-spacer></v-spacer>
-
-              <v-spacer></v-spacer>
-              <v-carousel hide-delimiters>
-                <v-carousel-item
-                  v-for="(item, i) in items"
-                  :key="i"
-                  :src="item.src"
-                  height="340"
-                  max-height="480"
-                  width="900"
-                ></v-carousel-item>
-              </v-carousel>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-layout>
-
-    <v-card-text>
-      <div class="text-left" size="14">
+  <div>
+    <div>
+      <v-container justify-center>
         <v-row>
-          <v-card-title color="black">Listing Price: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="$###,###"
-          ></v-text-field>
-          <v-spacer></v-spacer>
-          <v-card-title color="black">Square Feet: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="#,###"
-          ></v-text-field>
-          <v-spacer></v-spacer><v-card-title color="black">MLS: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="#######"
-          ></v-text-field>
-          <v-spacer></v-spacer
-        ></v-row>
-        <v-divider class="mx-4"></v-divider>
-        <v-spacer></v-spacer
-        ><v-card-title color="black" bold>Property Details </v-card-title>
-        <v-divider class="mx-4"></v-divider>
-        <v-row
-          ><v-card-title color="black">HOA: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="yes/no?"
-          ></v-text-field>
-          <v-spacer></v-spacer
-          ><v-card-title color="black">Subdivision: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="Maybe, Maybe not"
-          ></v-text-field>
-          <v-spacer></v-spacer
-          ><v-card-title color="black">School Zones: </v-card-title>
-          <v-text-field
-            color="white"
-            hide-details
-            v.length="25"
-            single-line
-            rounded="false"
-            background-color="secondary"
-            class="shrink"
-            append-icon="mdi-pen"
-            value="Elementry: Some school, Jr: Some schools, High: some
-              school"
-          ></v-text-field>
+          <v-col>
+            <DeleteListing />
+          </v-col>
         </v-row>
-      </div>
-      <v-card-title color="black">Brief Description of Property </v-card-title>
-      <v-textarea
-        height="300"
-        full-width="true"
-        auto-grow
-        value="This is where there will be a big ol block of text and thats alright
+        <v-card class="pa-2" outlined title>
+          <template slot="progress">
+            <v-progress-linear
+              color="deep-purple"
+              height="10"
+              indeterminate
+            ></v-progress-linear>
+          </template>
+          <v-btn class="ma-2" color="primary" dark>
+            Save Changes
+            <v-icon dark right to="/ManageListings"> mdi-star</v-icon>
+          </v-btn>
+          <v-card-title class="primary--text"> Property Address </v-card-title>
+          <v-card-title class="primary--text">
+            <v-text-field
+              label="Street"
+              hint="Street the property is on"
+              outlined
+            >
+            </v-text-field>
+            <v-spacer />
+            <v-text-field
+              label="City"
+              hint="City the property is in"
+              outlined
+            ></v-text-field>
+            <v-spacer />
+            <v-text-field
+              label="State"
+              hint="State the property is in"
+              outlined
+            ></v-text-field>
+            <v-spacer />
+            <v-text-field
+              label="Zipcode"
+              hint="Zipcode for the area"
+              outlined
+            ></v-text-field>
+          </v-card-title>
+          <v-divider class="mx-4"></v-divider>
+
+          <ImageEditor />
+
+          <v-divider class="mx-4"></v-divider>
+
+          <v-card-title bold class="primary--text"
+            >Edit Property Details
+          </v-card-title>
+
+          <v-divider class="mx-4"></v-divider>
+
+          <v-row justify="space-around" no-gutters>
+            <v-col
+              ><v-card-title>
+                <v-text-field
+                  label="Listing Price"
+                  hint="Listing price of the property"
+                  outlined
+                >
+                </v-text-field></v-card-title
+            ></v-col>
+            <v-col
+              ><v-card-title
+                ><v-text-field
+                  label="Square Feet"
+                  hint="Square footage of the property"
+                  outlined
+                >
+                </v-text-field></v-card-title
+            ></v-col>
+            <v-col
+              ><v-card-title
+                ><v-text-field
+                  label="MLS #"
+                  hint="MLS # of the property"
+                  outlined
+                >
+                </v-text-field></v-card-title
+            ></v-col>
+          </v-row>
+
+          <v-row no-gutters>
+            <v-card-title class="primary--text"
+              >Housing Association</v-card-title
+            >
+            <v-radio-group row>
+              <v-radio label="There is an HOA" value="true"></v-radio>
+              <v-radio label="There is NOT an HOA" value="false"></v-radio>
+            </v-radio-group>
+          </v-row>
+          <v-row no-gutters>
+            <v-card-title class="primary--text">Subdivision</v-card-title>
+            <v-radio-group row>
+              <v-radio
+                label="Property is in a subdivision"
+                value="true"
+              ></v-radio>
+              <v-radio
+                label="Property is NOT in a subdivision"
+                value="false"
+              ></v-radio>
+            </v-radio-group>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-card-title class="primary--text">Current Schools</v-card-title>
+            </v-col>
+            <v-col> <AddSchool /></v-col>
+          </v-row>
+          <v-row no-gutters justify="space-around">
+            <v-col>
+              <v-card-title>
+                <v-textarea
+                  name="schools"
+                  outlined
+                  auto-grow
+                  value="Schools"
+                  hint="Schools zoned for the property"
+                ></v-textarea>
+              </v-card-title>
+            </v-col>
+          </v-row>
+
+          <v-card-title class="primary--text"
+            >Brief Description of Property
+          </v-card-title>
+          <v-row no-gutters>
+            <v-col>
+              <v-card-title>
+                <v-textarea
+                  auto-grow
+                  value="This is where there will be a big ol block of text and thats alright
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
-        solo
-      ></v-textarea>
-      <v-card-title color="black">Facts and Features </v-card-title>
-      <v-textarea
-        height="250"
-        full-width="true"
-        auto-grow
-        value="This is where there will be a medium block of text and thats alright"
-        solo
-      ></v-textarea>
-      <v-card-title color="black">Additional Room Information </v-card-title>
-      <v-textarea
-        height="150"
-        full-width="true"
-        auto-grow
-        value="This is where there will be a small block of text "
-        solo
-      ></v-textarea>
-      <v-divider class="mx-4"></v-divider>
-      <v-card-title color="black">Home Alarm Information </v-card-title>
-      <v-textarea
-        height="50"
-        full-width="true"
-        auto-grow
-        value="This is where there will be a small block of text "
-        solo
-      ></v-textarea>
-      <v-divider class="mx-4"></v-divider>
-      <v-spacer></v-spacer>
+                  outlined
+                  hint="A lengthy description of the property"
+                ></v-textarea>
+              </v-card-title>
+            </v-col>
+          </v-row>
 
-      <v-card-title color="black" bold>Listing Details </v-card-title>
-      <v-divider class="mx-4"></v-divider>
-      <v-card-title color="black" bold
-        ><v-spacer></v-spacer>Listing Agency <v-spacer></v-spacer
-      ></v-card-title>
-      <v-spacer></v-spacer>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-text-field
-          color="white"
-          hide-details
-          v.length="25"
-          single-line
-          rounded="false"
-          background-color="secondary"
-          class="shrink"
-          append-icon="mdi-pen"
-          value="Agency Name"
-        ></v-text-field>
-        <v-spacer></v-spacer
-      ></v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-text-field
-          color="white"
-          hide-details
-          v.length="25"
-          single-line
-          rounded="false"
-          background-color="secondary"
-          class="shrink"
-          append-icon="mdi-pen"
-          value="Agency Address"
-        ></v-text-field>
-        <v-spacer></v-spacer
-      ></v-row>
-      <v-card-title color="black" bold
-        ><v-spacer></v-spacer>Listing Agent <v-spacer></v-spacer
-      ></v-card-title>
-      <v-spacer></v-spacer>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-text-field
-          color="white"
-          hide-details
-          v.length="25"
-          single-line
-          rounded="false"
-          value="Listing Agent Name"
-          background-color="secondary"
-          class="shrink"
-          append-icon="mdi-pen"
-        ></v-text-field>
-        <v-spacer></v-spacer
-      ></v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-text-field
-          color="white"
-          hide-details
-          v.length="25"
-          single-line
-          rounded="false"
-          value="Listing Agent Email"
-          background-color="secondary"
-          class="shrink"
-          append-icon="mdi-pen"
-        ></v-text-field>
-        <v-spacer></v-spacer
-      ></v-row>
-      <v-row>
-        <v-spacer></v-spacer>
-        <v-text-field
-          color="white"
-          hide-details
-          v.length="25"
-          single-line
-          rounded="false"
-          background-color="secondary"
-          class="shrink"
-          append-icon="mdi-pen"
-          value="(###)###-####"
-        ></v-text-field>
-        <v-spacer></v-spacer
-      ></v-row>
-      <v-row>
-        <v-btn class="ma-2" color="primary" dark to="/managelistings">
-          Save Changes
-          <v-icon dark right> mdi-star</v-icon>
-        </v-btn>
-        <v-btn class="ma-2" color="primary" dark to="/managelistings">
-          Cancel
-        </v-btn>
-      </v-row>
-    </v-card-text>
+          <v-card-title class="primary--text">Facts and Features </v-card-title>
+          <v-row no-gutters>
+            <v-col>
+              <v-card-title>
+                <v-textarea
+                  auto-grow
+                  value="This is where there will be a medium block of text and thats alright"
+                  outlined
+                  hint="Additional facts and features relevant to the property"
+                ></v-textarea>
+              </v-card-title>
+            </v-col>
+          </v-row>
 
-    <v-card-actions> </v-card-actions>
-  </v-card>
+          <v-card-title class="primary--text"
+            >Additional Room Information
+          </v-card-title>
+          <v-row no-gutters>
+            <v-col>
+              <v-card-title>
+                <v-textarea
+                  auto-grow
+                  value="This is where there will be a small block of text "
+                  outlined
+                  hint="Additional room information relevant to the property"
+                ></v-textarea>
+              </v-card-title>
+            </v-col>
+          </v-row>
+          <v-divider class="mx-4"></v-divider>
+          <v-spacer></v-spacer
+          ><v-card-title class="primary--text" bold
+            >Agency Details
+          </v-card-title>
+          <v-divider class="mx-4"></v-divider>
+
+          <v-row>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agency Name"
+                  hint="Agency Name"
+                  value="database entry"
+                  outlined
+                >
+                </v-text-field
+              ></v-card-title>
+            </v-col>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agency Street"
+                  hint="Street the agency is on"
+                  value="database entry"
+                  outlined
+                >
+                </v-text-field
+              ></v-card-title>
+            </v-col>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agency City"
+                  hint="City the agency is in"
+                  value="database entry"
+                  outlined
+                ></v-text-field
+              ></v-card-title>
+            </v-col>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agency State"
+                  hint="State the agency is in"
+                  value="database entry"
+                  outlined
+                ></v-text-field
+              ></v-card-title>
+            </v-col>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agency Zipcode"
+                  hint="Zipcode for the agency"
+                  value="database entry"
+                  outlined
+                ></v-text-field
+              ></v-card-title>
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agent Name"
+                  hint="Name of agent in charge of property"
+                  value="database entry"
+                  outlined
+                ></v-text-field
+              ></v-card-title>
+            </v-col>
+
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Agent Email"
+                  hint="The email of the agent to contact regarding the property"
+                  value="database entry"
+                  outlined
+                ></v-text-field
+              ></v-card-title>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-container>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-
 export default defineComponent({
-  name: 'EditDetailedListing',
-
+  name: 'DetailedListing',
   setup() {},
-  data: () => ({
-    seasons: ['0', '100k', '150k', '200k', '250k', '300k+'],
-    sqrt: ['0+', '1000', '2000', '3000+'],
-    alignments: ['start', 'center', 'end'],
-    items: [
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-      },
-    ],
-  }),
+  data: () => ({}),
 })
 </script>
