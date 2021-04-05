@@ -10,9 +10,12 @@
     <v-card-text>
       <v-row class="mx-0"> </v-row>
       <v-row>
+        <div class="black--text ml-4" size="14">Listing Agent</div>
+        <div class="black--text ml-4" size="14">Listing Agency</div>
+      </v-row>
+      <v-row>
         <div class="black--text ml-4" size="14">$###,###</div>
         <div class="black--text ml-4" size="14">Sqft: #,###</div>
-        <div class="black--text ml-4" size="14">MLS:#######</div>
       </v-row>
     </v-card-text>
 

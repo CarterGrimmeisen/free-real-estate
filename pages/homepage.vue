@@ -14,14 +14,14 @@
             <HomeCard
               text="Find your place with us!"
               button="Buy A Home"
-              send="/listing"
+              send="/listings"
             />
           </v-col>
           <v-col cols="12" md="3" xs="1">
             <HomeCard
               text="Let us help you sell!"
               button="Sell A Home"
-              send="/"
+              send="/AgentDetailedListing"
             />
           </v-col>
         </v-row>
