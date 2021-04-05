@@ -12,6 +12,7 @@ export default async function (ctx: Context) {
   // If there's no auth cookie we know we can go right to login
   // we know the page requires auth of some kind at this point
   if (!authCookie) {
+    // eslint-disable-next-line no-console
     console.warn('[middleware/cookie-auth/server] no auth cookie')
     return
   }

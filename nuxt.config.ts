@@ -1,9 +1,9 @@
 import { IncomingMessage, ServerResponse } from 'http'
-import { NuxtConfig } from '@nuxt/types'
 import { NextFunction } from 'express'
 import { HTTPError } from 'crosswalk'
+import { defineNuxtConfig } from '@nuxtjs/composition-api'
 
-const config: NuxtConfig = {
+export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'free-real-estate',
@@ -129,6 +129,4 @@ const config: NuxtConfig = {
       },
     },
   },
-}
-
-export default config
+})

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavigationBar @login="authActive = true" />
-    <v-main> <Nuxt /> </v-main>
+    <v-main><Nuxt /></v-main>
     <Auth :active.sync="authActive" />
   </v-app>
 </template>

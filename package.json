@@ -26,6 +26,9 @@
       "pre-commit": "lint-staged"
     }
   },
+  "optionalDependencies": {
+    "pdf-fill-form": "^5.1.0"
+  },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/axios": "^5.12.5",
@@ -45,7 +48,6 @@
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.17",
     "nuxt": "^2.15.3",
-    "pdf-fill-form": "^5.1.0",
     "swagger-ui-express": "^4.1.6",
     "vue-virtual-scroller": "^1.0.10",
     "zod": "^3.0.0-alpha.4"
