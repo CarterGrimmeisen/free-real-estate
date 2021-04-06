@@ -3,15 +3,16 @@
     <v-card>
       <v-card-title>User</v-card-title>
       <v-card-text v-if="!$auth.loggedin">Not Logged In</v-card-text>
-      <v-card-text v-else-if="$auth.user"> {{ $auth.user }} </v-card-text>
-      <template v-if="$auth.user">
-        <v-card-text v-if="$auth.user.type === 'AGENT'">
-          IS AN AGENT
-        </v-card-text>
-        <v-card-text v-else> IS SOMETHING ELSE (USER OR ADMIN) </v-card-text>
-      </template>
-      <v-card-text></v-card-text>
+      <v-card-text v-else-if="$auth.user">
+        <p>
+          {{ $auth.user }}
+        </p>
+        <v-alert :type="$auth.user.type === 'AGENT' ? 'success' : 'warning'">
+          IS AN {{ $auth.user.type }}
+        </v-alert>
+      </v-card-text>
     </v-card>
+    <br />
     <v-card>
       <v-card-title>Use Data Homes</v-card-title>
       <v-card-text v-if="!dataHomesReady"> Loading... </v-card-text>
@@ -21,6 +22,7 @@
         </div>
       </v-card-text>
     </v-card>
+    <br />
     <v-card>
       <v-card-title>Use Request Homes</v-card-title>
       <v-card-actions>
@@ -33,17 +35,33 @@
         </div>
       </v-card-text>
     </v-card>
+    <br />
+    <v-card>
+      <v-card-title>Updated Home</v-card-title>
+      <v-card-actions>
+        <v-btn @click="updateSpecifiedHome">Update Home</v-btn>
+      </v-card-actions>
+      <v-card-text v-if="updatedHome === null">
+        Home has not been updated
+      </v-card-text>
+      <v-card-text v-else>
+        {{ updatedHome.street }} - {{ updatedHome.price }}
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 import { useHomes, useRequest, useData } from '@/hooks/api'
+import { Home } from '@prisma/client'
 
 export default defineComponent({
   setup() {
     const { $auth } = useContext()
-    const { getHomes } = useHomes()
+    const { getHomes, updateHome } = useHomes()
+
+    const updatedHome = ref<Home | null>(null)
 
     // $auth.user is a ref, use .value
     console.log($auth.value.user?.name)
@@ -53,7 +71,15 @@ export default defineComponent({
     /* Requests data when returned function is executed */
     const [homes, homesReady, fetchHomes] = useRequest(getHomes)
 
-    const fetchPopularHomes = () => fetchHomes({}, { priceMin: 200_000 })
+    const fetchPopularHomes = () => fetchHomes({}, { agent: 'Vick Vinegar' })
+
+    /* Use raw request when creating/updating/deleting data */
+    const updateSpecifiedHome = async () => {
+      updatedHome.value = await updateHome(
+        { mlsn: '7777777' },
+        { price: 420_690 }
+      )
+    }
 
     return {
       $auth,
@@ -62,6 +88,8 @@ export default defineComponent({
       fetchPopularHomes,
       dataHomes,
       dataHomesReady,
+      updatedHome,
+      updateSpecifiedHome,
     }
   },
 })
