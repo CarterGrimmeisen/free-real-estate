@@ -64,6 +64,7 @@ export default defineComponent({
     const updatedHome = ref<Home | null>(null)
 
     // $auth.user is a ref, use .value
+    // eslint-disable-next-line no-console
     console.log($auth.value.user?.name)
 
     /* Requests data on component mount */

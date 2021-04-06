@@ -12,10 +12,12 @@
     "generate": "yarn generate:prisma && yarn generate:db && yarn generate:json",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
     "lint:ts": "tsc --noEmit",
-    "lint": "yarn lint:js && yarn lint:ts",
+    "lint:vue": "vti diagnostics",
+    "lint": "yarn lint:js && yarn lint:ts && yarn lint:vue",
     "run-script": "ts-node -P scripts/tsconfig.json",
     "seed:user": "yarn run-script scripts/createUser.ts",
     "seed:homes": "yarn run-script scripts/seedHomes.ts",
+    "lint:commit": "eslint --fix && yarn lint",
     "test": "jest"
   },
   "lint-staged": {
@@ -34,8 +36,6 @@
     "@nuxtjs/composition-api": "^0.22.4",
     "@paljs/plugins": "^2.13.0",
     "@prisma/client": "^2.19.0",
-    "axios-cache-adapter": "^2.7.0",
-    "balm-ui": "^8.16.0",
     "bcryptjs": "^2.4.3",
     "browser-image-compression": "^1.0.14",
     "cookie-parser": "^1.4.5",
@@ -43,12 +43,9 @@
     "core-js": "^3.8.2",
     "crosswalk": "https://git.io/JthwB",
     "jsonwebtoken": "^8.5.1",
-    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.17",
     "nuxt": "^2.15.3",
-    "swagger-ui-express": "^4.1.6",
-    "vue-virtual-scroller": "^1.0.10",
-    "zod": "^3.0.0-alpha.4"
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.4",
@@ -57,7 +54,6 @@
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/router-extras": "^1.1.1",
     "@nuxtjs/vuetify": "^1.11.3",
-    "@storybook/addon-knobs": "^6.1.21",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.2",
     "@types/fs-extra": "^9.0.8",
@@ -95,6 +91,7 @@
     "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript-json-schema": "^0.48.0",
+    "vti": "^0.1.1",
     "vue-jest": "^3.0.4"
   }
 }
