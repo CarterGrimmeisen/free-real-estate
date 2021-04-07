@@ -1,14 +1,6 @@
 <!-- FeedbackForm.vue -->
 <template>
-  <v-card class="mx-auto my-12" max-width="1000" width="1000">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
+  <v-card class="mx-auto my-12" max-width="1000" width="1000" height="500">
     <v-card-title>Showing Feedback Form</v-card-title>
     <v-row>
       <v-card-subtitle
@@ -51,17 +43,14 @@
       <v-spacer> </v-spacer
     ></v-row>
 
-    <v-row><v-card-subtitle>4. Additional Comments: </v-card-subtitle></v-row>
-    <v-card-title>
-      <v-textarea
-        height="120"
-        full-width
-        auto-grow
-        outlined
-        placeholder="This is where there will be a small block of text "
-        solo
-      ></v-textarea>
-    </v-card-title>
+    <v-card-subtitle>4. Additional Comments: </v-card-subtitle>
+    <v-textarea
+      height="120"
+      full-width="true"
+      auto-grow
+      value="This is where there will be a small block of text "
+      solo
+    ></v-textarea>
 
     <v-divider class="mx-4"></v-divider>
 
@@ -86,18 +75,23 @@ export default defineComponent({
   setup() {
     return {
       select: ['Please Select a Value'],
-      items: ['Yes', 'No', 'Potentialy'],
+      items: ['Yes', 'No'],
       select2: ['Please Select a Value'],
       items2: [
-        'Very Satisfied',
+        { text: 'Very Satisfied', value: 'VERY_SATISFIED' },
         'Satisfied',
         'Indifferent',
         'Unsatisfied',
         'Very Unsatisfied',
       ],
       select3: ['Please Select a Value'],
-      items3: ['Way too High', 'Needs Negotiation', 'Priced Accordingly'],
-      data: { working: true },
+      items3: [
+        'Very Satisfied',
+        'Satisfied',
+        'Indifferent',
+        'Unsatisfied',
+        'Very Unsatisfied',
+      ],
     }
   },
 })

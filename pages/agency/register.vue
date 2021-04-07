@@ -1,41 +1,33 @@
-<!-- CreateAccount.vue -->
+<!--RegisterAgency.vue -->
 <template>
-  <v-card class="mx-auto my-12" max-width="1000" width="1000" height="500">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
+  <v-card class="mx-auto my-12" max-width="1200" width="1100">
     <v-row>
       <v-spacer> </v-spacer> <v-card-title>Create a New Account</v-card-title
       ><v-spacer> </v-spacer>
     </v-row>
     <v-row>
-      <v-card-title>Username:</v-card-title
+      <v-card-title>Agency Name:</v-card-title
       ><v-text-field
         color="black"
         hide-details
         v.length="40"
         single-line
         outlined
-        placeholder="username"
+        placeholder="Name"
         background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
     </v-row>
     <v-row>
-      <v-card-title>Password:</v-card-title
+      <v-card-title>Address:</v-card-title
       ><v-text-field
         color="black"
         hide-details
         v.length="40"
         single-line
         outlined
-        placeholder="password"
+        placeholder="Address"
         background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
@@ -63,48 +55,32 @@
         v.length="40"
         single-line
         outlined
-        placeholder="(###) ###-####"
+        placeholder="(###) ###-###"
         background-color="tertiary"
         class="shrink"
         append-icon="mdi-pen"
       ></v-text-field>
     </v-row>
     <v-row>
-      <v-card-title
-        >If this is for an Agent Account please enter your company
-        code:</v-card-title
-      ><v-text-field
-        color="black"
-        hide-details
-        v.length="10"
-        single-line
-        outlined
-        placeholder="CODE"
-        background-color="tertiary"
-        class="shrink"
-        append-icon="mdi-pen"
-      ></v-text-field
-    ></v-row>
+      <v-col> <v-divider></v-divider> </v-col>
+    </v-row>
+    <v-card-title>
+      An Agency code will be sent to the email provided. Agents can register
+      under your agency with the code.
+    </v-card-title>
 
-    <v-row
-      ><v-col> <v-divider class="mx-4"></v-divider></v-col
-    ></v-row>
-
-    <v-card-actions>
-      <v-row justify-end>
-        <v-col>
-          <v-spacer> </v-spacer>
-          <v-btn class="ma-2" color="primary" dark to="/homepage">
-            Cancel
-            <v-icon dark right></v-icon>
-          </v-btn>
-          <v-btn class="ma-2" color="primary" dark to="/listing">
-            Sign up
-            <v-icon dark right> </v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-card-actions>
+    <v-row>
+      <v-spacer> </v-spacer>
+      <v-btn class="ma-2" color="primary" dark to="/homepage">
+        Cancel
+        <v-icon dark right></v-icon>
+      </v-btn>
+      <v-btn class="ma-2" color="primary" dark to="/homepage">
+        Register
+        <v-icon dark right> </v-icon>
+      </v-btn>
+      <v-spacer> </v-spacer>
+    </v-row>
   </v-card>
 </template>
 
@@ -112,7 +88,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  name: 'CreateAccount',
+  name: 'RegisterAgency',
   setup() {
     return { data: { working: true } }
   },

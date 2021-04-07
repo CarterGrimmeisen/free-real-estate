@@ -110,7 +110,33 @@
               <v-spacer></v-spacer
             ></v-row>
           </v-card-text>
-          <v-card-actions> </v-card-actions>
+          <v-card-title color="black">Home Alarm Information </v-card-title>
+          <v-row
+            ><v-spacer></v-spacer>
+            <v-card-subtitle>Currently Occupied:</v-card-subtitle
+            ><v-checkbox label="" outlined dense></v-checkbox
+            ><v-spacer></v-spacer>
+            <v-card-subtitle>Lockbox code: </v-card-subtitle>
+            <v-text-field
+              color="white"
+              hide-details
+              v.length="25"
+              single-line
+              rounded="false"
+              background-color="secondary"
+              class="shrink"
+              append-icon="mdi-pen"
+              value="#####"
+            ></v-text-field
+            ><v-spacer></v-spacer>
+          </v-row>
+          <v-textarea
+            height="50"
+            full-width="true"
+            auto-grow
+            value="This is where there will be a small block of text "
+            solo
+          ></v-textarea>
         </v-card>
       </v-container>
     </div>
@@ -121,7 +147,12 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   name: 'DetailedListing',
+  props: {
+    mlsn: {
+      type: String,
+      default: '',
+    },
+  },
   setup() {},
-  data: () => ({}),
 })
 </script>

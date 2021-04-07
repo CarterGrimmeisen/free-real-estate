@@ -1,7 +1,7 @@
 <!-- just the homebar -->
 <template>
   <v-app-bar color="primary" dark app>
-    <v-btn class="tertiary" icon to="/homepage"
+    <v-btn class="tertiary" icon to="/"
       ><v-icon color="primary">mdi-home</v-icon></v-btn
     >
     <v-toolbar-title class="tertiary--text"
@@ -36,6 +36,9 @@
         <v-list-item @click="doLogout">Logout</v-list-item>
       </v-list>
     </v-menu>
+    <v-btn icon to="/listings"
+      ><v-icon color="white">mdi-home-city</v-icon></v-btn
+    >
   </v-app-bar>
 </template>
 

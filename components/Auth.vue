@@ -1,21 +1,20 @@
 <template>
   <v-dialog
     :value="active"
-    width="344"
+    width="400"
     @input="(val) => $emit('update:active', val)"
   >
-    <v-card class="mx-auto rounded-xl" max-width="344" outlined>
+    <v-card class="mx-auto rounded-xl" max-width="400" outlined>
       <v-window v-model="showing" touchless>
         <v-window-item>
           <v-form @submit.prevent="onSubmit">
             <v-list-item three-line>
               <v-list-item-content>
-                <div class="overline mb-4 text-right" />
                 <v-row class="headline mb-1">
                   <v-col> Login </v-col>
                   <v-spacer />
                   <v-col align-self="start">
-                    <v-btn small text color="white" @click="showing = 1">
+                    <v-btn small text color="primary" @click="showing = 1">
                       OR REGISTER
                     </v-btn>
                   </v-col>
@@ -53,37 +52,68 @@
           <v-form>
             <v-list-item three-line @submit="onSubmit">
               <v-list-item-content>
-                <div class="overline mb-4 text-right" />
-                <v-row class="headline mb-1">
-                  <v-col> Register </v-col>
-                  <v-spacer />
-                  <v-col align-self="start">
-                    <v-btn small text color="white" @click="showing = 0">
-                      OR LOGIN
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <v-expand-transition>
-                  <v-alert v-if="registerError" type="error" dense>
-                    {{ registerError }}
-                  </v-alert>
-                </v-expand-transition>
-                <v-list-item-content>
-                  <v-text-field
-                    filled
-                    label="Name"
-                    hide-details="auto"
-                    class="mb-4"
-                  />
-                  <v-text-field
-                    filled
-                    label="Email Address"
-                    type="email"
-                    hide-details="auto"
-                    class="mb-4"
-                  />
-                  <v-text-field filled label="Password" hide-details="auto" />
-                </v-list-item-content>
+                <v-container>
+                  <v-row class="headline mb-1">
+                    <v-col> Register </v-col>
+                    <v-spacer />
+                    <v-col align-self="start">
+                      <v-btn small text color="primary" @click="showing = 0">
+                        OR LOGIN
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-expand-transition>
+                    <v-alert v-if="registerError" type="error" dense>
+                      {{ registerError }}
+                    </v-alert>
+                  </v-expand-transition>
+                  <v-row>
+                    <v-text-field
+                      filled
+                      label="Name"
+                      hide-details="auto"
+                      class="mb-4"
+                    />
+                  </v-row>
+                  <v-row>
+                    <v-text-field
+                      filled
+                      label="Email Address"
+                      type="email"
+                      hide-details="auto"
+                      class="mb-4"
+                    />
+                  </v-row>
+                  <v-row>
+                    <v-text-field filled label="Password" hide-details="auto" />
+                  </v-row>
+                  <v-row justify="end">
+                    <v-switch
+                      v-model="registerAgent"
+                      label="Register as an Agent"
+                    ></v-switch>
+                  </v-row>
+                  <template v-if="registerAgent">
+                    <v-row>
+                      <v-text-field
+                        filled
+                        label="Phone Number"
+                        hide-details="auto"
+                        class="mb-4"
+                      />
+                    </v-row>
+                    <v-row>
+                      <v-text-field
+                        filled
+                        label="Agency Code"
+                        hide-details="auto"
+                        class="mb-4"
+                        hint="If this is for an Agent Account please enter your company
+        code"
+                      />
+                    </v-row>
+                  </template>
+                </v-container>
               </v-list-item-content>
             </v-list-item>
 
@@ -120,6 +150,10 @@ export default defineComponent({
     const email = ref('')
     const password = ref('')
     const name = ref('')
+
+    const registerAgent = ref(false)
+    const phoneNo = ref('')
+    const agencyCode = ref('')
 
     const loginError = ref('')
     const registerError = ref('')
@@ -181,6 +215,9 @@ export default defineComponent({
       loginError,
       registerError,
       onSubmit,
+      registerAgent,
+      phoneNo,
+      agencyCode,
     }
   },
 })

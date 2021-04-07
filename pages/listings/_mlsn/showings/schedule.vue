@@ -1,14 +1,6 @@
 <!-- ShowingForm.vue -->
 <template>
   <v-card class="mx-auto my-12" max-width="1000">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
     <v-spacer></v-spacer>
     <v-card-title> Schedule a Showing</v-card-title>
 

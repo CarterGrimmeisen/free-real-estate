@@ -54,12 +54,13 @@ import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
   name: 'FilterBar',
   components: {},
-  setup() {},
-  data: () => ({
-    prices: ['0', '100k', '150k', '200k', '250k', '300k+'],
-    sqrt: ['0+', '1000', '2000', '3000+'],
-    alignments: ['start', 'center', 'end'],
-  }),
+  setup() {
+    return {
+      prices: ['0', '100k', '150k', '200k', '250k', '300k+'],
+      sqrt: ['0+', '1000', '2000', '3000+'],
+      alignments: ['start', 'center', 'end'],
+    }
+  },
 })
 </script>
 

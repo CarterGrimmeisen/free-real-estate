@@ -13,10 +13,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from '@nuxtjs/composition-api'
-import ListingPreview from '@/components/listing/ListingPreview.vue'
 
 export default defineComponent({
-  components: { ListingPreview },
   setup() {
     const loadedElements = ref(9)
     const distanceToBottom = ref(0)

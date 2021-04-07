@@ -33,9 +33,9 @@ export default defineNuxtConfig({
     '~/components',
     '~/components/detail-listing',
     '~/components/detail-listing/EditListing',
-    '~/components/experimental',
     '~/components/homepage',
-    '~/components/listing',
+    '~/components/listings',
+    '~/components/showing',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
