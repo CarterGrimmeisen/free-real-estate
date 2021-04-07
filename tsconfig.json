@@ -30,7 +30,7 @@
       "@types/jest",
       "@nuxt/types",
       "@nuxtjs/axios",
-      "@nuxtjs/auth-next"
+      "cookie-universal-nuxt"
     ]
   },
   "exclude": [

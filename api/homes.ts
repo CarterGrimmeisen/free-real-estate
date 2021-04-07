@@ -156,7 +156,11 @@ function register(router: TypedRouter<API>) {
         schools: {
           connectOrCreate: home.schools.map((school) => ({
             where: { name: school.name },
-            create: { name: school.name, type: school.type },
+            create: {
+              name: school.name,
+              type: school.type,
+              grades: school.grades,
+            },
           })),
         },
 
@@ -212,6 +216,7 @@ function register(router: TypedRouter<API>) {
             create: {
               name: school.name,
               type: school.type,
+              grades: school.grades,
             },
 
             update: {

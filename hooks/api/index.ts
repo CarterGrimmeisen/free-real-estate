@@ -1,35 +1,42 @@
-import { Ref, UnwrapRef, useContext } from '@nuxtjs/composition-api'
-import { useAsyncState } from '@vueuse/core'
-import { typedApi } from 'crosswalk'
-import { HTTPVerb } from '~/../crosswalk/dist/api-spec'
-import API from '~/api/api'
-
-export function useFetch() {}
+import {
+  computed,
+  ref,
+  Ref,
+  useAsync,
+  useContext,
+} from '@nuxtjs/composition-api'
 
 export function useCrosswalk() {
-  const { $axios } = useContext()
-  const fetch = (
-    url: string,
-    method: HTTPVerb,
-    data: unknown,
-    params?: Record<string, string>
-  ) => $axios.$request({ url, method, data, params })
+  const { $crosswalk } = useContext()
 
-  return typedApi<API>({ prefix: '/api', fetch })
+  return $crosswalk
 }
 
-export function useRequest<T>(
-  promise: Promise<T>,
-  initialState?: T,
-  delay?: number,
-  catchFn?: (e: Error) => void
-): [state: Ref<UnwrapRef<T>>, ready: Ref<boolean>] {
-  const { state, ready } = useAsyncState(
-    promise,
-    initialState ?? ({} as T),
-    delay,
-    catchFn
-  )
+type PromiseFn<T> = (...args: any[]) => Promise<T>
+
+export function useRequest<
+  T extends PromiseFn<any>,
+  U extends T extends PromiseFn<infer R> ? R : never,
+  V extends Parameters<T>
+>(promiseFn: T): [Ref<U | null>, Ref<boolean>, (...args: V) => Promise<void>] {
+  const state = ref<U | null>(null)
+  const ready = computed(() => state.value !== null)
+  const execute = async (...args: V) => {
+    state.value = null
+    state.value = await promiseFn(...args)
+  }
+
+  return [state, ready, execute]
+}
+
+export function useData<
+  T extends PromiseFn<any>,
+  U extends T extends PromiseFn<infer R> ? R : never,
+  V extends Parameters<T>
+>(promiseFn: T, ...args: V): [Ref<U | null>, Ref<boolean>] {
+  const state = useAsync(() => promiseFn(...args), JSON.stringify(args))
+  const ready = computed(() => state.value !== null)
+
   return [state, ready]
 }
 
@@ -37,3 +44,4 @@ export * from './auth'
 export * from './homes'
 export * from './showings'
 export * from './user'
+export * from './files'

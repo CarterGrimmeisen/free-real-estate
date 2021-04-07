@@ -53,7 +53,7 @@ model Agent {
 }
 
 model Agency {
-  id      String  @id @default(cuid())
+  id      String  @id
   name    String  @unique
   phone   String  @unique
   address String  @unique
@@ -85,16 +85,11 @@ model Home {
   files       File[]
 }
 
-enum SchoolType {
-  ELEMENTARY
-  MIDDLE
-  HIGH
-}
-
 model School {
-  name  String     @id
-  type  SchoolType
-  homes Home[]     @relation
+  name   String @id
+  grades String
+  type   String
+  homes  Home[] @relation
 }
 
 model Showing {

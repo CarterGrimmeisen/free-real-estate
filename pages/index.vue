@@ -1,75 +1,39 @@
 <template>
-  <div class="container">
+  <v-container fluid class="fill-height justify-center align-content-center">
     <div>
-      <Logo />
-      <h1 class="title">free-real-estate</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          <v-btn raised> Documentation </v-btn>
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          <v-btn raised> GitHub </v-btn>
-        </a>
-        <v-btn raised @click="$toast('hello world')"> Do Something </v-btn>
-      </div>
-      <div>
-        <pre>
-          {{ data }}
-        </pre>
-      </div>
+      <v-container justify-center fluid>
+        <h1 class="pt-5 text-center primary--text">
+          Need help in the housing market?
+        </h1>
+        <h2 class="pb-5 text-center primary--text">
+          We're (not) an error free service!
+        </h2>
+
+        <v-row justify="space-around">
+          <v-col cols="12" md="3" xs="1">
+            <HomeCard
+              text="Find a home!"
+              button="Buy A Home"
+              send="/listings"
+            />
+          </v-col>
+          <v-col cols="12" md="3" xs="1">
+            <HomeCard
+              text="Let us help you sell!"
+              button="Sell A Home"
+              send="/AgentDetailedListing"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    return { data: { working: true } }
-  },
+  setup() {},
 })
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
