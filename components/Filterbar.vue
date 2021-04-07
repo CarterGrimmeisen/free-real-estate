@@ -9,6 +9,7 @@
           v.length="25"
           single-line
           rounded
+          outlined
           placeholder="zipcode"
           background-color="tertiary"
           append-icon="mdi-magnify"
@@ -50,7 +51,6 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api'
-
 export default defineComponent({
   name: 'FilterBar',
   components: {},

@@ -1,13 +1,14 @@
+<!-- ShowingPage.vue -->
 <template>
   <div class="listing">
     <div>
-      <FilterBar />
+      <ShowingFilterBar />
       <div class="container">
         <div>
           <v-row no-gutters>
-            <template v-for="n in 9">
-              <v-col :key="n" cols="4">
-                <ListingPreview />
+            <template v-for="n in 10">
+              <v-col :key="n" cols="9">
+                <ShowingCard />
               </v-col>
             </template>
           </v-row>

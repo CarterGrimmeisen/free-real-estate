@@ -17,7 +17,7 @@
           </v-card-title>
           <v-divider class="mx-4"></v-divider>
 
-          <AgentImageDisplay />
+          <ImageDisplay />
 
           <v-divider class="mx-4"></v-divider>
 

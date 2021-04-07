@@ -15,9 +15,9 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item>Manage Listings</v-list-item>
-        <v-list-item>Schedule Showing</v-list-item>
-        <v-list-item>Generate Documents</v-list-item>
+        <v-list-item to="/managelistings">Manage Listings </v-list-item>
+        <v-list-item to="/ShowingPage">Schedule Showing</v-list-item>
+        <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
       </v-list>
     </v-menu>
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
@@ -30,8 +30,7 @@
         </v-btn>
       </template>
       <v-list>
-        <v-subheader>My Account</v-subheader>
-        <v-list-item>{{ $auth.user.name || $auth.user.email }}</v-list-item>
+        <v-list-item to="/accountpreview"> My Account</v-list-item>
 
         <v-list-item>Favorites</v-list-item>
         <v-list-item @click="doLogout">Logout</v-list-item>

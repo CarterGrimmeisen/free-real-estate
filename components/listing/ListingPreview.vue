@@ -10,9 +10,12 @@
     <v-card-text>
       <v-row class="mx-0"> </v-row>
       <v-row>
+        <div class="black--text ml-4" size="14">Listing Agent</div>
+        <div class="black--text ml-4" size="14">Listing Agency</div>
+      </v-row>
+      <v-row>
         <div class="black--text ml-4" size="14">$###,###</div>
         <div class="black--text ml-4" size="14">Sqft: #,###</div>
-        <div class="black--text ml-4" size="14">MLS:#######</div>
       </v-row>
     </v-card-text>
 
@@ -23,7 +26,7 @@
         Favorite
         <v-icon dark right> mdi-star </v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark>
+      <v-btn class="ma-2" color="primary" dark to="/DetailListing">
         More Details
         <v-icon dark right> mdi-info </v-icon>
       </v-btn>
