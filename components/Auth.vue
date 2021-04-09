@@ -6,7 +6,7 @@
     @input="(val) => $emit('update:active', val)"
   >
     <v-card class="mx-auto rounded-xl" width="400" outlined>
-      <v-form @submit="onSubmit">
+      <v-form @submit.prevent="onSubmit">
         <v-card-title>
           {{ showing ? 'Register' : 'Login' }}
           <v-spacer />
@@ -92,7 +92,7 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-btn block color="primary" type="submit" rounded="xl">
+          <v-btn block color="primary" type="submit" rounded>
             {{ showing ? 'Register' : 'Login' }}
           </v-btn>
         </v-card-actions>
