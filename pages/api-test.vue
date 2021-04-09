@@ -51,6 +51,14 @@
   </v-container>
 </template>
 
+<router>
+{
+  meta: {
+    auth: 'AGENT'
+  }
+}
+</router>
+
 <script lang="ts">
 import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
 import { useHomes, useRequest, useData } from '@/hooks/api'

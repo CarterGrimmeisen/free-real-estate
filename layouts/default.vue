@@ -2,19 +2,35 @@
   <v-app>
     <NavigationBar @login="authActive = true" />
     <v-main><Nuxt /></v-main>
-    <Auth :active.sync="authActive" />
+    <Auth :active.sync="showAuth" />
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, ref } from '@nuxtjs/composition-api'
+import {
+  computed,
+  defineComponent,
+  useRoute,
+  useRouter,
+} from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup() {
-    const authActive = ref(false)
-    provide('authActive', authActive)
+    const $route = useRoute()
+    const $router = useRouter()
 
-    return { authActive }
+    const showAuth = computed({
+      get: () => ($route.value.query.auth as string) !== undefined,
+      set: (_) => {
+        if ($route.value.query.auth) {
+          if ($route.value.query.auth !== 'true')
+            $router.replace($route.value.query.auth as string)
+          else $router.replace({ query: { auth: undefined } })
+        }
+      },
+    })
+
+    return { showAuth }
   },
 })
 </script>

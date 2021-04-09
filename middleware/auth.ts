@@ -1,8 +1,22 @@
 import { Context } from '@nuxt/types'
+import { UserType } from '.prisma/client'
 
 export default async function (ctx: Context) {
+  const showAuth = () => {
+    ctx.redirect({
+      path: ctx.from ? ctx.from.path : '/',
+      query: { auth: ctx.route.path },
+    })
+  }
+
   // if we somehow don't have a route, let the request through
   if (!ctx.route) {
+    // console.warn('no route')
+    return
+  }
+
+  if (ctx.route.meta.every((m: { auth?: UserType }) => !m || !m.auth)) {
+    // console.warn('no auth')
     return
   }
 
@@ -14,7 +28,8 @@ export default async function (ctx: Context) {
   if (!authCookie) {
     // eslint-disable-next-line no-console
     console.warn('[middleware/cookie-auth/server] no auth cookie')
-    return
+    // return ctx.redirect('/error/unauthorized')
+    return showAuth()
   }
 
   // Attempt to verify authentication cookie
@@ -29,36 +44,29 @@ export default async function (ctx: Context) {
       ctx.$auth.value.loggedin = true
     }
 
-    const authenticate: 'USER' | 'AGENT' | 'ADMIN' =
-      ctx.route.meta?.authenticate
+    const auth: UserType = ctx.route.meta?.[0].auth
 
-    if (authenticate) {
+    if (auth) {
       const equalOrGreater = {
         USER: ['USER', 'AGENT', 'ADMIN'],
         AGENT: ['AGENT', 'ADMIN'],
         ADMIN: ['ADMIN'],
       }
 
-      if (!equalOrGreater[authenticate].includes(ctx.$auth.value.user.type)) {
-        ctx.redirect('/error/unauthorized')
+      if (!equalOrGreater[auth].includes(ctx.$auth.value.user.type)) {
+        // ctx.redirect('/error/unauthorized')
+        return showAuth()
       }
     }
     // Ensure that the auth check was actually successful
-    // if (result.data.status !== 'success' || result.data.data !== true) {
-    //   throw new Error('Unexpected error during auth check')
-    // }
-
-    // // Redirect to app if our cookie is still valid and we're trying to hit login
-    // if (authCookie && ctx.route.path === FRONTEND_URLS.login) {
-    //   ctx.redirect(FRONTEND_URLS.app)
-    //   return
-    // }
     return
   } catch (err) {
     // If a 401 was returned the cookie is likely expired/invalid
+
+    // console.error(err)
     if (err.response.status === 401) {
       ctx.app.$cookies.remove('session')
-      ctx.$auth.value.error = true
+      return showAuth()
     }
 
     // If login failed because the backend server had an error then we need to make sure
