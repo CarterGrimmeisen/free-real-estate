@@ -18,7 +18,11 @@ type Success = { success: true }
 type Liked = { liked: boolean }
 
 type CompleteAgent = Agent & { agency: Agency }
-type CompleteHome = Home & { schools: School[]; agent: CompleteAgent }
+type CompleteHome = Home & {
+  schools: School[]
+  agent: CompleteAgent
+}
+export type HomeWithImage = CompleteHome & { files: File[] }
 
 type CompleteShowing = Showing & { user: User; agent: Agent }
 type CompleteFeedback = Feedback & { showing: Showing }
@@ -80,7 +84,7 @@ export default interface API {
 
   '/homes': {
     get: GetEndpoint<
-      Home[],
+      HomeWithImage[],
       {
         skip?: number
         take?: number

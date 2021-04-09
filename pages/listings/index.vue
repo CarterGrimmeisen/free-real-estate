@@ -4,12 +4,10 @@
       <FilterBar />
       <div class="container">
         <div>
-          <v-row no-gutters>
-            <template v-for="n in 9">
-              <v-col :key="n" cols="4">
-                <ListingPreview />
-              </v-col>
-            </template>
+          <v-row v-if="homesReady && homes" no-gutters>
+            <v-col v-for="home in homes" :key="home.mlsn" cols="4">
+              <ListingPreview :home="home" />
+            </v-col>
           </v-row>
         </div>
       </div>
@@ -18,11 +16,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { useHomes, useData } from '@/hooks/api'
 
 export default defineComponent({
   setup() {
-    return { data: { working: true } }
+    const { $auth } = useContext()
+    const { getHomes } = useHomes()
+
+    const [homes, homesReady] = useData(getHomes)
+
+    return {
+      data: { working: true },
+      $auth,
+      homes,
+      homesReady,
+    }
   },
 })
 </script>
