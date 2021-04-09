@@ -15,7 +15,7 @@
     <br />
     <v-card>
       <v-card-title>Use Data Homes</v-card-title>
-      <v-card-text v-if="!dataHomesReady"> Loading... </v-card-text>
+      <v-card-text v-if="!dataHomes"> Loading... </v-card-text>
       <v-card-text v-else-if="dataHomes !== null">
         <div v-for="home in dataHomes" :key="home.mlsn">
           {{ home.street }} - {{ home.price }}
@@ -28,7 +28,7 @@
       <v-card-actions>
         <v-btn @click="fetchPopularHomes">Fetch Homes</v-btn>
       </v-card-actions>
-      <v-card-text v-if="!homesReady"> Loading... </v-card-text>
+      <v-card-text v-if="!homes"> Loading... </v-card-text>
       <v-card-text v-else-if="homes !== null">
         <div v-for="home in homes" :key="home.mlsn">
           {{ home.street }} - {{ home.price }}
@@ -68,9 +68,9 @@ export default defineComponent({
     console.log($auth.value.user?.name)
 
     /* Requests data on component mount */
-    const [dataHomes, dataHomesReady] = useData(getHomes)
+    const dataHomes = useData(getHomes)
     /* Requests data when returned function is executed */
-    const [homes, homesReady, fetchHomes] = useRequest(getHomes)
+    const [homes, fetchHomes] = useRequest(getHomes)
 
     const fetchPopularHomes = () => fetchHomes({}, { agent: 'Vick Vinegar' })
 
@@ -85,10 +85,8 @@ export default defineComponent({
     return {
       $auth,
       homes,
-      homesReady,
       fetchPopularHomes,
       dataHomes,
-      dataHomesReady,
       updatedHome,
       updateSpecifiedHome,
     }
