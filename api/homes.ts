@@ -41,6 +41,16 @@ function register(router: TypedRouter<API>) {
         : {},
       skip: query.skip,
       take: query.take ?? 20,
+      include: {
+        agent: { include: { agency: true } },
+        schools: true,
+        files: {
+          take: 1,
+          where: {
+            type: 'IMAGE',
+          },
+        },
+      },
     })
   })
 
@@ -59,6 +69,12 @@ function register(router: TypedRouter<API>) {
       include: {
         agent: { include: { agency: true } },
         schools: true,
+        files: {
+          take: 1,
+          where: {
+            type: 'IMAGE',
+          },
+        },
       },
     })
 

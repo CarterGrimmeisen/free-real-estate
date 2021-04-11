@@ -1,21 +1,26 @@
 <template>
   <v-card class="mx-auto my-12" max-width="374">
-    <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+    <v-img height="250" :src="`data:image/png;base64,${image}`"></v-img>
 
-    <v-card-title>Road name, city, state, zipcode</v-card-title>
+    <!--<v-card-title>Road name, city, state, zipcode</v-card-title>--->
+    <v-card-title
+      >{{ home.street }}<br />
+      {{ home.city }}, {{ home.state }} {{ home.zipcode }}</v-card-title
+    >
 
     <v-card-text>
       <v-row class="mx-0"> </v-row>
       <v-row>
-        <div class="black--text ml-4" size="14">Listing Agent</div>
-        <div class="black--text ml-4" size="14">Listing Agency</div>
+        <div class="black--text ml-4" size="14">{{ home.agent.name }}</div>
+        <div class="black--text ml-4" size="14">
+          {{ home.agent.agency.name }}
+        </div>
       </v-row>
       <v-row>
-        <div class="black--text ml-4" size="14">$###,###</div>
-        <div class="black--text ml-4" size="14">Sqft: #,###</div>
+        <div class="black--text ml-4" size="14">${{ fmt(home.price) }}</div>
+        <div class="black--text ml-4" size="14">
+          Sqft: {{ fmt(home.sqfootage) }}
+        </div>
       </v-row>
     </v-card-text>
 
@@ -35,14 +40,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, useContext } from '@nuxtjs/composition-api'
+import { HomeWithImage } from '~/api/api'
 
 export default defineComponent({
   name: 'ListingPreview',
-  setup() {
+  props: {
+    home: {
+      type: Object as PropType<HomeWithImage>,
+      required: true,
+    },
+  },
+  setup(props) {
     const { $auth } = useContext()
+    const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
+    const image = props.home.files?.[0].contents
 
-    return { $auth }
+    return {
+      $auth,
+      fmt,
+      image,
+    }
   },
 })
 </script>
