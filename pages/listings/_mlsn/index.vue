@@ -19,6 +19,22 @@
 
           <ImageDisplay />
 
+          <v-row v-if="$auth.loggedin" no-gutters>
+            <v-btn class="ma-2 tertiary--text" color="primary" dark>
+              Favorite This Listing
+              <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
+            </v-btn>
+            <v-btn
+              class="ma-2 tertiary--text"
+              color="primary"
+              dark
+              to="/listings/example/showings/schedule"
+            >
+              Showing
+              <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
+            </v-btn>
+          </v-row>
+
           <v-divider class="mx-4"></v-divider>
 
           <v-card-title bold>Property Details </v-card-title>
@@ -54,7 +70,6 @@
               readonly
               disabled
               height="300"
-              full-width
               auto-grow
               value="This is where there will be a big ol block of text and thats alright
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
@@ -69,7 +84,6 @@
               readonly
               disabled
               height="250"
-              full-width
               auto-grow
               value="This is where there will be a medium block of text and thats alright"
               solo
@@ -79,7 +93,6 @@
               readonly
               disabled
               height="150"
-              full-width
               auto-grow
               value="This is where there will be a small block of text "
               solo
@@ -122,7 +135,7 @@
               hide-details
               v.length="25"
               single-line
-              rounded="false"
+              rounded
               background-color="secondary"
               class="shrink"
               append-icon="mdi-pen"
@@ -132,7 +145,7 @@
           </v-row>
           <v-textarea
             height="50"
-            full-width="true"
+            full-width
             auto-grow
             value="This is where there will be a small block of text "
             solo
@@ -144,7 +157,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
+
 export default defineComponent({
   name: 'DetailedListing',
   props: {
@@ -153,6 +167,10 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {},
+  setup(_) {
+    const { $auth } = useContext()
+
+    return { $auth }
+  },
 })
 </script>

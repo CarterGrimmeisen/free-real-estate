@@ -64,11 +64,11 @@
 
     <v-card-actions>
       <v-spacer />
-      <v-btn class="ma-2" color="primary" dark to="/accountpreview">
+      <v-btn class="ma-2" color="primary" dark to="/user">
         Cancel
         <v-icon dark right>mdi-close</v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/accountpreview">
+      <v-btn class="ma-2" color="primary" dark to="/user">
         Save
         <v-icon dark right>mdi-content-save</v-icon>
       </v-btn>

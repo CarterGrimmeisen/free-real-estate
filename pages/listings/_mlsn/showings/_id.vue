@@ -117,7 +117,7 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions>
-      <v-btn class="ma-2" color="primary" dark to="/ShowingPage">
+      <v-btn class="ma-2" color="primary" dark to="/listings/example/showings">
         Exit
         <v-icon dark right></v-icon>
       </v-btn>

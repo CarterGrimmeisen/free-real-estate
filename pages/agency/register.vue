@@ -71,11 +71,11 @@
 
     <v-row>
       <v-spacer> </v-spacer>
-      <v-btn class="ma-2" color="primary" dark to="/homepage">
+      <v-btn class="ma-2" color="primary" dark to="/">
         Cancel
         <v-icon dark right></v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/homepage">
+      <v-btn class="ma-2" color="primary" dark to="/">
         Register
         <v-icon dark right> </v-icon>
       </v-btn>

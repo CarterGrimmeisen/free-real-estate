@@ -18,7 +18,7 @@
           </template>
           <v-btn class="ma-2" color="primary" dark>
             Save Changes
-            <v-icon dark right to="/ManageListings"> mdi-star</v-icon>
+            <v-icon dark right to="/listings/example"> mdi-star</v-icon>
           </v-btn>
           <v-card-title class="primary--text"> Property Address </v-card-title>
           <v-card-title class="primary--text">
