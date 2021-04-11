@@ -15,9 +15,8 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item to="/listings/edit">Manage Listings </v-list-item>
-        <v-list-item to="/listings/showings">Schedule Showing</v-list-item>
-        <v-list-item to="/listings/documents">Generate Documents</v-list-item>
+        <v-list-item to="/user/listings">Manage Listings </v-list-item>
+        <v-list-item to="/user/showings">My Showings</v-list-item>
       </v-list>
     </v-menu>
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
