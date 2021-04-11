@@ -127,7 +127,6 @@
               <v-spacer></v-spacer>{{ home.agent.email }} <v-spacer></v-spacer
             ></v-row>
           </v-card-text>
-          <v-card-title color="black">Home Alarm Information </v-card-title>
           <!--<v-row
             ><v-spacer></v-spacer>
             <v-card-subtitle>Currently Occupied:</v-card-subtitle
@@ -146,13 +145,26 @@
               ></v-text-field
             ><v-spacer></v-spacer>
           </v-row>--->
-          <v-textarea
-            height="50"
-            full-width="true"
-            auto-grow
-            solo
-            :value="home.alarmInfo"
-          ></v-textarea>
+          <v-card-text v-if="$auth.loggedin" class="primary--text">
+            <v-divider /> <v-spacer />
+            <v-card-title>Home Alarm Information </v-card-title>
+            <v-divider />
+            <v-row align="center" justify="center">
+              <v-col>
+                <v-checkbox
+                  label="Occupied"
+                  outlined
+                  dense
+                  disabled
+                ></v-checkbox
+              ></v-col>
+              <v-col>
+                <v-card-subtitle
+                  >Lockbox info: {{ home.alarmInfo }}</v-card-subtitle
+                ></v-col
+              >
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-container>
     </div>
