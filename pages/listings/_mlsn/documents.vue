@@ -86,8 +86,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'GenerateDocuments',
-  setup() {
-    return { data: { working: true } }
-  },
+  setup() {},
 })
 </script>
