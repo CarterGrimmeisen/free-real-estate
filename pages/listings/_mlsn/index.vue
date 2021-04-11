@@ -3,13 +3,14 @@
   <div>
     <div>
       <v-container justify-center>
-        <v-card class="pa-2" outlined title>
+        <v-card v-if="home" class="pa-2" outlined title>
           <v-card-title class="primary--text">
-            Street, City, State, Zipcode
+            {{ home.street }}, {{ home.city }}, {{ home.state }}
+            {{ home.zipcode }}
           </v-card-title>
           <v-divider class="mx-4"></v-divider>
 
-          <ImageDisplay />
+          <ImageDisplay :mlsn="realMlsn" />
 
           <v-divider class="mx-4"></v-divider>
 
@@ -18,17 +19,32 @@
           <v-divider class="mx-4"></v-divider>
 
           <v-row>
-            <v-col><v-card-title>Listing Price: $$$,$$$</v-card-title></v-col>
-            <v-col><v-card-title>Square Feet: #,### </v-card-title></v-col>
-            <v-col><v-card-title>MLS: ####### </v-card-title></v-col>
+            <v-col
+              ><v-card-title
+                >Listing Price: ${{ fmt(home.price) }}</v-card-title
+              ></v-col
+            >
+            <v-col
+              ><v-card-title
+                >Square Feet: {{ fmt(home.sqfootage) }}
+              </v-card-title></v-col
+            >
+            <v-col
+              ><v-card-title>MLS: {{ home.mlsn }} </v-card-title></v-col
+            >
           </v-row>
 
-          <v-card-title>HOA: ??? </v-card-title>
-          <v-card-title>Subdivision: Maybe, Maybe not</v-card-title>
+          <!--<v-card-title>HOA: ??? </v-card-title>
+          <v-card-title>Subdivision: Maybe, Maybe not</v-card-title>--->
           <v-card-title>School Zones: </v-card-title>
 
           <v-row>
-            <v-col>
+            <v-col v-for="(school, i) in home.schools" :key="i">
+              <v-card-title
+                >{{ school.name }} (Grades: {{ school.grades }})</v-card-title
+              >
+            </v-col>
+            <!--<v-col>
               <v-card-title> Elementry: Some school </v-card-title>
             </v-col>
             <v-col>
@@ -36,7 +52,7 @@
             </v-col>
             <v-col>
               <v-card-title> High: some school </v-card-title>
-            </v-col>
+            </v-col>--->
           </v-row>
 
           <v-card-text class="primary--text">
@@ -48,15 +64,10 @@
               height="300"
               full-width
               auto-grow
-              value="This is where there will be a big ol block of text and thats alright
-          ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-          ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-          ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-          ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-          ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
               solo
+              :value="home.description"
             ></v-textarea>
-            <v-card-title>Facts and Features </v-card-title>
+            <!--<v-card-title>Facts and Features </v-card-title>
             <v-textarea
               readonly
               disabled
@@ -65,7 +76,7 @@
               auto-grow
               value="This is where there will be a medium block of text and thats alright"
               solo
-            ></v-textarea>
+            ></v-textarea>--->
             <v-card-title>Additional Room Information </v-card-title>
             <v-textarea
               readonly
@@ -73,7 +84,7 @@
               height="150"
               full-width
               auto-grow
-              value="This is where there will be a small block of text "
+              :value="`${home.bedrooms} bed, ${home.bathrooms} bath `"
               solo
             ></v-textarea>
             <v-divider class="mx-4"></v-divider>
@@ -85,25 +96,26 @@
             ></v-card-title>
             <v-spacer></v-spacer>
             <v-row>
-              <v-spacer></v-spacer>Agency Name Here <v-spacer></v-spacer
+              <v-spacer></v-spacer>{{ home.agent.agency.name }}
+              <v-spacer></v-spacer
             ></v-row>
             <v-row>
-              <v-spacer></v-spacer>Agency Address Here <v-spacer></v-spacer
+              <v-spacer></v-spacer>{{ home.agent.agency.address }}
+              <v-spacer></v-spacer
             ></v-row>
             <v-card-title color="black" bold
               ><v-spacer></v-spacer>Listing Agent <v-spacer></v-spacer
             ></v-card-title>
             <v-spacer></v-spacer>
             <v-row>
-              <v-spacer></v-spacer>Agent Name Here <v-spacer></v-spacer
+              <v-spacer></v-spacer>{{ home.agent.name }} <v-spacer></v-spacer
             ></v-row>
             <v-row>
-              <v-spacer></v-spacer>AgentName@freerealestate.com
-              <v-spacer></v-spacer
+              <v-spacer></v-spacer>{{ home.agent.email }} <v-spacer></v-spacer
             ></v-row>
           </v-card-text>
           <v-card-title color="black">Home Alarm Information </v-card-title>
-          <v-row
+          <!--<v-row
             ><v-spacer></v-spacer>
             <v-card-subtitle>Currently Occupied:</v-card-subtitle
             ><v-checkbox label="" outlined dense></v-checkbox
@@ -118,16 +130,15 @@
               background-color="secondary"
               class="shrink"
               append-icon="mdi-pen"
-              value="#####"
-            ></v-text-field
+              ></v-text-field
             ><v-spacer></v-spacer>
-          </v-row>
+          </v-row>--->
           <v-textarea
             height="50"
             full-width="true"
             auto-grow
-            value="This is where there will be a small block of text "
             solo
+            :value="home.alarmInfo"
           ></v-textarea>
         </v-card>
       </v-container>
@@ -136,7 +147,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api'
+import { useHomes, useRequest } from '@/hooks/api'
+
 export default defineComponent({
   name: 'DetailedListing',
   props: {
@@ -145,6 +158,23 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {},
+  setup() {
+    const { $auth } = useContext()
+    const { getHome } = useHomes()
+    const [home, fetchHome] = useRequest(getHome)
+
+    const $route = useRoute()
+    const realMlsn = $route.value.params.mlsn
+    const promise = fetchHome({ mlsn: realMlsn })
+    const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
+
+    return {
+      $auth,
+      home,
+      promise,
+      fmt,
+      realMlsn,
+    }
+  },
 })
 </script>
