@@ -267,6 +267,29 @@
               ></v-card-title>
             </v-col>
           </v-row>
+
+          <v-divider /> <v-spacer />
+          <v-card-title>Home Alarm Information </v-card-title>
+          <v-divider />
+          <v-row align="center" justify="center">
+            <v-col>
+              <v-card-title>
+                <v-checkbox label="Occupied" outlined dense></v-checkbox>
+              </v-card-title>
+            </v-col>
+          </v-row>
+
+          <v-row align="center" justify="center">
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Lockbox Code"
+                  hint="Enter lockbox code"
+                  value="#######"
+                  outlined
+                ></v-text-field></v-card-title
+            ></v-col>
+          </v-row>
         </v-card>
       </v-container>
     </div>
@@ -274,10 +297,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
   name: 'DetailedListing',
-  setup() {},
+  setup() {
+    const { $auth } = useContext()
+
+    return { $auth }
+  },
   data: () => ({}),
 })
 </script>

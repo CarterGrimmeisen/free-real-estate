@@ -123,33 +123,24 @@
               <v-spacer></v-spacer
             ></v-row>
           </v-card-text>
-          <v-card-title color="black">Home Alarm Information </v-card-title>
-          <v-row
-            ><v-spacer></v-spacer>
-            <v-card-subtitle>Currently Occupied:</v-card-subtitle
-            ><v-checkbox label="" outlined dense></v-checkbox
-            ><v-spacer></v-spacer>
-            <v-card-subtitle>Lockbox code: </v-card-subtitle>
-            <v-text-field
-              color="white"
-              hide-details
-              v.length="25"
-              single-line
-              rounded
-              background-color="secondary"
-              class="shrink"
-              append-icon="mdi-pen"
-              value="#####"
-            ></v-text-field
-            ><v-spacer></v-spacer>
-          </v-row>
-          <v-textarea
-            height="50"
-            full-width
-            auto-grow
-            value="This is where there will be a small block of text "
-            solo
-          ></v-textarea>
+          <v-card-text v-if="$auth.loggedin" class="primary--text">
+            <v-divider /> <v-spacer />
+            <v-card-title>Home Alarm Information </v-card-title>
+            <v-divider />
+            <v-row align="center" justify="center">
+              <v-col>
+                <v-checkbox
+                  label="Occupied"
+                  outlined
+                  dense
+                  disabled
+                ></v-checkbox
+              ></v-col>
+              <v-col>
+                <v-card-subtitle>Lockbox code: #######</v-card-subtitle></v-col
+              >
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-container>
     </div>
