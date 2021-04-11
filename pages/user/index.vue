@@ -23,13 +23,9 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions>
-      <v-btn class="ma-2" color="primary" dark to="/editaccount">
-        Edit
-        <v-icon dark right> mdi-star </v-icon>
-      </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/editpassword">
-        Change Password
-        <v-icon dark right> mdi-star </v-icon>
+      <v-btn class="ma-2" color="primary" dark to="/user/edit">
+        Edit Details
+        <v-icon dark right> mdi-cog-outline </v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>

@@ -12,6 +12,22 @@
 
           <ImageDisplay :mlsn="realMlsn" />
 
+          <v-row v-if="$auth.loggedin" no-gutters>
+            <v-btn class="ma-2 tertiary--text" color="primary" dark>
+              Favorite This Listing
+              <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
+            </v-btn>
+            <v-btn
+              class="ma-2 tertiary--text"
+              color="primary"
+              dark
+              to="/listings/example/showings/schedule"
+            >
+              Showing
+              <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
+            </v-btn>
+          </v-row>
+
           <v-divider class="mx-4"></v-divider>
 
           <v-card-title bold>Property Details </v-card-title>
@@ -62,7 +78,6 @@
               readonly
               disabled
               height="300"
-              full-width
               auto-grow
               solo
               :value="home.description"
@@ -72,7 +87,6 @@
               readonly
               disabled
               height="250"
-              full-width
               auto-grow
               value="This is where there will be a medium block of text and thats alright"
               solo
@@ -82,7 +96,6 @@
               readonly
               disabled
               height="150"
-              full-width
               auto-grow
               :value="`${home.bedrooms} bed, ${home.bathrooms} bath `"
               solo

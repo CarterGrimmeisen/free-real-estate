@@ -1,11 +1,5 @@
 <template>
-  <v-card
-    class="mx-auto my-12"
-    max-width="1200"
-    width="1200"
-    height="320"
-    max-height="400"
-  >
+  <v-card class="mx-auto my-12">
     <v-container class="grey lighten-5">
       <v-row no-gutters>
         <v-col cols="6" md="4">
@@ -28,6 +22,13 @@
         </v-col>
         <v-col cols="12" sm="6" md="8">
           <v-card class="pa-2" width="1150" height="300" outlined title>
+            <template slot="progress">
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
+            </template>
             <v-img></v-img>
 
             <v-row>
@@ -53,19 +54,17 @@
               >
             </v-row>
 
-            <v-card-text>
-              <div class="text-left" size="14">
-                <!-- <v-card-text>
-                      This is where I want the document preview
-                    </v-card-text>
-                    -->
-              </div>
-            </v-card-text>
+            <v-card-text />
 
             <v-card-actions>
               <v-row>
                 <v-spacer> </v-spacer>
-                <v-btn class="ma-2" color="primary" dark to="/detailedshowing">
+                <v-btn
+                  class="ma-2"
+                  color="primary"
+                  dark
+                  to="/listings/example/detailedshowing"
+                >
                   View Details
                   <v-icon dark right> </v-icon>
                 </v-btn>

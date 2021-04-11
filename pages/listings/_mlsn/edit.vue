@@ -11,7 +11,7 @@
         <v-card class="pa-2" outlined title>
           <v-btn class="ma-2" color="primary" dark>
             Save Changes
-            <v-icon dark right to="/ManageListings"> mdi-star</v-icon>
+            <v-icon dark right to="/listings/example"> mdi-star</v-icon>
           </v-btn>
           <v-card-title class="primary--text"> Property Address </v-card-title>
           <v-card-title class="primary--text">
@@ -260,6 +260,29 @@
               ></v-card-title>
             </v-col>
           </v-row>
+
+          <v-divider /> <v-spacer />
+          <v-card-title>Home Alarm Information </v-card-title>
+          <v-divider />
+          <v-row align="center" justify="center">
+            <v-col>
+              <v-card-title>
+                <v-checkbox label="Occupied" outlined dense></v-checkbox>
+              </v-card-title>
+            </v-col>
+          </v-row>
+
+          <v-row align="center" justify="center">
+            <v-col>
+              <v-card-title>
+                <v-text-field
+                  label="Lockbox Code"
+                  hint="Enter lockbox code"
+                  value="#######"
+                  outlined
+                ></v-text-field></v-card-title
+            ></v-col>
+          </v-row>
         </v-card>
       </v-container>
     </div>
@@ -267,9 +290,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
-  name: 'EditListing',
-  setup() {},
+  name: 'DetailedListing',
+  setup() {
+    const { $auth } = useContext()
+
+    return { $auth }
+  },
+  data: () => ({}),
 })
 </script>

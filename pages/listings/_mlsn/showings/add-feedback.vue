@@ -55,11 +55,11 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions>
-      <v-btn class="ma-2" color="primary" dark to="/ShowingPage">
+      <v-btn class="ma-2" color="primary" dark to="/listings/example/showings">
         Cancel
         <v-icon dark right></v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/ShowingPage">
+      <v-btn class="ma-2" color="primary" dark to="/listings/example/showings">
         Save
         <v-icon dark right> </v-icon>
       </v-btn>
