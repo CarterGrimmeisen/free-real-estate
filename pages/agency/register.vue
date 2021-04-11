@@ -89,8 +89,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'RegisterAgency',
-  setup() {
-    return { data: { working: true } }
-  },
+  setup() {},
 })
 </script>

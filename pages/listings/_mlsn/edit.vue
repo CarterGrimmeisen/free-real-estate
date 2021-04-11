@@ -9,13 +9,6 @@
           </v-col>
         </v-row>
         <v-card class="pa-2" outlined title>
-          <template slot="progress">
-            <v-progress-linear
-              color="deep-purple"
-              height="10"
-              indeterminate
-            ></v-progress-linear>
-          </template>
           <v-btn class="ma-2" color="primary" dark>
             Save Changes
             <v-icon dark right to="/listings/example"> mdi-star</v-icon>
@@ -25,26 +18,26 @@
             <v-text-field
               label="Street"
               hint="Street the property is on"
-              outlined
+              filled
             >
             </v-text-field>
             <v-spacer />
             <v-text-field
               label="City"
               hint="City the property is in"
-              outlined
+              filled
             ></v-text-field>
             <v-spacer />
             <v-text-field
               label="State"
               hint="State the property is in"
-              outlined
+              filled
             ></v-text-field>
             <v-spacer />
             <v-text-field
               label="Zipcode"
               hint="Zipcode for the area"
-              outlined
+              filled
             ></v-text-field>
           </v-card-title>
           <v-divider class="mx-4"></v-divider>
@@ -65,7 +58,7 @@
                 <v-text-field
                   label="Listing Price"
                   hint="Listing price of the property"
-                  outlined
+                  filled
                 >
                 </v-text-field></v-card-title
             ></v-col>
@@ -74,7 +67,7 @@
                 ><v-text-field
                   label="Square Feet"
                   hint="Square footage of the property"
-                  outlined
+                  filled
                 >
                 </v-text-field></v-card-title
             ></v-col>
@@ -83,7 +76,7 @@
                 ><v-text-field
                   label="MLS #"
                   hint="MLS # of the property"
-                  outlined
+                  filled
                 >
                 </v-text-field></v-card-title
             ></v-col>
@@ -123,7 +116,7 @@
               <v-card-title>
                 <v-textarea
                   name="schools"
-                  outlined
+                  filled
                   auto-grow
                   value="Schools"
                   hint="Schools zoned for the property"
@@ -146,7 +139,7 @@
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
           ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
-                  outlined
+                  filled
                   hint="A lengthy description of the property"
                 ></v-textarea>
               </v-card-title>
@@ -160,7 +153,7 @@
                 <v-textarea
                   auto-grow
                   value="This is where there will be a medium block of text and thats alright"
-                  outlined
+                  filled
                   hint="Additional facts and features relevant to the property"
                 ></v-textarea>
               </v-card-title>
@@ -176,9 +169,9 @@
                 <v-textarea
                   auto-grow
                   value="This is where there will be a small block of text "
-                  outlined
+                  filled
                   hint="Additional room information relevant to the property"
-                ></v-textarea>
+                />
               </v-card-title>
             </v-col>
           </v-row>
@@ -196,7 +189,7 @@
                   label="Agency Name"
                   hint="Agency Name"
                   value="database entry"
-                  outlined
+                  filled
                 >
                 </v-text-field
               ></v-card-title>
@@ -207,7 +200,7 @@
                   label="Agency Street"
                   hint="Street the agency is on"
                   value="database entry"
-                  outlined
+                  filled
                 >
                 </v-text-field
               ></v-card-title>
@@ -218,7 +211,7 @@
                   label="Agency City"
                   hint="City the agency is in"
                   value="database entry"
-                  outlined
+                  filled
                 ></v-text-field
               ></v-card-title>
             </v-col>
@@ -228,7 +221,7 @@
                   label="Agency State"
                   hint="State the agency is in"
                   value="database entry"
-                  outlined
+                  filled
                 ></v-text-field
               ></v-card-title>
             </v-col>
@@ -238,7 +231,7 @@
                   label="Agency Zipcode"
                   hint="Zipcode for the agency"
                   value="database entry"
-                  outlined
+                  filled
                 ></v-text-field
               ></v-card-title>
             </v-col>
@@ -251,7 +244,7 @@
                   label="Agent Name"
                   hint="Name of agent in charge of property"
                   value="database entry"
-                  outlined
+                  filled
                 ></v-text-field
               ></v-card-title>
             </v-col>
@@ -262,7 +255,7 @@
                   label="Agent Email"
                   hint="The email of the agent to contact regarding the property"
                   value="database entry"
-                  outlined
+                  filled
                 ></v-text-field
               ></v-card-title>
             </v-col>

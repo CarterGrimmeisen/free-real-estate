@@ -29,6 +29,7 @@
                 indeterminate
               ></v-progress-linear>
             </template>
+            <v-img></v-img>
 
             <v-row>
               <v-card-title>#### Street City State Zipcode</v-card-title>
@@ -85,12 +86,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'ShowingCard',
-  setup() {
-    return {
-      e4: null,
-      picker: new Date().toISOString().substr(0, 10),
-      data: { working: true },
-    }
-  },
+  setup() {},
 })
 </script>
