@@ -12,25 +12,35 @@ function register(router: TypedRouter<API>) {
   router.get('/homes', (_params, { query }, _res) => {
     return prisma.home.findMany({
       where: {
-        price: {
-          gte: query.priceMin,
-          lte: query.priceMax,
-        },
+        price:
+          query.priceMax || query.priceMin
+            ? {
+                gte: query.priceMin,
+                lte: query.priceMax,
+              }
+            : undefined,
         zipcode: query.zipcode,
-        agent: {
-          name: {
-            contains: query.agent,
-          },
-        },
-        schools: {
-          some: {
-            name: query.school,
-          },
-        },
-        sqfootage: {
-          gte: query.sqFootageMin,
-          lte: query.sqFootageMax,
-        },
+        agent: query.agent
+          ? {
+              name: {
+                contains: query.agent,
+              },
+            }
+          : undefined,
+        schools: query.school
+          ? {
+              some: {
+                name: query.school,
+              },
+            }
+          : undefined,
+        sqfootage:
+          query.sqFootageMax || query.sqFootageMin
+            ? {
+                gte: query.sqFootageMin,
+                lte: query.sqFootageMax,
+              }
+            : undefined,
         bedrooms: query.bedrooms,
         bathrooms: query.bathrooms,
       },

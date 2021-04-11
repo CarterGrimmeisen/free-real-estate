@@ -1,8 +1,14 @@
 <template>
   <v-card class="mx-auto my-12" max-width="374">
-    <v-img height="250" :src="`data:image/png;base64,${image}`"></v-img>
+    <v-img
+      height="250"
+      :src="
+        image
+          ? `data:image/png;base64,${image}`
+          : 'https://dummyimage.com/300x200/999999/ffffff.png&text=Home+Has+No+Images'
+      "
+    ></v-img>
 
-    <!--<v-card-title>Road name, city, state, zipcode</v-card-title>--->
     <v-card-title
       >{{ home.street }}<br />
       {{ home.city }}, {{ home.state }} {{ home.zipcode }}</v-card-title
@@ -24,7 +30,7 @@
       </v-row>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
+    <v-divider />
 
     <v-card-actions>
       <v-btn v-if="$auth.loggedin" class="ma-2" color="primary" dark>
@@ -33,7 +39,7 @@
       </v-btn>
       <v-btn class="ma-2" color="primary" dark to="/DetailListing">
         More Details
-        <v-icon dark right> mdi-info </v-icon>
+        <v-icon dark right> mdi-information </v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -54,7 +60,7 @@ export default defineComponent({
   setup(props) {
     const { $auth } = useContext()
     const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
-    const image = props.home.files?.[0].contents
+    const image = props.home.files[0]?.contents
 
     return {
       $auth,

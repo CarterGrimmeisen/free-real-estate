@@ -25,15 +25,8 @@ export default async function (ctx: Context) {
   try {
     const auth: UserType = ctx.route.meta?.auth ?? ctx.route.meta?.[0]?.auth
 
-    if (auth) {
-      if (!authCookie) {
-        // eslint-disable-next-line no-console
-        console.warn('[middleware/cookie-auth/server] no auth cookie')
-        // return ctx.redirect('/error/unauthorized')
-        return showAuth()
-      }
-
-      // Perform an actual auth check
+    // Perform an actual auth check
+    if (authCookie) {
       if (ctx.$auth.value.user === null) {
         const result = await ctx.$crosswalk.get('/user')()
         ctx.$auth.value.loggedin = true
@@ -42,6 +35,10 @@ export default async function (ctx: Context) {
         await ctx.$crosswalk.get('/auth/check')()
         ctx.$auth.value.loggedin = true
       }
+    }
+
+    if (auth) {
+      if (!authCookie) return showAuth()
 
       const equalOrGreater = {
         USER: ['USER', 'AGENT', 'ADMIN'],
@@ -49,7 +46,7 @@ export default async function (ctx: Context) {
         ADMIN: ['ADMIN'],
       }
 
-      if (!equalOrGreater[auth].includes(ctx.$auth.value.user.type)) {
+      if (!equalOrGreater[auth].includes(ctx.$auth.value.user!.type)) {
         return ctx.redirect('/error/unauthorized')
         // return showAuth()
       }
