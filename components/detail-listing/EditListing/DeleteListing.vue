@@ -7,7 +7,6 @@
 
     <v-overlay :z-index="zIndex" :value="overlay">
       <v-card
-        v-click-outside="onClickOutside"
         :max-width="500"
         :max-height="800"
         class="rounded-xl"
@@ -40,16 +39,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  data: () => ({
-    overlay: false,
-    zIndex: 3,
-  }),
-  methods: {
-    onClickOutside() {
-      this.overlay = false
-    },
+<script lang="ts">
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup() {
+    return {
+      zIndex: ref(2),
+      overlay: ref(false),
+    }
   },
-}
+})
 </script>
