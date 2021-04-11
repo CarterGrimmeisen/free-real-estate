@@ -1,10 +1,5 @@
 <template>
-  <v-dialog
-    :value="active"
-    width="400"
-    class="rounded-xl"
-    @input="(val) => $emit('update:active', val)"
-  >
+  <v-dialog v-model="active" :value="active" width="400" class="rounded-xl">
     <v-card class="mx-auto rounded-xl" width="400" outlined>
       <v-form @submit.prevent="onSubmit">
         <v-card-title>
@@ -103,23 +98,20 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   ref,
   useContext,
-  watch,
+  useRoute,
+  useRouter,
 } from '@nuxtjs/composition-api'
 import { useUser } from '~/hooks/api'
 import { useAuth } from '~/hooks/api/auth'
 
 export default defineComponent({
-  props: {
-    active: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
-  setup(props, ctx) {
+  setup() {
+    const $router = useRouter()
+    const $route = useRoute()
     const { login, register } = useAuth()
     const { getUser } = useUser()
 
@@ -137,6 +129,22 @@ export default defineComponent({
     const loginError = ref('')
     const registerError = ref('')
 
+    const active = computed({
+      get: () => !!$route.value.query.auth,
+      set: (val) => {
+        if (!val) {
+          if ($route.value.query.auth) {
+            if ($route.value.query.auth !== 'true')
+              $router
+                .replace($route.value.query.auth as string)
+                .catch(() => ({}))
+            else
+              $router.replace({ query: { auth: undefined } }).catch(() => ({}))
+          }
+        }
+      },
+    })
+
     function reset() {
       showing.value = 0
       email.value = ''
@@ -146,10 +154,6 @@ export default defineComponent({
       loginError.value = ''
       registerError.value = ''
     }
-
-    watch(props, (props) => {
-      if (!props.active) reset()
-    })
 
     const onSubmit = async () => {
       if (showing.value === 0) {
@@ -167,7 +171,7 @@ export default defineComponent({
         if (success) {
           $auth.value.loggedin = true
           $auth.value.user = await getUser()
-          ctx.emit('update:active', false)
+          active.value = false
           reset()
         }
       } else {
@@ -184,8 +188,8 @@ export default defineComponent({
         })
 
         if (success) {
-          ctx.emit('update:active', false)
           reset()
+          active.value = false
         }
       }
     }
@@ -201,6 +205,7 @@ export default defineComponent({
       registerAgent,
       phoneNo,
       agencyCode,
+      active,
     }
   },
 })

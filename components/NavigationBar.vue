@@ -66,10 +66,14 @@ export default defineComponent({
     const doLogout = async () => {
       const { success } = await logout().catch((_) => ({ success: false }))
       if (success) {
-        $auth.value.user = null
-        $auth.value.loggedin = false
-        if ($route.value.meta?.[0].auth) {
-          $router.replace('/')
+        if ($route.value.meta?.auth) {
+          $router.replace('/').then(() => {
+            $auth.value.user = null
+            $auth.value.loggedin = false
+          })
+        } else {
+          $auth.value.user = null
+          $auth.value.loggedin = false
         }
       }
     }

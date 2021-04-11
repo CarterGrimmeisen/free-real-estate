@@ -8,7 +8,7 @@
           {{ $auth.user }}
         </p>
         <v-alert :type="$auth.user.type === 'AGENT' ? 'success' : 'warning'">
-          IS AN {{ $auth.user.type }}
+          IS A {{ $auth.user.type }}
         </v-alert>
       </v-card-text>
     </v-card>
