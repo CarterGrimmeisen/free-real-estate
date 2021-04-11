@@ -101,18 +101,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'ShowingForm',
   setup() {
     return {
-      checkbox15: false,
-      checkbox30: false,
-      checkbox45: false,
-      e4: null,
-      picker: new Date().toISOString().substr(0, 10),
-      data: { working: true },
+      checkbox15: ref(false),
+      checkbox30: ref(false),
+      checkbox45: ref(false),
+      e4: ref(null),
+      picker: ref(new Date().toISOString().substr(0, 10)),
     }
   },
 })

@@ -19,12 +19,16 @@
         },
         "editor.formatOnSave": false
     },
-
     "rest-client.environmentVariables": {
         "$shared": {
             "server": "http://localhost:3000"
         }
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "vetur.experimental.templateInterpolationService": true
+    "vetur.experimental.templateInterpolationService": true,
+    "vetur.grammar.customBlocks": {
+        "router": "js",
+        "docs": "md",
+        "i18n": "json"
+    }
 }

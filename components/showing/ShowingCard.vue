@@ -28,14 +28,6 @@
         </v-col>
         <v-col cols="12" sm="6" md="8">
           <v-card class="pa-2" width="1150" height="300" outlined title>
-            <template slot="progress">
-              <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-              ></v-progress-linear>
-            </template>
-
             <v-img></v-img>
 
             <v-row>
@@ -95,12 +87,6 @@ import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'ShowingCard',
-  setup() {
-    return {
-      e4: null,
-      picker: new Date().toISOString().substr(0, 10),
-      data: { working: true },
-    }
-  },
+  setup() {},
 })
 </script>

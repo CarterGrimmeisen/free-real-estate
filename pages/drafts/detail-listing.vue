@@ -4,14 +4,6 @@
     <div>
       <v-container justify-center>
         <v-card class="pa-2" outlined title>
-          <template slot="progress">
-            <v-progress-linear
-              color="deep-purple"
-              height="10"
-              indeterminate
-            ></v-progress-linear>
-          </template>
-
           <v-card-title class="primary--text">
             Street, City, State, Zipcode
           </v-card-title>
@@ -122,6 +114,5 @@ import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   name: 'DetailedListing',
   setup() {},
-  data: () => ({}),
 })
 </script>

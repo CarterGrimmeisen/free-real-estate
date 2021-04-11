@@ -22,8 +22,6 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    return { data: { working: true } }
-  },
+  setup() {},
 })
 </script>
