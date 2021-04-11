@@ -9,13 +9,6 @@
           </v-col>
         </v-row>
         <v-card class="pa-2" outlined title>
-          <template slot="progress">
-            <v-progress-linear
-              color="deep-purple"
-              height="10"
-              indeterminate
-            ></v-progress-linear>
-          </template>
           <v-btn class="ma-2" color="primary" dark>
             Save Changes
             <v-icon dark right to="/ManageListings"> mdi-star</v-icon>

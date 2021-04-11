@@ -1,14 +1,6 @@
 <!--AccountPreview.vue -->
 <template>
   <v-card class="mx-auto my-12" max-width="1000" width="1000" height="400">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
     <v-card-title>Username:</v-card-title>
     <div class="black--text ml-4" size="14" align="left">my username</div>
     <v-card-title>Email:</v-card-title>

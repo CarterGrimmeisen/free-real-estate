@@ -1,14 +1,6 @@
 <!-- Data edit -->
 <template>
   <v-card class="mx-auto my-12" max-width="1000" width="1000" height="500">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
     <v-card-title>Username:</v-card-title>
     <v-text-field
       color="white"

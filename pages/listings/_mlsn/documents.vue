@@ -53,14 +53,6 @@
             </v-col>
             <v-col cols="12" sm="6" md="8">
               <v-card class="pa-2" width="1150" height="700" outlined title>
-                <template slot="progress">
-                  <v-progress-linear
-                    color="deep-purple"
-                    height="10"
-                    indeterminate
-                  ></v-progress-linear>
-                </template>
-
                 <v-img></v-img>
 
                 <v-card-title>Document Preview</v-card-title>
