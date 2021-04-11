@@ -7,7 +7,6 @@ declare module '@nuxt/types' {
     $auth: Ref<{
       loggedin: boolean
       user: User | null
-      error: boolean
     }>
   }
 }
@@ -16,7 +15,6 @@ const plugin: Plugin = (ctx) => {
   ctx.$auth = ssrRef({
     loggedin: false,
     user: null,
-    error: false,
   })
 }
 

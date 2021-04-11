@@ -18,6 +18,8 @@
         <v-list-item to="/managelistings">Manage Listings </v-list-item>
         <v-list-item to="/ShowingPage">Schedule Showing</v-list-item>
         <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
+        <v-divider />
+        <v-list-item to="/api-test">API Test</v-list-item>
       </v-list>
     </v-menu>
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
@@ -43,21 +45,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  useContext,
+  useRoute,
+  useRouter,
+} from '@nuxtjs/composition-api'
 import { useAuth } from '@/hooks/api'
 
 export default defineComponent({
-  setup(_, ctx) {
-    const login = () => ctx.emit('login')
+  setup(_) {
+    const $router = useRouter()
+
+    const login = () => $router.replace({ query: { auth: 'true' } })
 
     const { $auth } = useContext()
+    const $route = useRoute()
     const { logout } = useAuth()
 
     const doLogout = async () => {
       const { success } = await logout().catch((_) => ({ success: false }))
       if (success) {
-        $auth.value.user = null
-        $auth.value.loggedin = false
+        if ($route.value.meta?.auth) {
+          $router.replace('/').then(() => {
+            $auth.value.user = null
+            $auth.value.loggedin = false
+          })
+        } else {
+          $auth.value.user = null
+          $auth.value.loggedin = false
+        }
       }
     }
 
