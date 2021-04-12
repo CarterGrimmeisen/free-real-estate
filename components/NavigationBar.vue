@@ -36,7 +36,7 @@
         <v-list-item @click="doLogout">Logout</v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon to="/listings"
+    <v-btn icon to="/listings" exact
       ><v-icon color="white">mdi-home-city</v-icon></v-btn
     >
   </v-app-bar>
@@ -52,7 +52,7 @@ import {
 import { useAuth } from '@/hooks/api'
 
 export default defineComponent({
-  setup(_) {
+  setup() {
     const $router = useRouter()
 
     const login = () => $router.push({ query: { auth: 'true' } })
