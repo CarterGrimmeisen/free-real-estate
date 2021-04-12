@@ -20,9 +20,9 @@
       <DeleteListing v-if="listing" @confirm="$emit('delete')" />
     </v-card-title>
     <v-divider />
-    <v-card-text class="primary--text">
+    <!-- <v-card-text class="primary--text">
       <ImageEditor />
-    </v-card-text>
+    </v-card-text> -->
 
     <v-divider />
 
