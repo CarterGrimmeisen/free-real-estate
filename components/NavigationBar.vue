@@ -16,8 +16,7 @@
       </template>
       <v-list>
         <v-list-item to="/managelistings">Manage Listings </v-list-item>
-        <v-list-item to="/ShowingPage">Schedule Showing</v-list-item>
-        <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
+  
         <v-divider />
         <v-list-item to="/api-test">API Test</v-list-item>
       </v-list>
