@@ -9,6 +9,12 @@
           Favorite This Listing
           <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
         </v-btn>
+        <v-btn class="ma-2 tertiary--text" color="primary" dark to="/Schedule.vue">
+          Schedule Showing
+        </v-btn>
+        <v-btn class="ma-2 tertiary--text" color="primary" dark to="/Documents.vue">
+          Generate Documents
+        </v-btn>
       </v-col>
 
       <v-col cols="5" align-center justify-center>
