@@ -8,7 +8,7 @@
       >404 Free Real Estate</v-toolbar-title
     >
     <v-spacer></v-spacer>
-    <v-menu>
+    <!--<v-menu>
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           Agent Utilities
@@ -19,7 +19,7 @@
         <v-list-item to="/listings/showings">Schedule Showing</v-list-item>
         <v-list-item to="/listings/documents">Generate Documents</v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu>--->
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
       Login
     </v-btn>
