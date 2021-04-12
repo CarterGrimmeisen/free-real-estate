@@ -25,6 +25,7 @@
         }
     },
     "typescript.tsdk": "node_modules/typescript/lib",
+    "vetur.experimental.templateInterpolationService": true,
     "vetur.grammar.customBlocks": {
         "router": "js",
         "docs": "md",

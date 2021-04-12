@@ -37,7 +37,7 @@
         Favorite
         <v-icon dark right> mdi-star </v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark to="/DetailListing">
+      <v-btn class="ma-2" color="primary" dark :to="mlsn">
         More Details
         <v-icon dark right> mdi-information </v-icon>
       </v-btn>
@@ -61,11 +61,13 @@ export default defineComponent({
     const { $auth } = useContext()
     const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
     const image = props.home.files[0]?.contents
+    const mlsn = '/listings/' + props.home.mlsn
 
     return {
       $auth,
       fmt,
       image,
+      mlsn,
     }
   },
 })

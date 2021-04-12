@@ -5,10 +5,11 @@
       <ShowingFilterBar />
       <div class="container">
         <div>
-          <v-row no-gutters>
-            <template v-for="n in 10">
-              <v-col :key="n" cols="9">
-                <ShowingCard />
+          <v-row v-if="showings" no-gutters>
+            <h1 v-if="showings.length == 0">No showings scheduled!</h1>
+            <template v-for="(showing, i) in showings">
+              <v-col :key="i" cols="9">
+                <ShowingCard :showing="showing" />
               </v-col>
             </template>
           </v-row>
@@ -19,9 +20,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { useHomes, useRequest } from '@/hooks/api'
 
 export default defineComponent({
-  setup() {},
+  setup() {
+    const { getHomeShowings } = useHomes()
+    const [showings, fetchShowings] = useRequest(getHomeShowings)
+
+    const $route = useRoute()
+    const realMlsn = $route.value.params.mlsn
+    const promise = fetchShowings({ mlsn: realMlsn })
+    const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
+
+    return {
+      realMlsn,
+      showings,
+      fetchShowings,
+      promise,
+      fmt,
+    }
+  },
 })
 </script>

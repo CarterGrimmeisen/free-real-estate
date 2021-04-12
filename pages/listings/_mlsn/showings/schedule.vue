@@ -91,7 +91,12 @@
           Cancel
           <v-icon dark right></v-icon>
         </v-btn>
-        <v-btn class="ma-2" color="primary" dark to="/showingpage">
+        <v-btn
+          class="ma-2"
+          color="primary"
+          dark
+          to="/listings/example/showings"
+        >
           Save
           <v-icon dark right> </v-icon>
         </v-btn>

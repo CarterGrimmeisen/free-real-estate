@@ -8,20 +8,18 @@
       >404 Free Real Estate</v-toolbar-title
     >
     <v-spacer></v-spacer>
-    <v-menu>
+    <!--<v-menu>
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           Agent Utilities
         </v-btn>
       </template>
       <v-list>
-        <v-list-item to="/managelistings">Manage Listings </v-list-item>
-        <v-list-item to="/ShowingPage">Schedule Showing</v-list-item>
-        <v-list-item to="/generatedocuments">Generate Documents</v-list-item>
-        <v-divider />
-        <v-list-item to="/api-test">API Test</v-list-item>
+        <v-list-item to="/listings/edit">Manage Listings </v-list-item>
+        <v-list-item to="/listings/showings">Schedule Showing</v-list-item>
+        <v-list-item to="/listings/documents">Generate Documents</v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu>--->
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
       Login
     </v-btn>
@@ -32,7 +30,7 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item to="/accountpreview"> My Account</v-list-item>
+        <v-list-item to="/user"> My Account</v-list-item>
 
         <v-list-item>Favorites</v-list-item>
         <v-list-item @click="doLogout">Logout</v-list-item>
