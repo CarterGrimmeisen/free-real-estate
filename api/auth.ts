@@ -34,8 +34,6 @@ function register(router: TypedRouter<API>) {
     if (!(await verifyPassword(user, body.password)))
       throw new HTTPError(401, 'Email/Password combination is incorrect')
 
-    console.log(body)
-
     const payload = {
       id: user.id,
       email: user.email,

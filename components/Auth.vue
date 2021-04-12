@@ -133,7 +133,11 @@ export default defineComponent({
       get: () => !!$route.value.query.auth,
       set: (val) => {
         if (!val) {
-          if ($route.value.query.auth !== 'true')
+          if (
+            $auth.value.loggedin &&
+            $route.value.query.auth &&
+            $route.value.query.auth !== 'true'
+          )
             $router.replace($route.value.query.auth as string).catch(() => ({}))
           else $router.replace({ query: { auth: undefined } }).catch(() => ({}))
         }
