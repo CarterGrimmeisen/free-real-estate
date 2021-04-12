@@ -34,5 +34,6 @@ export function useHomes() {
     deleteHome: api.delete('/homes/:mlsn'),
     likeHome: api.post('/homes/:mlsn/like'),
     getHomeFiles: api.get('/homes/:mlsn/files'),
+    getHomeShowings: api.get('/homes/:mlsn/showings'),
   }
 }

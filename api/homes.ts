@@ -209,9 +209,13 @@ function register(router: TypedRouter<API>) {
   router.router.use('/homes/:mlsn', ensureHomeAgent())
 
   router.get('/homes/:mlsn/showings', ({ mlsn }) => {
-    return prisma.home
-      .findUnique({ where: { mlsn } })
-      .showings({ include: { user: true, agent: true, home: true } })
+    return prisma.home.findUnique({ where: { mlsn } }).showings({
+      include: {
+        user: true,
+        agent: { include: { agency: true } },
+        home: true,
+      },
+    })
   })
 
   router.put('/homes/:mlsn', ({ mlsn }, home, { user }) => {

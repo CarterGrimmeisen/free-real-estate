@@ -76,7 +76,7 @@ function register(router: TypedRouter<API>) {
       .showings({
         include: {
           user: true,
-          agent: true,
+          agent: { include: { agency: true } },
           home: true,
         },
       })

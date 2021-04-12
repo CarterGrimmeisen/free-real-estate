@@ -24,7 +24,7 @@ type CompleteHome = Home & {
 }
 export type HomeWithImage = CompleteHome & { files: File[] }
 
-type CompleteShowing = Showing & { user: User; agent: Agent }
+export type CompleteShowing = Showing & { user: User; agent: CompleteAgent }
 type CompleteFeedback = Feedback & { showing: Showing }
 
 type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'> & {

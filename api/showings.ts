@@ -37,7 +37,7 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         user: true,
-        agent: true,
+        agent: { include: { agency: true } },
         home: true,
       },
     })
@@ -70,7 +70,7 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         user: true,
-        agent: true,
+        agent: { include: { agency: true } },
         home: true,
       },
     })
@@ -86,7 +86,7 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         user: true,
-        agent: true,
+        agent: { include: { agency: true } },
         home: true,
       },
     })
@@ -103,7 +103,7 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         user: true,
-        agent: true,
+        agent: { include: { agency: true } },
         home: true,
       },
     })
