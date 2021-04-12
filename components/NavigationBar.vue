@@ -57,7 +57,7 @@ export default defineComponent({
   setup(_) {
     const $router = useRouter()
 
-    const login = () => $router.replace({ query: { auth: 'true' } })
+    const login = () => $router.push({ query: { auth: 'true' } })
 
     const { $auth } = useContext()
     const $route = useRoute()
@@ -67,7 +67,7 @@ export default defineComponent({
       const { success } = await logout().catch((_) => ({ success: false }))
       if (success) {
         if ($route.value.meta?.auth) {
-          $router.replace('/').then(() => {
+          $router.push('/').then(() => {
             $auth.value.user = null
             $auth.value.loggedin = false
           })

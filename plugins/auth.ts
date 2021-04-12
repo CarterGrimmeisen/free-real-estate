@@ -1,12 +1,14 @@
 import { Plugin } from '@nuxt/types'
 import { Ref, ssrRef } from '@nuxtjs/composition-api'
-import { User } from '.prisma/client'
+import { Agent, Agency, User } from '.prisma/client'
 
 declare module '@nuxt/types' {
   interface Context {
     $auth: Ref<{
       loggedin: boolean
-      user: User | null
+      user:
+        | (User & { agentProfile: (Agent & { agency: Agency }) | null })
+        | null
     }>
   }
 }

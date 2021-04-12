@@ -74,10 +74,13 @@ model Home {
   /// @onDelete(SET_NULL)
   schools     School[]
   dailyHits   Int       @default(0)
-  alarmInfo   String
+  alarmInfo   String    @default("")
   description String
-  bedrooms    Int
-  bathrooms   Float
+  bedrooms    Int       @default(0)
+  bathrooms   Float     @default(0.0)
+  hoa         Boolean   @default(false)
+  occupied    Boolean   @default(false)
+  rooms       String[]
   liked       User[]
   /// @onDelete(CASCADE)
   showings    Showing[]
