@@ -1,7 +1,12 @@
 <!-- Detailed Listing -->
 <template>
   <v-container>
-    <ListingEditor v-if="home" :listing="home" @save="saveListing" />
+    <ListingEditor
+      v-if="home"
+      :listing="home"
+      @save="saveListing"
+      @delete="deleteListing"
+    />
   </v-container>
 </template>
 
@@ -14,14 +19,15 @@
 </router>
 
 <script lang="ts">
-import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent, useRoute, useRouter } from '@nuxtjs/composition-api'
 import { CompleteHome } from '~/api/api'
 import { useData, useHomes } from '~/hooks/api'
 export default defineComponent({
   name: 'EditListing',
   setup() {
     const $route = useRoute()
-    const { getHome, updateHome } = useHomes()
+    const $router = useRouter()
+    const { getHome, updateHome, deleteHome } = useHomes()
 
     const home = useData(getHome, { mlsn: $route.value.params.mlsn })
 
@@ -31,9 +37,16 @@ export default defineComponent({
       home.value = await updateHome({ mlsn: $route.value.params.mlsn }, body)
     }
 
+    const deleteListing = async () => {
+      // $router.go(-1)
+      await deleteHome({ mlsn: $route.value.params.mlsn })
+      $router.replace('/listings')
+    }
+
     return {
       home,
       saveListing,
+      deleteListing,
     }
   },
 })
