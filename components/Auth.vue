@@ -138,8 +138,7 @@ export default defineComponent({
               $router
                 .replace($route.value.query.auth as string)
                 .catch(() => ({}))
-            else
-              $router.replace({ query: { auth: undefined } }).catch(() => ({}))
+            else $router.push({ query: { auth: undefined } }).catch(() => ({}))
           }
         }
       },

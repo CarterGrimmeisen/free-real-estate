@@ -8,19 +8,26 @@ export function useHomes() {
 
   const createHome = async (
     params: {},
-    body: ReplaceProp<BodyType<typeof _createHome>, 'files', { files: File[] }>,
+    body: ReplaceProp<
+      BodyType<typeof _createHome>,
+      'files',
+      { files?: File[] }
+    >,
     query: null
   ) => {
     const { files, ...home } = body
-    const newFiles = await Promise.all(
-      files.map(async (file) => ({
-        name: file.name,
-        type: 'IMAGE' as const,
-        mime: file.type,
-        contents: await encodeFile(file, 'IMAGE'),
-        homeMlsn: body.mlsn,
-      }))
-    )
+
+    const newFiles = files
+      ? await Promise.all(
+          files.map(async (file) => ({
+            name: file.name,
+            type: 'IMAGE' as const,
+            mime: file.type,
+            contents: await encodeFile(file, 'IMAGE'),
+            homeMlsn: body.mlsn,
+          }))
+        )
+      : []
 
     return _createHome(params, { ...home, files: newFiles }, query)
   }

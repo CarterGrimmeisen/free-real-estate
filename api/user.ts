@@ -12,6 +12,13 @@ function register(router: TypedRouter<API>) {
       where: {
         id: req.user!.id,
       },
+      include: {
+        agentProfile: {
+          include: {
+            agency: true,
+          },
+        },
+      },
     })
 
     return user!

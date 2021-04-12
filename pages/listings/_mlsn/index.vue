@@ -41,7 +41,7 @@
 
           <v-card-text class="primary--text">
             <div class="text-center" size="14"></div>
-            <v-card-title>Brief Description of Property </v-card-title>
+            <v-card-title>Brief Description of Property</v-card-title>
             <v-textarea
               readonly
               disabled

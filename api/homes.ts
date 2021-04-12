@@ -79,12 +79,6 @@ function register(router: TypedRouter<API>) {
       include: {
         agent: { include: { agency: true } },
         schools: true,
-        files: {
-          take: 1,
-          where: {
-            type: 'IMAGE',
-          },
-        },
       },
     })
 
@@ -190,14 +184,16 @@ function register(router: TypedRouter<API>) {
           })),
         },
 
-        files: {
-          create: home.files.map((file) => ({
-            name: file.name,
-            type: file.type,
-            mime: file.mime,
-            contents: file.contents!,
-          })),
-        },
+        files: home.files
+          ? {
+              create: home.files.map((file) => ({
+                name: file.name,
+                type: file.type,
+                mime: file.mime,
+                contents: file.contents!,
+              })),
+            }
+          : undefined,
       },
       include: {
         agent: { include: { agency: true } },
@@ -221,11 +217,19 @@ function register(router: TypedRouter<API>) {
       },
 
       data: {
+        street: home.street,
+        city: home.city,
+        state: home.state,
+        zipcode: home.zipcode,
+
         alarmInfo: home.alarmInfo,
         description: home.description,
         price: home.price,
         sqfootage: home.sqfootage,
         subdivision: home.subdivision,
+
+        bedrooms: home.bedrooms,
+        bathrooms: home.bathrooms,
 
         agent: {
           connect: {

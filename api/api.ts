@@ -18,7 +18,7 @@ type Success = { success: true }
 type Liked = { liked: boolean }
 
 type CompleteAgent = Agent & { agency: Agency }
-type CompleteHome = Home & {
+export type CompleteHome = Home & {
   schools: School[]
   agent: CompleteAgent
 }
@@ -48,8 +48,8 @@ type CreateFile =
       contents: string
     }
 
-type CreateHome = Omit<
-  CompleteHome & { files: CreateFile[] },
+export type CreateHome = Omit<
+  CompleteHome & { files?: CreateFile[] },
   'agentId' | 'likeCount' | 'dailyHits'
 >
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
@@ -77,7 +77,7 @@ export default interface API {
   }
 
   '/user': {
-    get: GetEndpoint<User>
+    get: GetEndpoint<User & { agentProfile: CompleteAgent | null }>
     put: Endpoint<UpdateUser, User>
     delete: Endpoint<null, User>
   }

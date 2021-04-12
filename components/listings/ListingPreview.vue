@@ -5,7 +5,7 @@
       :src="
         image
           ? `data:image/png;base64,${image}`
-          : 'https://dummyimage.com/300x200/999999/ffffff.png&text=Home+Has+No+Images'
+          : 'https://dummyimage.com/300x200/999999/ffffff.png&text=Listing+Has+No+Images'
       "
     ></v-img>
 
