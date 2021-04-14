@@ -21,10 +21,19 @@
               class="ma-2 tertiary--text"
               color="primary"
               dark
-              to="/listings/example/showings/schedule"
+              :to="`/listings/${realMlsn}/showings`"
             >
               Showing
               <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
+            </v-btn>
+            <v-btn
+              v-if="$auth.user && $auth.user.type === 'AGENT'"
+              class="ma-2 tertiary--text"
+              color="primary"
+              dark
+              :to="`/listings/${realMlsn}/edit`"
+            >
+              Edit Listing
             </v-btn>
           </v-row>
 

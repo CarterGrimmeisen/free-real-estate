@@ -2,8 +2,11 @@
   <v-container justify-center fluid>
     <v-row v-if="files" justify="space-around" fluid>
       <v-col cols="5" align-self="center"
-        ><v-img :src="`data:image/png;base64,${files[0].contents}`"></v-img>
-        <v-btn class="ma-2 tertiary--text" color="primary" dark>
+        ><v-img
+          v-if="files[0]"
+          :src="`data:image/png;base64,${files[0].contents}`"
+        ></v-img>
+        <!--<v-btn class="ma-2 tertiary--text" color="primary" dark>
           Favorite This Listing
           <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
         </v-btn>
@@ -22,11 +25,11 @@
           :to="`${mlsn}/documents`"
         >
           Generate Documents
-        </v-btn>
+        </v-btn>--->
       </v-col>
 
       <v-col cols="5" align-center justify-center>
-        <v-card>
+        <v-card v-if="files.slice(1).length > 0">
           <v-carousel>
             <v-carousel-item
               v-for="file in files.slice(1)"

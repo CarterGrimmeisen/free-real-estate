@@ -21,7 +21,7 @@
             <HomeCard
               text="Let us help you sell!"
               button="Sell A Home"
-              send="/agency/register"
+              send="/listings/new"
             />
           </v-col>
         </v-row>
