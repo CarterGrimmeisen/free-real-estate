@@ -1,43 +1,40 @@
 <template>
-  <v-container justify-center fluid>
-    <v-row v-if="files" justify="space-around" fluid>
-      <v-col cols="5" align-self="center"
-        ><v-img
+  <v-container fluid>
+    <v-row v-if="files && files.length" wrap>
+      <v-col cols="12" md="6" lg="4">
+        <v-img
           v-if="files[0]"
-          :src="`data:image/png;base64,${files[0].contents}`"
-        ></v-img>
-        <!--<v-btn class="ma-2 tertiary--text" color="primary" dark>
-          Favorite This Listing
-          <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
-        </v-btn>
-        <v-btn
-          class="ma-2 tertiary--text"
-          color="primary"
-          dark
-          :to="`${mlsn}/showings`"
-        >
-          Schedule Showing
-        </v-btn>
-        <v-btn
-          class="ma-2 tertiary--text"
-          color="primary"
-          dark
-          :to="`${mlsn}/documents`"
-        >
-          Generate Documents
-        </v-btn>--->
+          :src="files[0].contents"
+          height="500px"
+          :aspect-ratio="4 / 3"
+        />
       </v-col>
 
-      <v-col cols="5" align-center justify-center>
-        <v-card v-if="files.slice(1).length > 0">
-          <v-carousel>
-            <v-carousel-item
-              v-for="file in files.slice(1)"
-              :key="file.id"
-              :src="`data:image/png;base64,${file.contents}`"
-            ></v-carousel-item>
-          </v-carousel>
-        </v-card>
+      <v-col v-if="files.slice(1).length" cols="12" md="6" lg="8">
+        <v-carousel>
+          <v-carousel-item
+            v-for="file in files.slice(1)"
+            :key="file.id"
+            style="max-height: 500px"
+            :src="file.contents"
+          />
+        </v-carousel>
+      </v-col>
+      <v-col v-else cols="12" md="6" lg="8">
+        <v-sheet color="grey" height="500" tile>
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="display-3">No Additional Images</div>
+          </v-row>
+        </v-sheet>
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12">
+        <v-sheet color="grey" dark height="500" tile>
+          <v-row class="fill-height" align="center" justify="center">
+            <div class="display-3">No Images</div>
+          </v-row>
+        </v-sheet>
       </v-col>
     </v-row>
   </v-container>

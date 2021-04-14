@@ -90,7 +90,7 @@ function register(router: TypedRouter<API>) {
       .findUnique({
         where: { mlsn },
       })
-      .files({ where: { type: req.query.type } })
+      .files({ where: { type: req.query.type }, orderBy: { dateAdded: 'asc' } })
   })
 
   router.router.use('/homes/:mlsn/like', authenticate('USER'))

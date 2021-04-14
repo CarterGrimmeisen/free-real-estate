@@ -1,13 +1,12 @@
 <template>
   <v-card class="mx-auto my-12" max-width="374">
-    <v-img
-      height="250"
-      :src="
-        image
-          ? `data:image/png;base64,${image}`
-          : 'https://dummyimage.com/300x200/999999/ffffff.png&text=Listing+Has+No+Images'
-      "
-    ></v-img>
+    <v-img v-if="image" height="250" :src="image" />
+
+    <v-sheet v-else color="grey" dark height="250" tile>
+      <v-row class="fill-height" align="center" justify="center">
+        <div class="display-3">No Images</div>
+      </v-row>
+    </v-sheet>
 
     <v-card-title
       >{{ home.street }}<br />

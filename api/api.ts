@@ -34,19 +34,12 @@ type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
 type CreateFeedback = Omit<Feedback, 'id' | 'showingId'>
-type CreateFile =
-  | {
-      type: 'DOCUMENT'
-      homeMlsn: string
-      [key: string]: string
-    }
-  | {
-      type: 'IMAGE'
-      mime: string
-      name: string
-      homeMlsn: string
-      contents: string
-    }
+type CreateFile = {
+  type: 'IMAGE' | 'DOCUMENT'
+  mime: string
+  name: string
+  contents: string
+}
 
 export type CreateHome = Omit<
   CompleteHome & { files?: CreateFile[] },
@@ -123,7 +116,11 @@ export default interface API {
   }
 
   '/files': {
-    post: Endpoint<CreateFile, File, { docType?: DocType }>
+    post: Endpoint<
+      CreateFile & { homeMlsn: string },
+      File,
+      { docType?: DocType }
+    >
   }
 
   '/files/:id': {

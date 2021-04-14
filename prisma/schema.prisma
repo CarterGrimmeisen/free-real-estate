@@ -133,11 +133,12 @@ enum FileType {
 }
 
 model File {
-  id       String   @id @default(cuid())
-  name     String
-  mime     String
-  contents String
-  type     FileType
-  home     Home     @relation(fields: [homeMlsn], references: [mlsn])
-  homeMlsn String
+  id        String   @id @default(cuid())
+  name      String
+  mime      String
+  contents  String
+  type      FileType
+  home      Home     @relation(fields: [homeMlsn], references: [mlsn])
+  homeMlsn  String
+  dateAdded DateTime @default(now())
 }

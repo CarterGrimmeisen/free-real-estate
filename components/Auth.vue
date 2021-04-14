@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="active" :value="active" width="400" class="rounded-xl">
+  <v-dialog
+    v-model="active"
+    :value="active"
+    width="400"
+    content-class="rounded-xl"
+  >
     <v-card class="mx-auto rounded-xl" width="400" outlined>
       <v-form @submit.prevent="onSubmit">
         <v-card-title>
