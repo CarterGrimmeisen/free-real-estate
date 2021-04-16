@@ -22,11 +22,16 @@ export default defineComponent({
     const $router = useRouter()
     const { createHome } = useHomes()
 
-    const saveListing = async (
-      newListing: Parameters<typeof createHome>[1]
-    ) => {
+    const saveListing = async ([newListing, newImages]: [
+      Parameters<typeof createHome>[1],
+      Parameters<typeof createHome>[1]['files']
+    ]) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const result = await createHome({}, newListing, null)
+      const result = await createHome(
+        {},
+        { ...newListing, files: newImages },
+        null
+      )
       $router.push(`/listings/${result.mlsn}/edit`)
     }
 

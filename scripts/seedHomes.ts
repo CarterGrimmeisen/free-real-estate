@@ -125,7 +125,9 @@ async function main() {
                     name: basename(file),
                     type: 'IMAGE',
                     mime: 'image/png',
-                    contents: readFileSync(file, { encoding: 'base64' }),
+                    contents:
+                      'data:image/png;base64,' +
+                      readFileSync(file, { encoding: 'base64' }),
                   }
                 }),
             },

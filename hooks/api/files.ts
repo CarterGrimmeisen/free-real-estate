@@ -34,26 +34,8 @@ export async function encodeFile(file: File, type: FileType) {
 export function useFiles() {
   const api = useCrosswalk()
 
-  const _createFile = api.post('/files')
-
-  const createFile = async (
-    params: {},
-    body: ReplaceProp<
-      Exclude<BodyType<typeof _createFile>, { type: 'DOCUMENT' }>,
-      'contents',
-      { contents: File }
-    >,
-    query: QueryType<typeof _createFile>
-  ): ReturnType<typeof _createFile> => {
-    const { contents, ...file } = body
-    const newContents = await encodeFile(contents, file.type)
-
-    return _createFile(params, { ...file, contents: newContents }, query)
-  }
-
   return {
-    _createFile,
-    createFile,
-    deleteFile: api.post('/files'),
+    createFile: api.post('/files'),
+    deleteFile: api.delete('/files/:id'),
   }
 }

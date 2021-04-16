@@ -7,12 +7,7 @@
       </template>
       <template v-else> New Listing </template>
       <v-spacer />
-      <v-btn
-        class="ma-2"
-        color="primary"
-        dark
-        @click="$emit('save', listingEdit)"
-      >
+      <v-btn class="ma-2" color="primary" dark @click="save">
         Save Changes
         <v-icon dark right> mdi-content-save </v-icon>
       </v-btn>
@@ -20,9 +15,15 @@
       <DeleteListing v-if="listing" @confirm="$emit('delete')" />
     </v-card-title>
     <v-divider />
-    <!-- <v-card-text class="primary--text">
-      <ImageEditor />
-    </v-card-text> -->
+    <v-card-text class="primary--text">
+      <ImageUploader
+        :listing="listingEdit"
+        :images="images || (listing && listing.files) || []"
+        @addImage="addImage"
+        @removeImage="removeImage"
+        @removeLocalImage="removeLocalImage"
+      />
+    </v-card-text>
 
     <v-divider />
 
@@ -338,33 +339,43 @@ import {
   useContext,
   watch,
 } from '@nuxtjs/composition-api'
-import { CompleteHome } from '~/api/api'
+import { File } from '@prisma/client'
+import { HomeWithImage } from '~/api/api'
 
 export default defineComponent({
   props: {
     listing: {
-      type: Object as PropType<CompleteHome>,
+      type: Object as PropType<HomeWithImage>,
+      default: null,
+    },
+    images: {
+      type: Array as PropType<File[]>,
       default: null,
     },
   },
 
-  setup(props) {
+  setup(props, { emit }) {
     const { $auth } = useContext()
 
     const agent = ref(
       props.listing ? props.listing.agent : $auth.value.user!.agentProfile!
     )
 
-    const listingEdit = ref<Partial<CompleteHome>>({
+    const listingEdit = ref<Partial<HomeWithImage>>({
       hoa: false,
       occupied: false,
       rooms: [],
       schools: [],
+      files: [],
       subdivision: '',
       bedrooms: 0,
       bathrooms: 0,
       alarmInfo: '',
     })
+
+    // const imagesEdit = ref<File[]>([])
+    const addedImages = ref<File[]>([])
+    const removedImages = ref<string[]>([])
 
     watch(
       props,
@@ -372,7 +383,7 @@ export default defineComponent({
         if (props.listing)
           listingEdit.value = JSON.parse(
             JSON.stringify(props.listing)
-          ) as CompleteHome
+          ) as HomeWithImage
 
         if (!listingEdit.value.agent) listingEdit.value.agent = agent.value
       },
@@ -401,13 +412,43 @@ export default defineComponent({
       listingEdit.value.schools!.splice(index, 1)
     }
 
+    // const updateImages = (images: File[]) => {
+    //   listingEdit.value.files = images
+    // }
+
+    const addImage = (file: File) => {
+      addedImages.value.push(file)
+    }
+
+    const removeImage = (id: string) => {
+      removedImages.value.push(id)
+    }
+
+    const removeLocalImage = (id: string) => {
+      addedImages.value.splice(
+        addedImages.value.findIndex((each) => each.id === id)
+      )
+    }
+
+    const save = () => {
+      emit('save', [listingEdit.value, addedImages.value, removedImages.value])
+      addedImages.value = []
+      removedImages.value = []
+    }
+
     return {
       listingEdit,
+      addedImages,
+      removedImages,
       agent,
       addRoom,
       removeRoom,
       addSchool,
       removeSchool,
+      addImage,
+      removeImage,
+      removeLocalImage,
+      save,
     }
   },
 })

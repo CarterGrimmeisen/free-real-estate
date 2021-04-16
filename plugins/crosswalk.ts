@@ -1,4 +1,4 @@
-import { Plugin } from '@nuxt/types'
+import { defineNuxtPlugin } from '@nuxtjs/composition-api'
 import { typedApi, Options } from 'crosswalk'
 import { HTTPVerb } from 'crosswalk/dist/api-spec'
 import API from '~/api/api'
@@ -11,7 +11,7 @@ declare module '@nuxt/types' {
   }
 }
 
-const plugin: Plugin = (ctx, inject) => {
+const plugin = defineNuxtPlugin((ctx, inject) => {
   function fetch(
     url: string,
     method: HTTPVerb,
@@ -32,6 +32,6 @@ const plugin: Plugin = (ctx, inject) => {
       prefix: '/api',
     })
   )
-}
+})
 
 export default plugin

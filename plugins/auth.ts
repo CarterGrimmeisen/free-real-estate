@@ -1,5 +1,4 @@
-import { Plugin } from '@nuxt/types'
-import { Ref, ssrRef } from '@nuxtjs/composition-api'
+import { defineNuxtPlugin, Ref, ssrRef } from '@nuxtjs/composition-api'
 import { Agent, Agency, User } from '.prisma/client'
 
 declare module '@nuxt/types' {
@@ -13,11 +12,11 @@ declare module '@nuxt/types' {
   }
 }
 
-const plugin: Plugin = (ctx) => {
+const plugin = defineNuxtPlugin((ctx) => {
   ctx.$auth = ssrRef({
     loggedin: false,
     user: null,
   })
-}
+})
 
 export default plugin
