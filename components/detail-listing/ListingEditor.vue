@@ -18,7 +18,7 @@
     <v-card-text class="primary--text">
       <ImageUploader
         :listing="listingEdit"
-        :images="images || listing.files || []"
+        :images="images || (listing && listing.files) || []"
         @addImage="addImage"
         @removeImage="removeImage"
         @removeLocalImage="removeLocalImage"
