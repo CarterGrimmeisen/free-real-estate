@@ -73,6 +73,10 @@ export default interface API {
     delete: Endpoint<null, User>
   }
 
+  '/user/liked': {
+    get: GetEndpoint<HomeWithImage[], { take?: number; skip?: number }>
+  }
+
   '/homes': {
     get: GetEndpoint<
       HomeWithImage[],
@@ -99,6 +103,10 @@ export default interface API {
     get: GetEndpoint<CompleteHome>
     put: Endpoint<UpdateHome, CompleteHome>
     delete: Endpoint<null, CompleteHome>
+  }
+
+  '/homes/:mlsn/liked': {
+    get: GetEndpoint<Liked>
   }
 
   '/homes/:mlsn/like': {
