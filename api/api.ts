@@ -27,9 +27,7 @@ export type HomeWithImage = CompleteHome & { files: File[] }
 export type CompleteShowing = Showing & { user: User; agent: CompleteAgent }
 type CompleteFeedback = Feedback & { showing: Showing }
 
-type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'> & {
-  date: string
-}
+type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'>
 type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
