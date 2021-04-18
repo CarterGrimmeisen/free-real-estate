@@ -15,6 +15,7 @@
               text="Find a home!"
               button="Buy A Home"
               send="/listings"
+              image="/buy.jpg"
             />
           </v-col>
           <v-col cols="12" md="3" sm="4">
@@ -22,6 +23,7 @@
               text="Let us help you sell!"
               button="Sell A Home"
               send="/listings/new"
+              image="/sell.webp"
             />
           </v-col>
         </v-row>

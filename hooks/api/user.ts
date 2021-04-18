@@ -7,5 +7,6 @@ export function useUser() {
     getUser: api.get('/user'),
     updateUser: api.put('/user'),
     deleteUser: api.delete('/user'),
+    getLikedHomes: api.get('/user/liked'),
   }
 }
