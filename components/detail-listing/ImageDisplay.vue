@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useHomes, useData } from '@/hooks/api'
+import { useData, useFiles } from '@/hooks/api'
 
 export default defineComponent({
   name: 'HouseImages',
@@ -54,7 +54,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { getHomeFiles } = useHomes()
+    const { getHomeFiles } = useFiles()
     const files = useData(getHomeFiles, { mlsn: props.mlsn }, { type: 'IMAGE' })
 
     return {

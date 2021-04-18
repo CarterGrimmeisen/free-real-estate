@@ -30,7 +30,8 @@ export default defineComponent({
   setup() {
     const $route = useRoute()
     const $router = useRouter()
-    const { getHome, updateHome, deleteHome, getHomeFiles } = useHomes()
+    const { getHome, updateHome, deleteHome } = useHomes()
+    const { getHomeFiles } = useFiles()
     const { createFile, deleteFile } = useFiles()
 
     const home = useData(getHome, { mlsn: $route.value.params.mlsn })

@@ -35,6 +35,7 @@ export function useFiles() {
   const api = useCrosswalk()
 
   return {
+    getHomeFiles: api.get('/homes/:mlsn/files'),
     createFile: api.post('/files'),
     deleteFile: api.delete('/files/:id'),
   }
