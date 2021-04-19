@@ -78,8 +78,8 @@ export default defineComponent({
     const { $auth } = useContext()
     const { updateUser } = useUser()
 
-    const name = ref('')
-    const email = ref('')
+    const name = ref($auth.value.user!.name)
+    const email = ref($auth.value.user!.email)
     const password = ref('')
     const success = ref('')
 
@@ -94,9 +94,14 @@ export default defineComponent({
         updator
       ).catch((e) => {
         success.value = e.message
+        return null
       })
 
-      if (user !== null) success.value = 'Success!'
+      if (user !== null) {
+        success.value = 'Success!'
+        $auth.value.user!.name = name.value
+        $auth.value.user!.email = email.value
+      }
 
       return user
     }
