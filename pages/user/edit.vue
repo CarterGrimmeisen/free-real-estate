@@ -2,6 +2,7 @@
 <template>
   <v-card class="mx-auto my-12" max-width="1000" width="1000">
     <v-card-title>Edit Account</v-card-title>
+    <p>{{ success }}</p>
     <v-card-text>
       <v-card-title>Name:</v-card-title>
       <v-text-field
@@ -95,7 +96,7 @@ export default defineComponent({
         success.value = e.message
       })
 
-      if (user === null) success.value = 'Success!'
+      if (user !== null) success.value = 'Success!'
 
       return user
     }
