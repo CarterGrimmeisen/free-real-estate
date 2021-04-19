@@ -1,5 +1,10 @@
 <template>
-  <v-dialog v-model="active" :value="active" width="400" class="rounded-xl">
+  <v-dialog
+    v-model="active"
+    :value="active"
+    width="400"
+    content-class="rounded-xl"
+  >
     <v-card class="mx-auto rounded-xl" width="400" outlined>
       <v-form @submit.prevent="onSubmit">
         <v-card-title>
@@ -133,14 +138,13 @@ export default defineComponent({
       get: () => !!$route.value.query.auth,
       set: (val) => {
         if (!val) {
-          if ($route.value.query.auth) {
-            if ($route.value.query.auth !== 'true')
-              $router
-                .replace($route.value.query.auth as string)
-                .catch(() => ({}))
-            else
-              $router.replace({ query: { auth: undefined } }).catch(() => ({}))
-          }
+          if (
+            $auth.value.loggedin &&
+            $route.value.query.auth &&
+            $route.value.query.auth !== 'true'
+          )
+            $router.replace($route.value.query.auth as string).catch(() => ({}))
+          else $router.replace({ query: { auth: undefined } }).catch(() => ({}))
         }
       },
     })

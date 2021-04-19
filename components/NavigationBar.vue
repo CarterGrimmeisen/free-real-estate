@@ -8,7 +8,7 @@
       >404 Free Real Estate</v-toolbar-title
     >
     <v-spacer></v-spacer>
-    <v-menu>
+    <!--<v-menu>
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           Agent Utilities
@@ -18,7 +18,7 @@
         <v-list-item to="/user/listings">Manage Listings </v-list-item>
         <v-list-item to="/user/showings">My Showings</v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu>--->
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
       Login
     </v-btn>
@@ -35,7 +35,7 @@
         <v-list-item @click="doLogout">Logout</v-list-item>
       </v-list>
     </v-menu>
-    <v-btn icon to="/listings"
+    <v-btn icon to="/listings" exact
       ><v-icon color="white">mdi-home-city</v-icon></v-btn
     >
   </v-app-bar>
@@ -51,7 +51,7 @@ import {
 import { useAuth } from '@/hooks/api'
 
 export default defineComponent({
-  setup(_) {
+  setup() {
     const $router = useRouter()
 
     const login = () => $router.replace({ query: { auth: 'true' } })

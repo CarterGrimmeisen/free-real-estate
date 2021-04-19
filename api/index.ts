@@ -20,7 +20,7 @@ import { prisma } from './util/prisma'
 
 const app = Express()
 
-app.use(json())
+app.use(json({ limit: '3mb' }))
 app.use(cookieParser())
 
 const api = new TypedRouter<API>(app, APIJsonSchema)

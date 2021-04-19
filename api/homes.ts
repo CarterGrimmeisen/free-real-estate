@@ -79,12 +79,6 @@ function register(router: TypedRouter<API>) {
       include: {
         agent: { include: { agency: true } },
         schools: true,
-        files: {
-          take: 1,
-          where: {
-            type: 'IMAGE',
-          },
-        },
       },
     })
 
@@ -96,7 +90,7 @@ function register(router: TypedRouter<API>) {
       .findUnique({
         where: { mlsn },
       })
-      .files({ where: { type: req.query.type } })
+      .files({ where: { type: req.query.type }, orderBy: { dateAdded: 'asc' } })
   })
 
   router.router.use('/homes/:mlsn/like', authenticate('USER'))
@@ -190,14 +184,16 @@ function register(router: TypedRouter<API>) {
           })),
         },
 
-        files: {
-          create: home.files.map((file) => ({
-            name: file.name,
-            type: file.type,
-            mime: file.mime,
-            contents: file.contents!,
-          })),
-        },
+        files: home.files
+          ? {
+              create: home.files.map((file) => ({
+                name: file.name,
+                type: file.type,
+                mime: file.mime,
+                contents: file.contents!,
+              })),
+            }
+          : undefined,
       },
       include: {
         agent: { include: { agency: true } },
@@ -209,9 +205,13 @@ function register(router: TypedRouter<API>) {
   router.router.use('/homes/:mlsn', ensureHomeAgent())
 
   router.get('/homes/:mlsn/showings', ({ mlsn }) => {
-    return prisma.home
-      .findUnique({ where: { mlsn } })
-      .showings({ include: { user: true, agent: true, home: true } })
+    return prisma.home.findUnique({ where: { mlsn } }).showings({
+      include: {
+        user: true,
+        agent: { include: { agency: true } },
+        home: true,
+      },
+    })
   })
 
   router.put('/homes/:mlsn', ({ mlsn }, home, { user }) => {
@@ -221,11 +221,19 @@ function register(router: TypedRouter<API>) {
       },
 
       data: {
+        street: home.street,
+        city: home.city,
+        state: home.state,
+        zipcode: home.zipcode,
+
         alarmInfo: home.alarmInfo,
         description: home.description,
         price: home.price,
         sqfootage: home.sqfootage,
         subdivision: home.subdivision,
+
+        bedrooms: home.bedrooms,
+        bathrooms: home.bathrooms,
 
         agent: {
           connect: {

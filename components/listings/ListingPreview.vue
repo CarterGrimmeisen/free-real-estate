@@ -1,18 +1,17 @@
 <template>
   <v-card class="mx-auto my-12" max-width="374">
-    <v-img
-      height="250"
-      :src="
-        image
-          ? `data:image/png;base64,${image}`
-          : 'https://dummyimage.com/300x200/999999/ffffff.png&text=Home+Has+No+Images'
-      "
-    ></v-img>
+    <v-img v-if="image" height="250" :src="image" />
 
-    <v-card-title
-      >{{ home.street }}<br />
-      {{ home.city }}, {{ home.state }} {{ home.zipcode }}</v-card-title
-    >
+    <v-sheet v-else color="grey" dark height="250" class="v-responsive">
+      <v-row class="fill-height" align="center" justify="center">
+        <div class="display-3">No Images</div>
+      </v-row>
+    </v-sheet>
+
+    <v-card-title>
+      {{ home.street }} <br />
+      {{ home.city }}, {{ home.state }} {{ home.zipcode }}
+    </v-card-title>
 
     <v-card-text>
       <v-row class="mx-0"> </v-row>

@@ -18,13 +18,13 @@ type Success = { success: true }
 type Liked = { liked: boolean }
 
 type CompleteAgent = Agent & { agency: Agency }
-type CompleteHome = Home & {
+export type CompleteHome = Home & {
   schools: School[]
   agent: CompleteAgent
 }
 export type HomeWithImage = CompleteHome & { files: File[] }
 
-type CompleteShowing = Showing & { user: User; agent: Agent }
+export type CompleteShowing = Showing & { user: User; agent: CompleteAgent }
 type CompleteFeedback = Feedback & { showing: Showing }
 
 type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'> & {
@@ -34,22 +34,15 @@ type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
 type CreateFeedback = Omit<Feedback, 'id' | 'showingId'>
-type CreateFile =
-  | {
-      type: 'DOCUMENT'
-      homeMlsn: string
-      [key: string]: string
-    }
-  | {
-      type: 'IMAGE'
-      mime: string
-      name: string
-      homeMlsn: string
-      contents: string
-    }
+type CreateFile = {
+  type: 'IMAGE' | 'DOCUMENT'
+  mime: string
+  name: string
+  contents: string
+}
 
-type CreateHome = Omit<
-  CompleteHome & { files: CreateFile[] },
+export type CreateHome = Omit<
+  CompleteHome & { files?: CreateFile[] },
   'agentId' | 'likeCount' | 'dailyHits'
 >
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
@@ -77,7 +70,7 @@ export default interface API {
   }
 
   '/user': {
-    get: GetEndpoint<User>
+    get: GetEndpoint<User & { agentProfile: CompleteAgent | null }>
     put: Endpoint<UpdateUser, User>
     delete: Endpoint<null, User>
   }
@@ -123,7 +116,11 @@ export default interface API {
   }
 
   '/files': {
-    post: Endpoint<CreateFile, File, { docType?: DocType }>
+    post: Endpoint<
+      CreateFile & { homeMlsn: string },
+      File,
+      { docType?: DocType }
+    >
   }
 
   '/files/:id': {

@@ -21,7 +21,11 @@ function register(router: TypedRouter<API>) {
       },
       include: {
         auth: true,
-        agentProfile: true,
+        agentProfile: {
+          include: {
+            agency: true,
+          },
+        },
       },
     })
 
@@ -30,17 +34,17 @@ function register(router: TypedRouter<API>) {
     if (!(await verifyPassword(user, body.password)))
       throw new HTTPError(401, 'Email/Password combination is incorrect')
 
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      type: user.type,
+      agentProfile: user.agentProfile,
+    }
+
     res.cookie(
       'session',
-      sign(
-        {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          type: user.type,
-        },
-        process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'
-      ),
+      sign(payload, process.env.JWT_SECRET ?? 'SUPER_SECRET_BACKUP_SECRET'),
       {
         maxAge: 1209600,
       }

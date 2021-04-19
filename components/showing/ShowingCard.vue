@@ -10,13 +10,6 @@
               width="500"
               height="300"
             >
-              <v-img
-                class="white--text align-end"
-                height="300px"
-                width="300px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-              </v-img>
             </v-navigation-drawer>
           </v-card>
         </v-col>
@@ -30,27 +23,18 @@
               ></v-progress-linear>
             </template>
             <v-img></v-img>
-
             <v-row>
-              <v-card-title>#### Street City State Zipcode</v-card-title>
-              <v-spacer> </v-spacer>
-              <v-card-title>MLS: #######</v-card-title></v-row
-            >
-            <v-row>
-              <v-card-subtitle>Date/Time:</v-card-subtitle>
-              <v-card-subtitle>##/##/####</v-card-subtitle>
-              <v-card-subtitle>Start: ##:## ?m - End: ##:## ?m</v-card-subtitle>
+              <v-card-subtitle>Date/Time: </v-card-subtitle>
+              <v-card-subtitle>{{ showing.date.getUTCDate() }}</v-card-subtitle>
+              <v-card-subtitle
+                >Start: {{ showing.date.getTime() }}</v-card-subtitle
+              >
             </v-row>
             <v-row>
               <v-card-subtitle>Listing Detail: </v-card-subtitle>
               <v-card-subtitle
-                >Listing Agency, Agent name - (###)###-####</v-card-subtitle
-              >
-            </v-row>
-            <v-row>
-              <v-card-subtitle>Showing Detail: </v-card-subtitle>
-              <v-card-subtitle
-                >Showing Agency, Agent name - (###)###-####</v-card-subtitle
+                >{{ showing.agent.agency.name }}, {{ showing.agent.name }} -
+                {{ showing.agent.phone }}</v-card-subtitle
               >
             </v-row>
 
@@ -82,10 +66,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { CompleteShowing } from '@/api/api'
 
 export default defineComponent({
   name: 'ShowingCard',
-  setup() {},
+  props: {
+    showing: {
+      type: Object as PropType<CompleteShowing>,
+      required: true,
+    },
+  },
 })
 </script>

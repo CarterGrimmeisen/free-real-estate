@@ -26,7 +26,11 @@ export default defineNuxtConfig({
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/crosswalk', '~/plugins/auth'],
+  plugins: [
+    '~/plugins/crosswalk',
+    '~/plugins/auth',
+    { src: '~/plugins/vue-filepond', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [

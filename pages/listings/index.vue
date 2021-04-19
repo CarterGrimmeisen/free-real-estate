@@ -57,9 +57,6 @@ export default defineComponent({
             { take: 12, skip: loadedPages.value++ * 12 }
           )
 
-          // eslint-disable-next-line no-console
-          console.dir(newHomes.map((e) => e.mlsn))
-
           if (!newHomes.length) doneLoading.value = true
           loadedHomes.value = [...loadedHomes.value, ...newHomes]
           loadingMore.value = false

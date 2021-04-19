@@ -12,6 +12,13 @@ function register(router: TypedRouter<API>) {
       where: {
         id: req.user!.id,
       },
+      include: {
+        agentProfile: {
+          include: {
+            agency: true,
+          },
+        },
+      },
     })
 
     return user!
@@ -76,7 +83,7 @@ function register(router: TypedRouter<API>) {
       .showings({
         include: {
           user: true,
-          agent: true,
+          agent: { include: { agency: true } },
           home: true,
         },
       })

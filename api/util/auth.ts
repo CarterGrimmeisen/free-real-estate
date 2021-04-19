@@ -24,7 +24,11 @@ export const authenticate = (type?: UserType): RequestHandler =>
         where: { id: data.id },
 
         select: {
-          agentProfile: true,
+          agentProfile: {
+            include: {
+              agency: true,
+            },
+          },
           id: true,
           name: true,
           email: true,
