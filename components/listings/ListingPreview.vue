@@ -33,14 +33,14 @@
 
     <v-card-actions>
       <v-btn
-        v-if="$auth.loggedin"
+        v-if="$auth.loggedin && homeLiked !== null"
         class="ma-2"
         color="primary"
         dark
         @click="doLikeHome"
       >
-        Favorite
-        <v-icon v-if="homeLiked !== null" dark right>
+        {{ homeLiked.liked ? 'Unf' : 'F' }}avorite
+        <v-icon dark right>
           {{ homeLiked.liked ? 'mdi-star' : 'mdi-star-outline' }}
         </v-icon>
       </v-btn>
