@@ -12,9 +12,17 @@
         <ImageDisplay :mlsn="mlsn" />
 
         <v-row v-if="$auth.loggedin" no-gutters>
-          <v-btn class="ma-2 tertiary--text" color="primary" dark>
-            Favorite This Listing
-            <v-icon dark right class="tertiary--text"> mdi-heart </v-icon>
+          <v-btn
+            v-if="$auth.loggedin && homeLiked !== null"
+            class="ma-2"
+            color="primary"
+            dark
+            @click="doLikeHome"
+          >
+            {{ homeLiked.liked ? 'Unf' : 'F' }}avorite
+            <v-icon dark right>
+              {{ homeLiked.liked ? 'mdi-star' : 'mdi-star-outline' }}
+            </v-icon>
           </v-btn>
           <v-btn
             class="ma-2 tertiary--text"
@@ -190,26 +198,51 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  ref,
+  useContext,
+  useRoute,
+  watch,
+} from '@nuxtjs/composition-api'
 import { useData, useHomes } from '@/hooks/api'
 
 export default defineComponent({
   name: 'DetailedListing',
-  setup() {
+  setup(_, { emit }) {
     const $route = useRoute()
     const { $auth } = useContext()
-    const { getHome } = useHomes()
+    const { getHome, getLiked, likeHome } = useHomes()
 
     const mlsn = $route.value.params.mlsn
     const home = useData(getHome, { mlsn })
 
     const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
 
+    const homeLiked = ref<{ liked: boolean } | null>({ liked: false })
+    watch(
+      $auth,
+      async () => {
+        if (!home.value) return
+        return (homeLiked.value = $auth.value.loggedin
+          ? await getLiked({ mlsn: home.value.mlsn })
+          : { liked: false })
+      },
+      { immediate: true }
+    )
+
+    const doLikeHome = async () => {
+      homeLiked.value = await likeHome({ mlsn: home.value!.mlsn }, null)
+      emit('toggledLike')
+    }
+
     return {
       $auth,
       mlsn,
       home,
       fmt,
+      homeLiked,
+      doLikeHome,
     }
   },
 })
