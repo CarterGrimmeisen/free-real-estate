@@ -72,7 +72,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { $auth } = useContext()
     const { getLiked, likeHome } = useHomes()
 
@@ -88,8 +88,10 @@ export default defineComponent({
       { immediate: true }
     )
 
-    const doLikeHome = async () =>
-      (homeLiked.value = await likeHome({ mlsn: props.home.mlsn }, null))
+    const doLikeHome = async () => {
+      homeLiked.value = await likeHome({ mlsn: props.home.mlsn }, null)
+      emit('toggledLike')
+    }
 
     const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
 

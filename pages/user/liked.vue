@@ -1,9 +1,14 @@
 <template>
-  <div class="listing">
+  <div>
+    <v-toolbar id="likedListingBar" color="white" flat>
+      <v-toolbar-title class="primary--text">
+        Your Liked Listings
+      </v-toolbar-title>
+    </v-toolbar>
     <v-container fluid>
       <v-row v-if="loadedHomes.length" v-scroll="onScroll" wrap>
         <v-col
-          v-for="home in loadedHomes"
+          v-for="(home, index) in loadedHomes"
           :key="home.mlsn"
           cols="12"
           sm="6"
@@ -11,10 +16,13 @@
           lg="3"
           xl="2"
         >
-          <ListingPreview :home="home" />
+          <ListingPreview
+            :home="home"
+            @toggledLike="loadedHomes.splice(index, 1)"
+          />
         </v-col>
       </v-row>
-      <v-row v-else justify="center">
+      <v-row v-else-if="!loadingMore" justify="center">
         <v-col cols="12" class="text-center">
           <v-alert type="info">
             You haven't liked any listings. Like some and come back.
@@ -86,3 +94,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style>
+#likedListingBar {
+  border-bottom: 1px solid var(--v-primary-base) !important;
+}
+</style>
