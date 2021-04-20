@@ -34,6 +34,11 @@
             <v-icon dark right class="tertiary--text"> mdi-plus-circle </v-icon>
           </v-btn>
           <v-btn
+            v-if="
+              $auth.user &&
+              $auth.user.agentProfile &&
+              $auth.user.agentProfile.id === home.agent.id
+            "
             class="ma-2 tertiary--text"
             color="primary"
             dark
@@ -43,7 +48,11 @@
             <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
           </v-btn>
           <v-btn
-            v-if="$auth.user && $auth.user.type === 'AGENT'"
+            v-if="
+              $auth.user &&
+              $auth.user.agentProfile &&
+              $auth.user.agentProfile.id === home.agent.id
+            "
             class="ma-2 tertiary--text"
             color="primary"
             dark
@@ -221,7 +230,7 @@ export default defineComponent({
 
     const homeLiked = ref<{ liked: boolean } | null>({ liked: false })
     watch(
-      $auth,
+      [$auth, home],
       async () => {
         if (!home.value) return
         return (homeLiked.value = $auth.value.loggedin

@@ -17,10 +17,10 @@ function register(router: TypedRouter<API>) {
     if (file.type === 'IMAGE') {
       return prisma.file.create({
         data: {
-          name: file.name,
+          name: file.name!,
           type: file.type,
-          mime: file.mime,
-          contents: file.contents,
+          mime: file.mime!,
+          contents: file.contents!,
 
           home: {
             connect: {
