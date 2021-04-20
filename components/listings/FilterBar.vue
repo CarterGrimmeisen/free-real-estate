@@ -54,6 +54,7 @@ import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
   name: 'FilterBar',
   components: {},
+
   setup() {
     return {
       prices: ['0', '100k', '150k', '200k', '250k', '300k+'],
