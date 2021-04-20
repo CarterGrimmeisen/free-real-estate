@@ -2,7 +2,7 @@
   <div class="listing">
     <div>
       <FilterBar />
-      <v-container fluid>
+      <v-container>
         <v-row v-if="loadedHomes.length" v-scroll="onScroll" wrap>
           <v-col
             v-for="home in loadedHomes"
@@ -11,7 +11,6 @@
             sm="6"
             md="4"
             lg="3"
-            xl="2"
           >
             <ListingPreview :home="home" />
           </v-col>
@@ -30,6 +29,7 @@ import {
   ref,
   watch,
   useContext,
+  onMounted,
 } from '@nuxtjs/composition-api'
 import { useHomes } from '@/hooks/api'
 import { HomeWithImage } from '~/api/api'
@@ -51,27 +51,29 @@ export default defineComponent({
       )
     }
 
-    watch(
-      distanceToBottom,
-      async () => {
-        if (
-          distanceToBottom.value < 550 &&
-          !loadingMore.value &&
-          !doneLoading.value
-        ) {
-          loadingMore.value = true
-          const newHomes = await getHomes(
-            {},
-            { take: 12, skip: loadedPages.value++ * 12 }
-          )
+    const loadMore = async () => {
+      if (
+        distanceToBottom.value < 550 &&
+        !loadingMore.value &&
+        !doneLoading.value
+      ) {
+        loadingMore.value = true
+        const newHomes = await getHomes(
+          {},
+          { take: 12, skip: loadedPages.value++ * 12 }
+        )
 
-          if (!newHomes.length) doneLoading.value = true
-          loadedHomes.value = [...loadedHomes.value, ...newHomes]
-          loadingMore.value = false
-        }
-      },
-      { immediate: true }
-    )
+        if (!newHomes.length) doneLoading.value = true
+        loadedHomes.value = [...loadedHomes.value, ...newHomes]
+        loadingMore.value = false
+
+        loadMore()
+      }
+    }
+
+    watch(distanceToBottom, loadMore, { immediate: true })
+
+    onMounted(() => setTimeout(() => onScroll(), 250))
 
     return {
       $auth,

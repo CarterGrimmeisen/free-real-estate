@@ -3,7 +3,7 @@
   <div v-if="home">
     <v-container justify-center>
       <v-card v-if="home" class="pa-2" outlined title>
-        <v-card-title class="primary--text">
+        <v-card-title class="primary--text display-1">
           {{ home.street }}, {{ home.city }}, {{ home.state }}
           {{ home.zipcode }}
         </v-card-title>
@@ -31,42 +31,47 @@
             :to="{ query: { scheduling: null } }"
           >
             Schedule a Showing
-            <v-icon dark right class="tertiary--text"> mdi-plus-circle </v-icon>
+            <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
           </v-btn>
           <v-btn
-            v-if="
-              $auth.user &&
-              $auth.user.agentProfile &&
-              $auth.user.agentProfile.id === home.agent.id
-            "
+            v-if="isHomeAgent"
             class="ma-2 tertiary--text"
             color="primary"
             dark
             :to="`/listings/${mlsn}/showings`"
           >
             View Showings
-            <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
+            <v-icon dark right class="tertiary--text">
+              mdi-format-list-bulleted
+            </v-icon>
           </v-btn>
           <v-btn
-            v-if="
-              $auth.user &&
-              $auth.user.agentProfile &&
-              $auth.user.agentProfile.id === home.agent.id
-            "
+            v-if="isHomeAgent"
+            class="ma-2 tertiary--text"
+            color="primary"
+            dark
+            :to="`/listings/${mlsn}/documents`"
+          >
+            Generate Documents
+            <v-icon dark right class="tertiary--text">
+              mdi-file-document-outline
+            </v-icon>
+          </v-btn>
+          <v-btn
+            v-if="isHomeAgent"
             class="ma-2 tertiary--text"
             color="primary"
             dark
             :to="`/listings/${mlsn}/edit`"
           >
             Edit Listing
+            <v-icon right> mdi-pencil-outline </v-icon>
           </v-btn>
         </v-row>
 
         <v-divider class="mx-4" />
 
         <v-card-title bold> Property Details </v-card-title>
-
-        <v-divider class="mx-4" />
 
         <v-row>
           <v-col>
@@ -208,6 +213,7 @@
 
 <script lang="ts">
 import {
+  computed,
   defineComponent,
   ref,
   useContext,
@@ -245,11 +251,20 @@ export default defineComponent({
       emit('toggledLike')
     }
 
+    const isHomeAgent = computed(
+      () =>
+        home.value &&
+        $auth.value.user &&
+        $auth.value.user.agentProfile &&
+        $auth.value.user.agentProfile.id === home.value.agent.id
+    )
+
     return {
       $auth,
       mlsn,
       home,
       fmt,
+      isHomeAgent,
       homeLiked,
       doLikeHome,
     }
