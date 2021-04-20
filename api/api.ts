@@ -37,6 +37,7 @@ type CreateFile = {
   mime: string
   name: string
   contents: string
+  homeMlsn: string
 }
 
 export type CreateHome = Omit<
@@ -45,7 +46,10 @@ export type CreateHome = Omit<
 >
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
 
-type DocType = 'ClosingDisclosure' | 'PurchaseAgreement' | 'RepairRequest'
+export type DocType =
+  | 'ClosingDisclosure'
+  | 'PurchaseAgreement'
+  | 'RepairRequest'
 
 export default interface API {
   '/auth/login': {
@@ -122,11 +126,7 @@ export default interface API {
   }
 
   '/files': {
-    post: Endpoint<
-      CreateFile & { homeMlsn: string },
-      File,
-      { docType?: DocType }
-    >
+    post: Endpoint<CreateFile, File>
   }
 
   '/files/:id': {
