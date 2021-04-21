@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 
-import Prisma from '@prisma/client'
-import { sendEmail } from 'api/util/sendEmail'
+import { PrismaClient } from '@prisma/client'
+import { sendEmail } from '../api/util/sendEmail'
 
 async function main() {
-  const prisma = new Prisma.PrismaClient()
+  const prisma = new PrismaClient()
 
   const agents = await prisma.agent.findMany({
     include: {
@@ -32,7 +32,7 @@ async function main() {
       })
     }
 
-    sendEmail(agent.email, `You got ${totalHits} hits today!`, html)
+    await sendEmail(agent.email, `You got ${totalHits} hits today!`, html)
   }
 }
 

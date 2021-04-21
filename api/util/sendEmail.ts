@@ -24,10 +24,13 @@ export const sendEmail = (
     html,
   }
 
-  if ((process.env.NODE_ENV ?? 'development') !== 'development') {
+  // if ((process.env.NODE_ENV ?? 'development') !== 'development') {
+  return new Promise<void>((resolve, reject) => {
     transporter.sendMail(mailOptions, (err, _) => {
-      if (err) console.log(err)
-      else console.log(`Email sent to ${to}`)
+      if (err) return reject(err)
+      console.log(`Email sent to ${to}`)
+      return resolve()
     })
-  }
+  })
+  // }
 }

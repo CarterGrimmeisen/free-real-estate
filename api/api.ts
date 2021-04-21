@@ -30,7 +30,7 @@ type CompleteFeedback = Feedback & { showing: Showing }
 type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'>
 type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
-type UpdateUser = Partial<CreateUser>
+type UpdateUser = Partial<CreateUser & { agentProfile: Partial<Agent> }>
 type CreateFeedback = Omit<Feedback, 'id' | 'showingId'>
 type CreateFile = {
   type: 'IMAGE' | 'DOCUMENT'

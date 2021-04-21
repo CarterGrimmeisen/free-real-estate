@@ -45,6 +45,15 @@ function register(router: TypedRouter<API>) {
       data: {
         name: req.body.name,
         email: req.body.email,
+        agentProfile:
+          req.user!.type === 'AGENT'
+            ? {
+                update: {
+                  name: req.body.name!,
+                  email: req.body.email,
+                },
+              }
+            : undefined,
       },
     })
 
