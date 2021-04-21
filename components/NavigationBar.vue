@@ -11,7 +11,7 @@
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
       Login
     </v-btn>
-    <v-menu v-else-if="$auth.user" left max-width="250">
+    <v-menu v-else-if="$auth.user" offset-y left max-width="250">
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           My Account
