@@ -1,10 +1,5 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="showings"
-    class="elevation-1"
-    hide-default-footer
-  >
+  <v-data-table :headers="headers" :items="showings" hide-default-footer>
     <!-- eslint-disable-next-line vue/valid-v-slot -->
     <template #item.confirmed="{ item }">
       <template
@@ -43,6 +38,12 @@
     </template>
 
     <!-- eslint-disable-next-line vue/valid-v-slot -->
+    <template #item.address="{ item }">
+      {{ item.home.street }} {{ item.home.city }}, {{ item.home.state }},
+      {{ item.home.zipcode }}
+    </template>
+
+    <!-- eslint-disable-next-line vue/valid-v-slot -->
     <template #item.date="{ item }">
       {{ fmtDate(item.date) }}
     </template>
@@ -67,15 +68,20 @@ export default defineComponent({
       type: Array as PropType<CompleteShowing[]>,
       required: true,
     },
+    showAddress: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { emit }) {
     const { $auth } = useContext()
     const { confirmShowing } = useShowings()
 
     const headers = [
-      { text: 'Confirmed', value: 'confirmed', width: '12%' },
+      { text: 'Confirmed', value: 'confirmed', width: '20%' },
       { text: 'Date', value: 'date' },
       { text: 'Time', value: 'time' },
+      ...(props.showAddress ? [{ text: 'Address', value: 'address' }] : []),
       { text: 'Participant', value: 'user.name' },
     ]
 

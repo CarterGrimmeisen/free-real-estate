@@ -1,7 +1,7 @@
 <!-- ShowingPage.vue -->
 <template>
   <v-container v-if="showings">
-    <ShowingTable :showings.sync="showings" />
+    <ShowingTable :showings.sync="showings" show-address />
   </v-container>
 </template>
 

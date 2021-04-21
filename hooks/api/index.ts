@@ -29,7 +29,7 @@ export function useData<
 >(promiseFn: T, ...args: V): Ref<U | null> {
   const state = useAsync(
     () => promiseFn(...args),
-    JSON.stringify([promiseFn.name, args])
+    JSON.stringify([promiseFn.name, ...args, Math.random()])
   )
 
   return state
