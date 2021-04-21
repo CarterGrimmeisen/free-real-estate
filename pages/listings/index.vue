@@ -1,7 +1,11 @@
 <template>
   <div class="listing">
     <div>
-      <FilterBar />
+      <FilterBar
+        :price-range.sync="priceRange"
+        :sqft-range.sync="sqftRange"
+        :zipcode.sync="zipcode"
+      />
       <v-container>
         <v-row v-if="loadedHomes.length" v-scroll="onScroll" wrap>
           <v-col
@@ -30,6 +34,7 @@ import {
   watch,
   useContext,
   onMounted,
+  nextTick,
 } from '@nuxtjs/composition-api'
 import { useHomes } from '@/hooks/api'
 import { HomeWithImage } from '~/api/api'
@@ -38,6 +43,10 @@ export default defineComponent({
   setup() {
     const { $auth } = useContext()
     const { getHomes } = useHomes()
+
+    const priceRange = ref<[number, number]>([0, 400000])
+    const sqftRange = ref<[number, number]>([0, 4000])
+    const zipcode = ref<number | null>(null)
 
     const loadingMore = ref(false)
     const doneLoading = ref(false)
@@ -51,16 +60,31 @@ export default defineComponent({
       )
     }
 
-    const loadMore = async () => {
+    const loadMore = async (force = false) => {
       if (
-        distanceToBottom.value < 550 &&
-        !loadingMore.value &&
-        !doneLoading.value
+        force ||
+        (distanceToBottom.value < 550 &&
+          !loadingMore.value &&
+          !doneLoading.value)
       ) {
         loadingMore.value = true
         const newHomes = await getHomes(
           {},
-          { take: 12, skip: loadedPages.value++ * 12 }
+          {
+            take: 12,
+            skip: loadedPages.value++ * 12,
+            ...(!!zipcode.value && { zipcode: zipcode.value }),
+
+            priceMin: priceRange.value[0],
+            priceMax:
+              priceRange.value[1] >= 400_000
+                ? 999_999_999
+                : priceRange.value[1],
+
+            sqFootageMin: sqftRange.value[0],
+            sqFootageMax:
+              sqftRange.value[1] >= 4_000 ? 999_999_999 : sqftRange.value[1],
+          }
         )
 
         if (!newHomes.length) doneLoading.value = true
@@ -71,7 +95,22 @@ export default defineComponent({
       }
     }
 
-    watch(distanceToBottom, loadMore, { immediate: true })
+    watch(distanceToBottom, () => loadMore(), { immediate: true })
+
+    let filterTimer: any = null
+    watch([priceRange, sqftRange, zipcode], () => {
+      if (filterTimer === -1) return
+      clearTimeout(filterTimer)
+      filterTimer = setTimeout(() => {
+        filterTimer = -1
+        loadedPages.value = 0
+        loadedHomes.value = []
+        nextTick(async () => {
+          await loadMore(true)
+          filterTimer = null
+        })
+      }, 500)
+    })
 
     onMounted(() => setTimeout(() => onScroll(), 250))
 
@@ -80,6 +119,9 @@ export default defineComponent({
       onScroll,
       loadedHomes,
       loadingMore,
+      priceRange,
+      sqftRange,
+      zipcode,
     }
   },
 })
