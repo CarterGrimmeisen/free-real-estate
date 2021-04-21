@@ -11,16 +11,42 @@
     <v-btn v-if="!$auth.loggedin" text class="tertiary--text" @click="login">
       Login
     </v-btn>
-    <v-menu v-else-if="$auth.user">
+    <v-menu v-else-if="$auth.user" left max-width="250">
       <template #activator="{ on, attrs }">
         <v-btn text v-bind="attrs" class="tertiary--text" v-on="on">
           My Account
         </v-btn>
       </template>
-      <v-list>
-        <v-list-item to="/user">My Account</v-list-item>
-        <v-list-item to="/user/liked">Favorites</v-list-item>
-        <v-list-item @click="doLogout">Logout</v-list-item>
+      <v-list class="text-right">
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              {{ $auth.user.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle>{{ $auth.user.email }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
+        <v-list-item to="/user" exact>
+          <v-list-item-content>
+            <v-list-item-title> My Account </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/user/liked" exact>
+          <v-list-item-content>
+            <v-list-item-title> Favorites </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/user/showings" exact>
+          <v-list-item-content>
+            <v-list-item-title> Showings </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="doLogout">
+          <v-list-item-content>
+            <v-list-item-title> Logout </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-menu>
     <v-btn icon to="/listings" exact>

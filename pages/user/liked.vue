@@ -36,6 +36,14 @@
   </div>
 </template>
 
+<router>
+{
+  meta: {
+    auth: 'USER'
+  }
+}
+</router>
+
 <script lang="ts">
 import {
   defineComponent,

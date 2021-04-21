@@ -29,6 +29,7 @@
             color="primary"
             dark
             :to="{ query: { scheduling: null } }"
+            exact
           >
             Schedule a Showing
             <v-icon dark right class="tertiary--text"> mdi-calendar </v-icon>
@@ -87,8 +88,6 @@
           </v-col>
         </v-row>
 
-        <!--<v-card-title>HOA: ??? </v-card-title>
-          <v-card-title>Subdivision: Maybe, Maybe not</v-card-title>--->
         <v-card-title>School Zones: </v-card-title>
 
         <v-row>
@@ -97,15 +96,6 @@
               {{ school.name }} (Grades: {{ school.grades }})
             </v-card-title>
           </v-col>
-          <!--<v-col>
-              <v-card-title> Elementry: Some school </v-card-title>
-            </v-col>
-            <v-col>
-              <v-card-title> Jr: Some schools </v-card-title>
-            </v-col>
-            <v-col>
-              <v-card-title> High: some school </v-card-title>
-            </v-col>--->
         </v-row>
 
         <v-card-text class="primary--text">
@@ -119,15 +109,6 @@
             solo
             :value="home.description"
           />
-          <!--<v-card-title>Facts and Features </v-card-title>
-            <v-textarea
-              readonly
-              disabled
-              height="250"
-              auto-grow
-              value="This is where there will be a medium block of text and thats alright"
-              solo
-            ></v-textarea>--->
           <v-card-title> Additional Room Information </v-card-title>
           <v-textarea
             readonly

@@ -24,8 +24,10 @@ export const sendEmail = (
     html,
   }
 
-  transporter.sendMail(mailOptions, (err, _) => {
-    if (err) console.log(err)
-    else console.log(`Email sent to ${to}`)
-  })
+  if ((process.env.NODE_ENV ?? 'development') !== 'development') {
+    transporter.sendMail(mailOptions, (err, _) => {
+      if (err) console.log(err)
+      else console.log(`Email sent to ${to}`)
+    })
+  }
 }

@@ -12,6 +12,7 @@
           background-color="tertiary"
           append-icon="mdi-magnify"
           class="shrink"
+          @input="(val) => $emit('update:zipcode', val)"
         />
       </v-col>
       <v-spacer />

@@ -122,7 +122,8 @@ export default defineComponent({
     const scheduling = computed({
       get: () => $route.value.query.scheduling === null && $auth.value.loggedin,
       set: (val) =>
-        val || $router.replace({ query: { scheduling: undefined } }).catch(),
+        val ||
+        $router.replace({ query: { scheduling: undefined } }).catch(() => {}),
     })
 
     const fmtDate = computed(

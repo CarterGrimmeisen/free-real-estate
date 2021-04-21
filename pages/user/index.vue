@@ -37,6 +37,14 @@
   </v-container>
 </template>
 
+<router>
+{
+  meta: {
+    auth: 'USER'
+  }
+}
+</router>
+
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
