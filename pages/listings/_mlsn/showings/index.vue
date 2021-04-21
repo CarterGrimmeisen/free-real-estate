@@ -16,8 +16,9 @@
             block
             class="mx-0 my-1"
             @click="confirm(item.id, true)"
-            >Confirm</v-btn
           >
+            Confirm
+          </v-btn>
           <v-btn
             color="primary"
             small

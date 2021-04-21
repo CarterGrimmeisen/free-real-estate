@@ -13,8 +13,8 @@
             :key="home.mlsn"
             cols="12"
             sm="6"
-            md="4"
-            lg="3"
+            lg="4"
+            xl="3"
           >
             <ListingPreview :home="home" />
           </v-col>

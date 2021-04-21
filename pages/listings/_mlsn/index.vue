@@ -172,24 +172,6 @@
             <v-row> <v-spacer />{{ home.agent.email }} <v-spacer /></v-row>
           </template>
         </v-card-text>
-        <!--<v-row
-            ><v-spacer></v-spacer>
-            <v-card-subtitle>Currently Occupied:</v-card-subtitle
-            ><v-checkbox label="" outlined dense></v-checkbox
-            ><v-spacer></v-spacer>
-            <v-card-subtitle>Lockbox code: </v-card-subtitle>
-            <v-text-field
-              color="white"
-              hide-details
-              v.length="25"
-              single-line
-              rounded="false"
-              background-color="secondary"
-              class="shrink"
-              append-icon="mdi-pen"
-              ></v-text-field
-            ><v-spacer></v-spacer>
-          </v-row>--->
         <v-card-text v-if="$auth.loggedin" class="primary--text">
           <v-divider /> <v-spacer />
           <v-card-title>Home Alarm Information </v-card-title>
@@ -208,7 +190,7 @@
           <v-spacer />
           <v-card-title>Daily Hits</v-card-title>
           <v-divider />
-          <v-row align="center" justify="left">
+          <v-row align="center" justify="start">
             <v-card-subtitle>
               Hits today: {{ home.dailyHits }}
             </v-card-subtitle>

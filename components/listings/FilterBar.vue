@@ -2,7 +2,7 @@
 <template>
   <v-toolbar id="filterbar" color="white" flat>
     <v-row align="center">
-      <v-col cols="3" align-self="center">
+      <v-col cols="3" lg="2" xl="1" align-self="center">
         <v-text-field
           color="primary"
           hide-details
@@ -16,7 +16,7 @@
       </v-col>
       <v-spacer />
 
-      <v-col cols="4" align-self="center">
+      <v-col cols="4" lg="3" xl="2" align-self="center">
         <div id="app">
           <v-range-slider
             label="Price"
@@ -35,7 +35,7 @@
 
         <!-- <h1>{{minimumPrice}}, {{maxValue}} </h1> -->
       </v-col>
-      <v-col cols="4" align-self="center">
+      <v-col cols="4" lg="3" xl="2" align-self="center">
         <v-range-slider
           label="Sqft"
           :tick-labels="sqft"
