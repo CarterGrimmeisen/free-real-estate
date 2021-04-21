@@ -1,14 +1,30 @@
 <!--AccountPreview.vue -->
 <template>
-  <v-card class="mx-auto my-12" max-width="1000" width="1000" height="400">
-    <v-card-title>Username:</v-card-title>
-    <div class="black--text ml-4" size="14" align="left">my username</div>
+  <v-card
+    v-if="$auth.user"
+    class="mx-auto my-12"
+    max-width="1000"
+    width="1000"
+    height="400"
+  >
+    <v-card-title>Name:</v-card-title>
+    <div class="black--text ml-4" size="14" align="left">
+      {{ $auth.user.name }}
+    </div>
     <v-card-title>Email:</v-card-title>
     <div class="black--text ml-4" size="14" align="left">
-      myemail@freerealestate
+      {{ $auth.user.email }}
     </div>
-    <v-card-title>Phone:</v-card-title>
-    <div class="black--text ml-4" size="14" align="left">(###)###-####</div>
+    <div v-if="$auth.user.agentProfile">
+      <v-card-title>Phone:</v-card-title>
+      <div class="black--text ml-4" size="14" align="left">
+        {{ $auth.user.agentProfile.phone }}
+      </div>
+      <v-card-title>Agency Name:</v-card-title>
+      <div class="black--text ml-4" size="14" align="left">
+        {{ $auth.user.agentProfile.agency.name }}
+      </div>
+    </div>
 
     <!--
     <v-card-text>
@@ -32,10 +48,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   name: 'AccountPreview',
-  setup() {},
+  setup() {
+    const { $auth } = useContext()
+
+    return {
+      $auth,
+    }
+  },
 })
 </script>

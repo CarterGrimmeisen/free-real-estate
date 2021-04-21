@@ -173,6 +173,14 @@
                 ></v-col
               >
             </v-row>
+            <v-divider /> <v-spacer />
+            <v-card-title>Daily Hits </v-card-title>
+            <v-divider />
+            <v-row align="center" justify="left">
+              <v-card-subtitle>
+                Hits today: {{ home.dailyHits }}
+              </v-card-subtitle>
+            </v-row>
           </v-card-text>
         </v-card>
       </v-container>
