@@ -4,14 +4,12 @@
     rounded="xl"
     max-width="100%"
     max-height="550"
+    min-width="320"
+    min-height="375"
     color="white"
     outlined
   >
-    <v-img
-      max-height="275px"
-      src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-    >
-    </v-img>
+    <v-img height="275px" :src="image" />
 
     <v-card-actions class="justify-center">
       <v-card-title class="primary--text"> {{ text }} </v-card-title>
@@ -45,6 +43,10 @@ export default defineComponent({
       default: '',
     },
     send: {
+      type: String,
+      default: '',
+    },
+    image: {
       type: String,
       default: '',
     },

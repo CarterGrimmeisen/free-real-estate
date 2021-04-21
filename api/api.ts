@@ -27,9 +27,7 @@ export type HomeWithImage = CompleteHome & { files: File[] }
 export type CompleteShowing = Showing & { user: User; agent: CompleteAgent }
 type CompleteFeedback = Feedback & { showing: Showing }
 
-type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'> & {
-  date: string
-}
+type CreateShowing = Pick<Showing, 'homeMlsn' | 'date'>
 type UpdateShowing = Pick<Showing, 'confirmed'>
 type CreateUser = Omit<User, 'id' | 'type'> & { password: string }
 type UpdateUser = Partial<CreateUser>
@@ -39,6 +37,7 @@ type CreateFile = {
   mime: string
   name: string
   contents: string
+  homeMlsn: string
 }
 
 export type CreateHome = Omit<
@@ -47,7 +46,10 @@ export type CreateHome = Omit<
 >
 type UpdateHome = Partial<Omit<CreateHome, 'mlsn'>>
 
-type DocType = 'ClosingDisclosure' | 'PurchaseAgreement' | 'RepairRequest'
+export type DocType =
+  | 'ClosingDisclosure'
+  | 'PurchaseAgreement'
+  | 'RepairRequest'
 
 export default interface API {
   '/auth/login': {
@@ -73,6 +75,10 @@ export default interface API {
     get: GetEndpoint<User & { agentProfile: CompleteAgent | null }>
     put: Endpoint<UpdateUser, User>
     delete: Endpoint<null, User>
+  }
+
+  '/user/liked': {
+    get: GetEndpoint<HomeWithImage[], { take?: number; skip?: number }>
   }
 
   '/homes': {
@@ -103,6 +109,10 @@ export default interface API {
     delete: Endpoint<null, CompleteHome>
   }
 
+  '/homes/:mlsn/liked': {
+    get: GetEndpoint<Liked>
+  }
+
   '/homes/:mlsn/like': {
     post: Endpoint<null, Liked>
   }
@@ -116,11 +126,7 @@ export default interface API {
   }
 
   '/files': {
-    post: Endpoint<
-      CreateFile & { homeMlsn: string },
-      File,
-      { docType?: DocType }
-    >
+    post: Endpoint<CreateFile, File>
   }
 
   '/files/:id': {

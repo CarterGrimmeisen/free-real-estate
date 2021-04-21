@@ -9,8 +9,7 @@ export function useHomes() {
     getHome: api.get('/homes/:mlsn'),
     updateHome: api.put('/homes/:mlsn'),
     deleteHome: api.delete('/homes/:mlsn'),
+    getLiked: api.get('/homes/:mlsn/liked'),
     likeHome: api.post('/homes/:mlsn/like'),
-    getHomeFiles: api.get('/homes/:mlsn/files'),
-    getHomeShowings: api.get('/homes/:mlsn/showings'),
   }
 }

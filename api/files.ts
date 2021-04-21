@@ -9,30 +9,30 @@ function register(router: TypedRouter<API>) {
   router.router.use('/files', authenticate('AGENT'), ensureHomeAgent('body'))
 
   // TODO Finish implementing pdf generation
-  router.post('/files', async (_params, file, req) => {
-    const { write } = require('pdf-fill-form')
+  router.post('/files', (_params, file) => {
+    return prisma.file.create({
+      data: {
+        name: file.name!,
+        type: file.type,
+        mime: file.mime!,
+        contents: file.contents!,
 
-    const { docType } = req.query
-
-    if (file.type === 'IMAGE') {
-      return prisma.file.create({
-        data: {
-          name: file.name,
-          type: file.type,
-          mime: file.mime,
-          contents: file.contents,
-
-          home: {
-            connect: {
-              mlsn: file.homeMlsn,
-            },
+        home: {
+          connect: {
+            mlsn: file.homeMlsn,
           },
         },
-      })
-    }
+      },
+    })
+  })
+
+  router.router.post('/files/gen', async (req, res) => {
+    const { write }: typeof import('pdf-fill-form') = require('pdf-fill-form')
+    const { mlsn } = req.body
+    const { type } = req.query
 
     const home = (await prisma.home.findUnique({
-      where: { mlsn: file.homeMlsn },
+      where: { mlsn },
       include: { agent: { include: { agency: true } } },
     }))!
 
@@ -48,10 +48,9 @@ function register(router: TypedRouter<API>) {
         currency: 'USD',
       }).format(num)
 
-    let content: string = ''
-    const name = docType
-    if (docType === 'ClosingDisclosure') {
-      const result = await write(
+    let result: Buffer
+    if (type === 'ClosingDisclosure') {
+      result = await write(
         join(__dirname, 'documents/ClosingDisclosure.pdf'),
         {
           Text103: date,
@@ -80,10 +79,8 @@ function register(router: TypedRouter<API>) {
           antialias: true,
         }
       )
-
-      content = result.toString('base64')
-    } else if (docType === 'PurchaseAgreement') {
-      const result = await write(
+    } else if (type === 'PurchaseAgreement') {
+      result = await write(
         join(__dirname, 'documents/PurchaseAgreement.pdf'),
         {
           'I The Parties This Real Estate Purchase Agreement Agreement made on': `${d.toLocaleDateString(
@@ -105,10 +102,8 @@ function register(router: TypedRouter<API>) {
           antialias: true,
         }
       )
-
-      content = result.toString('base64')
-    } else if (docType === 'RepairRequest') {
-      const result = await write(
+    } else if (type === 'RepairRequest') {
+      result = await write(
         join(__dirname, 'documents/RepairRequest.pdf'),
         {
           'For the Purchase and Sale Agreement dated': d.toDateString(),
@@ -123,23 +118,17 @@ function register(router: TypedRouter<API>) {
           antialias: true,
         }
       )
-
-      content = result.toString('base64')
+    } else {
+      result = Buffer.from('')
     }
 
-    return prisma.file.create({
-      data: {
-        name: name ?? 'Document',
-        type: 'DOCUMENT',
-        mime: 'application/pdf',
-        contents: content,
-        home: {
-          connect: {
-            mlsn: file.homeMlsn,
-          },
-        },
-      },
+    res.writeHead(200, {
+      'Content-Disposition': 'attachment; filename=' + type + '.pdf',
+      'Content-Type': 'text/plain',
+      'Content-Length': result.length,
     })
+
+    res.end(result)
   })
 
   router.router.get('/files/:id', async (req, res) => {
@@ -148,7 +137,7 @@ function register(router: TypedRouter<API>) {
     const fileContents = Buffer.from(file!.contents, 'base64')
 
     res.writeHead(200, {
-      'Content-disposition': 'attachment; filename=' + file!.name,
+      'Content-Disposition': 'attachment; filename=' + file!.name,
       'Content-Type': 'text/plain',
       'Content-Length': fileContents.length,
     })

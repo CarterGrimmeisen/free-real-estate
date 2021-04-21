@@ -88,6 +88,32 @@ function register(router: TypedRouter<API>) {
         },
       })
   })
+
+  router.get('/user/liked', (_params, { user, query }) => {
+    return prisma.home.findMany({
+      where: {
+        liked: {
+          some: {
+            id: user!.id,
+          },
+        },
+      },
+      include: {
+        agent: {
+          include: {
+            agency: true,
+          },
+        },
+        schools: true,
+        files: {
+          where: { type: 'IMAGE' },
+          take: 1,
+        },
+      },
+      take: query.take ?? 9,
+      skip: query.skip ?? 0,
+    })
+  })
 }
 
 export default { register }

@@ -27,7 +27,10 @@ export function useData<
   U extends T extends PromiseFn<infer R> ? R : never,
   V extends Parameters<T>
 >(promiseFn: T, ...args: V): Ref<U | null> {
-  const state = useAsync(() => promiseFn(...args), JSON.stringify(args))
+  const state = useAsync(
+    () => promiseFn(...args),
+    JSON.stringify([promiseFn.name, args])
+  )
 
   return state
 }

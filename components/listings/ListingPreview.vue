@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-12" max-width="374">
+  <v-card class="mx-auto" fill-height full-width>
     <v-img v-if="image" height="250" :src="image" />
 
     <v-sheet v-else color="grey" dark height="250" class="v-responsive">
@@ -32,11 +32,19 @@
     <v-divider />
 
     <v-card-actions>
-      <v-btn v-if="$auth.loggedin" class="ma-2" color="primary" dark>
-        Favorite
-        <v-icon dark right> mdi-star </v-icon>
+      <v-btn
+        v-if="$auth.loggedin && homeLiked !== null"
+        class="ma-2"
+        color="primary"
+        dark
+        @click="doLikeHome"
+      >
+        {{ homeLiked.liked ? 'Unf' : 'F' }}avorite
+        <v-icon dark right>
+          {{ homeLiked.liked ? 'mdi-star' : 'mdi-star-outline' }}
+        </v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="primary" dark :to="mlsn">
+      <v-btn class="ma-2" color="primary" dark :to="`/listings/${home.mlsn}`">
         More Details
         <v-icon dark right> mdi-information </v-icon>
       </v-btn>
@@ -45,8 +53,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, useContext } from '@nuxtjs/composition-api'
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  useContext,
+  watch,
+} from '@nuxtjs/composition-api'
 import { HomeWithImage } from '~/api/api'
+import { useHomes } from '~/hooks/api'
 
 export default defineComponent({
   name: 'ListingPreview',
@@ -56,17 +72,35 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { $auth } = useContext()
+    const { getLiked, likeHome } = useHomes()
+
+    const image = computed(() => props.home.files[0]?.contents)
+
+    const homeLiked = ref<{ liked: boolean } | null>({ liked: false })
+    watch(
+      $auth,
+      async () =>
+        (homeLiked.value = $auth.value.loggedin
+          ? await getLiked({ mlsn: props.home.mlsn })
+          : { liked: false }),
+      { immediate: true }
+    )
+
+    const doLikeHome = async () => {
+      homeLiked.value = await likeHome({ mlsn: props.home.mlsn }, null)
+      emit('toggledLike')
+    }
+
     const fmt = (num: number) => new Intl.NumberFormat('en-US').format(num)
-    const image = props.home.files[0]?.contents
-    const mlsn = '/listings/' + props.home.mlsn
 
     return {
       $auth,
       fmt,
       image,
-      mlsn,
+      homeLiked,
+      doLikeHome,
     }
   },
 })

@@ -94,6 +94,22 @@ function register(router: TypedRouter<API>) {
   })
 
   router.router.use('/homes/:mlsn/like', authenticate('USER'))
+  router.router.use('/homes/:mlsn/liked', authenticate('USER'))
+
+  router.get('/homes/:mlsn/liked', async ({ mlsn }, { user }) => {
+    const count = await prisma.home.count({
+      where: {
+        mlsn,
+        liked: {
+          some: {
+            id: user!.id,
+          },
+        },
+      },
+    })
+
+    return { liked: !!count }
+  })
 
   router.post('/homes/:mlsn/like', async ({ mlsn }, _body, { user }) => {
     const count = await prisma.home.count({

@@ -1,91 +1,121 @@
 <!-- GenerateDocuments.vue -->
 <template>
-  <!-- <Nuxt /> -->
-  <div class="container">
-    <div>
-      <!-- <Logo /> -->
+  <v-container fluid class="fill-height">
+    <v-row class="fill-height">
+      <v-col cols="12" lg="2">
+        <v-card>
+          <v-card-title class="text--primary">Select PDF Type</v-card-title>
 
-      <!-- start of second grid -->
+          <v-divider />
 
-      <v-container class="grey lighten-5">
-        <v-row no-gutters>
-          <v-col cols="6" md="4">
-            <v-card height="400" width="256" class="mx-auto">
-              <v-navigation-drawer permanent>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="title">
-                      Generate Documents
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
+          <v-list rounded>
+            <v-list-item-group v-model="pdfType" mandatory color="primary">
+              <v-list-item value="ClosingDisclosure">
+                <v-list-item-icon>
+                  <v-icon>mdi-close-circle-multiple</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title> Closing Disclosure </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item value="PurchaseAgreement">
+                <v-list-item-icon>
+                  <v-icon>mdi-cash-multiple</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title> Purchase Agreement </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item value="RepairRequest">
+                <v-list-item-icon>
+                  <v-icon>mdi-hammer-wrench</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title> Repair Request </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
 
-                <v-divider></v-divider>
-                <v-btn class="ma-2" color="primary" dark width="230">
-                  Closing Disclosure
-                  <v-icon dark right> mdi-garbage </v-icon>
-                </v-btn>
-                <v-divider></v-divider>
-                <v-btn class="ma-2" color="primary" dark width="230">
-                  Purchase Agreement
-                  <v-icon dark right> mdi-garbage </v-icon>
-                </v-btn>
-                <v-divider></v-divider>
-                <v-btn class="ma-2" color="primary" dark width="230">
-                  Repair Request
-                  <v-icon dark right> mdi-garbage </v-icon>
-                </v-btn>
-                <v-divider></v-divider>
-                <v-list dense nav>
-                  <!-- <v-list-item v-for="item in items" :key="item.title" link>
-                    <v-list-item-icon>
-                      <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item> -->
-                </v-list>
-              </v-navigation-drawer>
-            </v-card>
-          </v-col>
-          <v-col cols="12" sm="6" md="8">
-            <v-card class="pa-2" width="1150" height="700" outlined title>
-              <v-img></v-img>
-
-              <v-card-title>Document Preview</v-card-title>
-              <v-divider class="mx-4"></v-divider>
-
-              <v-card-text>
-                <div class="text-left" size="14">
-                  <v-card-text>
-                    This is where I want the document preview
-                  </v-card-text>
-                </div>
-              </v-card-text>
-
-              <v-divider class="mx-4"></v-divider>
-
-              <v-card-actions>
-                <v-btn class="ma-2" color="primary" dark>
-                  Download
-                  <v-icon dark right> </v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </div>
-  </div>
+          <v-card-text>
+            <v-btn color="primary" block @click="generateDocument">
+              Download
+              <v-icon right>mdi-download</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" lg="10">
+        <v-container fluid class="fill-height pt-0">
+          <v-row class="fill-height" no-gutters wrap>
+            <v-col cols="12">
+              <v-alert type="info" dense class="mb-1">
+                This is only a preview of the final document. Click download to
+                view the final version
+              </v-alert>
+            </v-col>
+            <iframe
+              v-if="pdfType === 'ClosingDisclosure'"
+              height="98%"
+              width="100%"
+              src="/ClosingDisclosure.pdf#toolbar=0&navpanes=0"
+            />
+            <iframe
+              v-else-if="pdfType === 'PurchaseAgreement'"
+              height="98%"
+              width="100%"
+              src="/PurchaseAgreement.pdf#toolbar=0&navpanes=0"
+            />
+            <iframe
+              v-else-if="pdfType === 'RepairRequest'"
+              height="98%"
+              width="100%"
+              src="/RepairRequest.pdf#toolbar=0&navpanes=0"
+            />
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
+<router>
+{
+  meta: {
+    auth: 'AGENT'
+  }
+}
+</router>
+
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useRoute } from '@nuxtjs/composition-api'
+import { saveAs } from 'file-saver'
+import { DocType } from '~/api/api'
+import { useFiles } from '~/hooks/api'
+// import {useFiles} from '~/hooks/api'
+// import {DocType} from '~/api/api'
 
 export default defineComponent({
   //  name: 'GenerateDocuments',
-  setup() {},
+  setup() {
+    const $route = useRoute()
+    const pdfType = ref<DocType>('ClosingDisclosure')
+    const { genPDF } = useFiles()
+
+    const generateDocument = async () => {
+      const blob: Blob = await genPDF(
+        {},
+        { mlsn: $route.value.params.mlsn },
+        { type: pdfType.value }
+      )
+
+      saveAs(blob, `${pdfType.value}.pdf`)
+    }
+
+    return {
+      pdfType,
+      generateDocument,
+    }
+  },
 })
 </script>
