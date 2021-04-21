@@ -1,6 +1,7 @@
 <!-- Filter Bar -->
 <template>
   <v-toolbar id="filterbar" color="white" flat>
+    <h1 v-if="priceLow != 0 "> Up the Min </h1>
     <v-row align="center">
       <v-col cols="2" align-self="center">
         <v-text-field
@@ -16,19 +17,17 @@
         ></v-text-field>
       </v-col>
       <v-spacer> </v-spacer>
+
       <v-col cols="4" align-self="center">
-        <v-range-slider
-          label="Price"
-          :tick-labels="prices"
-          :value="[0, 1]"
-          min="0"
-          max="5"
-          color="primary"
-          ticks="always"
-          tick-size="4"
-          track-color="tertiary"
+        <div id="app">
+        <v-range-slider label="Price" :tick-labels="prices" :value="[0, 1]" min="0" max="5" color="primary" ticks="always"
+          tick-size="4" track-color="tertiary" ref="priceSlider" minimumPrice=0 maximumPrice=9999999 v-bind="minOptions"
+          
         >
         </v-range-slider>
+        </div>
+
+        <!-- <h1>{{minimumPrice}}, {{maxValue}} </h1> -->
       </v-col>
       <v-col cols="3" align-self="center">
         <v-range-slider
@@ -55,12 +54,18 @@ export default defineComponent({
   name: 'FilterBar',
   components: {},
   setup() {
+    const priceLow=0
+    const priceHigh=9999999
+
     return {
       prices: ['0', '100k', '150k', '200k', '250k', '300k+'],
       sqrt: ['0+', '1000', '2000', '3000+'],
       alignments: ['start', 'center', 'end'],
+      priceLow,
+      priceHigh,
     }
   },
+  
 })
 </script>
 

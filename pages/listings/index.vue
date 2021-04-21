@@ -1,7 +1,7 @@
 <template>
   <div class="listing">
     <div>
-      <FilterBar />
+    <FilterBar /> 
       <div class="container">
         <v-row v-if="loadedHomes.length" v-scroll="onScroll" no-gutters>
           <v-col v-for="home in loadedHomes" :key="home.mlsn" cols="4">
@@ -54,7 +54,7 @@ export default defineComponent({
           loadingMore.value = true
           const newHomes = await getHomes(
             {},
-            { take: 12, skip: loadedPages.value++ * 12 }
+            { take: 12, skip: loadedPages.value++ * 12, priceMin: 200000}
           )
 
           // eslint-disable-next-line no-console
