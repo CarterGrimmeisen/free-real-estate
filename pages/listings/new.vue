@@ -29,7 +29,7 @@ export default defineComponent({
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const result = await createHome(
         {},
-        { ...newListing, files: newImages },
+        { ...newListing, files: newImages.map((each) => ({ ...each, homeMlsn: newListing.mlsn }) },
         null
       )
       $router.push(`/listings/${result.mlsn}/edit`)
